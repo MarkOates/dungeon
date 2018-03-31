@@ -1,0 +1,30 @@
+#pragma once
+
+
+
+enum item_t
+{
+   ITEM_TYPE_NONE = 0,
+   ITEM_TYPE_CLUB,
+   ITEM_TYPE_STONE_OF_DEFIANCE,
+   ITEM_TYPE_NAUGHTY_LIST,
+   ITEM_TYPE_KEY,
+   ITEM_TYPE_SILVER_SHIELD,
+   ITEM_TYPE_GOLDEN_SHIELD,
+   ITEM_TYPE_SILVER_SWORD,
+   ITEM_TYPE_GOLDEN_SWORD
+};
+
+
+
+#define SPRITES_GRID_FILENAME "sprites_grid-x.png"
+#define SPRITES_GRID_SPRITE_WIDTH 48
+#define SPRITES_GRID_SPRITE_HEIGHT 48
+#define SPRITES_GRID_SPRITE_SCALING 3
+
+
+
+int get_item_sprite_num(int item_num);
+
+
+

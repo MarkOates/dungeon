@@ -1,0 +1,25 @@
+
+
+*.swp
+*.swo
+
+allegro.log
+
+
+.DS_Store
+
+
+# ignore all the files in the bin directory
+# except whatever is in the data folder
+
+bin/*
+!bin/data
+
+
+project_outline.md
+
+
+construction/
+
+
+
