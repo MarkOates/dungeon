@@ -18,7 +18,6 @@ public:
    virtual ~MotionFXBase();
 
    virtual void update();
-   virtual void draw();
 };
 
 

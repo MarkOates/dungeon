@@ -27,7 +27,3 @@ void MotionFXBase::update()
 
 
 
-void MotionFXBase::draw() {}
-
-
-
