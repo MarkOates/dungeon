@@ -4,6 +4,7 @@
 #include <framework/framework.hpp>
 #include <framework/image_processing.hpp>
 #include <factories/entity_factory.hpp>
+#include <models/entities/motion_fx/frame_animation.hpp>
 #include <models/entities/motion_fx/motion_fx_hit_damage.hpp>
 #include <models/entities/enemies/knight_entity.hpp>
 #include <models/entities/enemies/kid_entity.hpp>
@@ -40,6 +41,7 @@ EntityFactory::EntityFactory()
    , door4(nullptr)
    , door5(nullptr)
    , door6(nullptr)
+   , reverse_explosion_fx_frames_filename("reverse_explosion.png")
 {
    background1 = create_pixel_perfect_scaled_render(Framework::bitmap("background-1-08.png"), 5);
    background2 = create_pixel_perfect_scaled_render(Framework::bitmap("background-2-02.png"), 5);
@@ -225,6 +227,14 @@ EntityBase *EntityFactory::create_key_item(ElementID *parent, float x, float y)
 EntityBase *EntityFactory::create_hit_damage_motion_fx(ElementID *parent, float x, float y, std::string damage_string)
 {
    return new MotionFXHitDamage(parent, x, y, damage_string);
+}
+
+
+
+EntityBase *EntityFactory::create_reverse_explosion_fx(ElementID *parent, float x, float y)
+{
+   MotionFX::FrameAnimation *frame_animation = new MotionFX::FrameAnimation(parent, get_instance()->reverse_explosion_fx_frames_filename, 64, 64, 5, x, y);
+   return frame_animation;
 }
 
 
