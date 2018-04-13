@@ -27,6 +27,7 @@ public:
    ~SpriteSheet();
 
    ALLEGRO_BITMAP *get_sprite(int index);
+   int get_num_sprites();
 };
 
 

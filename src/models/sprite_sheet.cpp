@@ -67,3 +67,10 @@ ALLEGRO_BITMAP *SpriteSheet::get_sprite(int index)
 
 
 
+int SpriteSheet::get_num_sprites()
+{
+   return sprites.size();
+}
+
+
+
