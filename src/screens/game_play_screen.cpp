@@ -103,6 +103,12 @@ void GamePlayScreen::user_event_func()
             EntityFactory::create_hit_damage_motion_fx(scene, x, y, *damage_string);
             delete damage_string;
          }
+         if (*type == MOTION_FX_REVERSE_EXPLOSION)
+         {
+            int x = event->user.data2;
+            int y = event->user.data3;
+            EntityFactory::create_reverse_explosion_fx(scene, x, y);
+         }
 
          delete type;
          break;
