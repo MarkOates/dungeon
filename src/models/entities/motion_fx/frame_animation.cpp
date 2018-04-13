@@ -8,7 +8,7 @@ namespace MotionFX
 
 
 FrameAnimation::FrameAnimation(ElementID *parent, std::string sprite_sheet_filename, int frame_width, int frame_height, int scale, float x, float y)
-   : MotionFXBase(parent, "frame_animation", x, y, 0)
+   : Base(parent, "frame_animation", x, y, 0)
    , current_frame(-1)
    , num_frames(0)
    , frames_per_second(12.0)

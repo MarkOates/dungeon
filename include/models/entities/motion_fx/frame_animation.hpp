@@ -1,13 +1,13 @@
 #pragma once
 
 
-#include <models/entities/motion_fx/motion_fx_base.hpp>
+#include <models/entities/motion_fx/base.hpp>
 #include <models/sprite_sheet.hpp>
 
 
 namespace MotionFX
 {
-   class FrameAnimation : public MotionFXBase
+   class FrameAnimation : public Base
    {
    private:
       int current_frame;
