@@ -1,10 +1,8 @@
 #pragma once
 
 
-
-#include <framework/screen.hpp>
-
 #include <controllers/player_krampus_controller.hpp>
+#include <framework/screen.hpp>
 #include <helpers/game_play_screen_state_helper.hpp>
 #include <models/camera.hpp>
 #include <models/hud.hpp>
@@ -14,9 +12,7 @@
 #include <models/scene.hpp>
 
 
-
 class AIControllerBase;
-
 
 
 class GamePlayScreen : public Screen
@@ -68,6 +64,5 @@ public:
    void set_state(state_t new_state);
    void enter_scene(int scene_to_enter, char door_name='!');
 };
-
 
 

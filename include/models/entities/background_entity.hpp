@@ -1,9 +1,7 @@
 #pragma once
 
 
-
 #include <models/entities/entity_base.hpp>
-
 
 
 class BackgroundEntity : public EntityBase
@@ -17,6 +15,5 @@ public:
 
    void draw() override;
 };
-
 
 

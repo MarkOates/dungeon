@@ -1,12 +1,10 @@
 #pragma once
 
 
-
 #include <framework/objects/bitmap_object.hpp>
 #include <models/inventory.hpp>
 #include <models/naughty_list.hpp>
 #include <models/sprite_sheet.hpp>
-
 
 
 class HUD
@@ -48,6 +46,5 @@ public:
    void set_to_cinema_mode();
    void set_to_game_play_mode();
 };
-
 
 

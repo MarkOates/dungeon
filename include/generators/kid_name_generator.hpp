@@ -1,10 +1,8 @@
 #pragma once
 
 
-
 #include <string>
 #include <vector>
-
 
 
 class KidNameGenerator
@@ -21,6 +19,5 @@ public:
    std::string get_boy_name();
    std::string get_girl_name();
 };
-
 
 

@@ -1,7 +1,6 @@
 #pragma once
 
 
-
 #include <models/entities/enemies/kid_entity.hpp>
 #include <framework/shader.hpp>
 #include <models/sprite_sheet.hpp>
@@ -11,7 +10,6 @@ class ElementID;
 class EntityBase;
 class EnemyBase;
 class KnightEntity;
-
 
 
 class EntityFactory
@@ -67,6 +65,5 @@ public:
    static EntityBase *create_background5(ElementID *parent, float x, float y);
    static EntityBase *create_background6(ElementID *parent, float x, float y);
 };
-
 
 

@@ -1,12 +1,10 @@
 #pragma once
 
 
-
 #include <framework/screen.hpp>
 #include <framework/objects/text_object.hpp>
 #include <framework/objects/bitmap_object.hpp>
 #include <models/sprite_sheet.hpp>
-
 
 
 class TitleScreen : public Screen
@@ -39,6 +37,5 @@ public:
 
    void refresh_focused_menu_item();
 };
-
 
 

@@ -1,10 +1,8 @@
 #pragma once
 
 
-
 #include <allegro5/allegro_font.h>
 #include <framework/screen.hpp>
-
 
 
 class StoryboardScreen : public Screen
@@ -21,6 +19,5 @@ public:
    void primary_timer_func() override;
    void user_event_func() override;
 };
-
 
 

@@ -1,10 +1,8 @@
 #pragma once
 
 
-
 #include <models/scene.hpp>
 #include <helpers/scene_collection_helper.hpp>
-
 
 
 class SceneCollisionHelper
@@ -25,6 +23,5 @@ public:
 
    void resolve_collisions();
 };
-
 
 

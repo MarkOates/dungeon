@@ -1,11 +1,9 @@
 #pragma once
 
 
-
 #include <framework/objects/bitmap_object.hpp>
 #include <vector>
 #include <string>
-
 
 
 class ItemDialogue
@@ -24,6 +22,5 @@ public:
    int get_num_pages();
    void set_showing_continue_notification();
 };
-
 
 

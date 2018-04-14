@@ -1,10 +1,8 @@
 #pragma once
 
 
-
 #include <models/item_dialogue.hpp>
 #include <models/sprite_sheet.hpp>
-
 
 
 class DialogueFactory
@@ -22,6 +20,5 @@ public:
    static ItemDialogue build_collected_item_dialog(int item_type);
    static ItemDialogue build_dialogue(std::string message);
 };
-
 
 

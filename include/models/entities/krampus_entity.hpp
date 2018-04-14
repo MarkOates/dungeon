@@ -1,10 +1,8 @@
 #pragma once
 
 
-
 #include <models/entities/entity_base.hpp>
 #include <models/sprite_sheet.hpp>
-
 
 
 class KrampusEntity : public EntityBase
@@ -67,6 +65,5 @@ public:
    bool has_weapon();
    bool has_shield();
 };
-
 
 

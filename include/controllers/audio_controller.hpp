@@ -1,11 +1,8 @@
 #pragma once
 
 
-
 #include <framework/objects/sound_object.hpp>
-
 #include <map>
-
 
 
 class AudioController
@@ -39,6 +36,5 @@ public:
    void play_sound_effect_by_id(int id);
    void play_sound_effect_by_name(std::string id_str);
 };
-
 
 

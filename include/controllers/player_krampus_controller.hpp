@@ -1,13 +1,10 @@
 #pragma once
 
 
-
 #include <models/entities/krampus_entity.hpp>
 
 
-
 class GamerInputScreen;
-
 
 
 class PlayerKrampusController
@@ -26,6 +23,5 @@ public:
 
    void update_polled_keyboard_input(GamerInputScreen *gamer_input_screen);
 };
-
 
 

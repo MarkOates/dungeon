@@ -1,12 +1,10 @@
 #pragma once
 
 
-
 #include <models/entities/enemies/enemy_base.hpp>
 
 #include <framework/shader.hpp>
 #include <models/sprite_sheet.hpp>
-
 
 
 enum behavior_t
@@ -15,7 +13,6 @@ enum behavior_t
    BEHAVIOR_NAUGHTY,
    BEHAVIOR_NICE
 };
-
 
 
 class KidEntity : public EnemyBase
@@ -62,6 +59,5 @@ public:
    void reveal_behavior();
    std::string get_name();
 };
-
 
 

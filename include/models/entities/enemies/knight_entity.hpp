@@ -1,19 +1,16 @@
 #pragma once
 
 
-
 #include <models/entities/enemies/enemy_base.hpp>
 
 #include <framework/shader.hpp>
 #include <models/sprite_sheet.hpp>
 
 
-
 enum knight_behavior_t
 {
    BEHAVIOR_NORMAL
 };
-
 
 
 class KnightEntity : public EnemyBase
@@ -68,6 +65,5 @@ public:
    void reveal_behavior();
    std::string get_name();
 };
-
 
 

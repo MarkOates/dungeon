@@ -1,10 +1,8 @@
 #pragma once
 
 
-
 #include <string>
 #include <vector>
-
 
 
 class Inventory
@@ -34,6 +32,5 @@ public:
 
    std::string get_str();
 };
-
 
 

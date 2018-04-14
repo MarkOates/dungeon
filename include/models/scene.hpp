@@ -1,9 +1,7 @@
 #pragma once
 
 
-
 #include <framework/element_id.hpp>
-
 
 
 class Scene : public ElementID
@@ -24,6 +22,5 @@ public:
    void cleanup_all();
    void draw_all();
 };
-
 
 

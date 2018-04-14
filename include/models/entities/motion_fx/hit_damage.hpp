@@ -1,11 +1,9 @@
 #pragma once
 
 
-
 #include <models/entities/motion_fx/base.hpp>
-#include <allegro5/allegro_font.h>
 #include <framework/objects/text_object.hpp>
-
+#include <allegro5/allegro_font.h>
 
 
 namespace MotionFX
@@ -24,6 +22,5 @@ namespace MotionFX
       void draw() override;
    };
 }
-
 
 

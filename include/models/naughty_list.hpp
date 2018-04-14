@@ -1,12 +1,10 @@
 #pragma once
 
 
-
 #include <models/entities/enemies/kid_entity.hpp>
 #include <generators/kid_name_generator.hpp>
 #include <string>
 #include <vector>
-
 
 
 class NaughtyList
@@ -60,6 +58,5 @@ public:
 
    bool kill_kid_by_name(std::string name);
 };
-
 
 

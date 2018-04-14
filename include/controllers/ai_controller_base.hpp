@@ -1,9 +1,7 @@
 #pragma once
 
 
-
 class EntityBase;
-
 
 
 class AIControllerBase
@@ -18,6 +16,5 @@ public:
    virtual void update();
    bool is_controlling(EntityBase *possibly_controlled_entity);
 };
-
 
 

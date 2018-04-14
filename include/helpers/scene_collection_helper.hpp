@@ -1,12 +1,10 @@
 #pragma once
 
 
-
 #include <models/entities/entity_base.hpp>
 #include <models/entities/item_entity.hpp>
 #include <models/entities/krampus_entity.hpp>
 #include <models/scene.hpp>
-
 
 
 class DamageZoneEntity;
@@ -14,7 +12,6 @@ class DoorEntity;
 class KidEntity;
 class EnemyBase;
 class KnightEntity;
-
 
 
 class SceneCollectionHelper
@@ -42,6 +39,5 @@ public:
    KrampusEntity *get_krampus();
    DoorEntity *get_door(char door_name);
 };
-
 
 

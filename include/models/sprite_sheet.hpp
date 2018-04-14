@@ -1,11 +1,9 @@
 #pragma once
 
 
-
 #include <allegro5/allegro.h>
 #include <string>
 #include <vector>
-
 
 
 class SpriteSheet
@@ -29,6 +27,5 @@ public:
    ALLEGRO_BITMAP *get_sprite(int index);
    int get_num_sprites();
 };
-
 
 

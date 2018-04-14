@@ -1,10 +1,8 @@
 #pragma once
 
 
-
 #include <models/entities/entity_base.hpp>
 #include <framework/placement2d.hpp>
-
 
 
 namespace MotionFX
@@ -22,6 +20,5 @@ namespace MotionFX
       virtual void update();
    };
 }
-
 
 

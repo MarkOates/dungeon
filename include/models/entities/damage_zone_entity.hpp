@@ -1,9 +1,7 @@
 #pragma once
 
 
-
 #include <models/entities/entity_base.hpp>
-
 
 
 class DamageZoneEntity : public EntityBase
@@ -24,6 +22,5 @@ public:
    bool is_krampus_damage_zone();
    bool is_krampus_damage_zone_with_club();
 };
-
 
 

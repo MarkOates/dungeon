@@ -1,11 +1,9 @@
 #pragma once
 
 
-
 #include <framework/display.hpp>
 #include <framework/motion.hpp>
 #include <models/entities/entity_base.hpp>
-
 
 
 class Camera
@@ -33,6 +31,5 @@ public:
 
    void draw_overlay();
 };
-
 
 

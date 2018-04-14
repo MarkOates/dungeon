@@ -1,7 +1,6 @@
 #pragma once
 
 
-
 enum music_track_t
 {
    GAME_SHOW_MUSIC,
@@ -15,12 +14,10 @@ enum music_track_t
 };
 
 
-
 #define FAIL_MOAN_SOUND_EFFECT "menu/menu_open.wav"
 #define DYING_ENEMY_SOUND_EFFECT "dying_enemy.ogg"
 #define METAL_KLANK_SOUND_EFFECT "metal_clang.ogg"
 #define KRAMPUS_HIT_SOUND_EFFECT "krampus_hit.ogg"
 #define SWORD_SCHLING_SOUND_EFFECT "sword_schling.ogg"
-
 
 

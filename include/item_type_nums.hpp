@@ -1,7 +1,6 @@
 #pragma once
 
 
-
 enum item_t
 {
    ITEM_TYPE_NONE = 0,
@@ -16,15 +15,12 @@ enum item_t
 };
 
 
-
 #define SPRITES_GRID_FILENAME "sprites_grid-x.png"
 #define SPRITES_GRID_SPRITE_WIDTH 48
 #define SPRITES_GRID_SPRITE_HEIGHT 48
 #define SPRITES_GRID_SPRITE_SCALING 3
 
 
-
 int get_item_sprite_num(int item_num);
-
 
 

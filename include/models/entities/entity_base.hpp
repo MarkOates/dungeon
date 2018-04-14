@@ -1,11 +1,9 @@
 #pragma once
 
 
-
 #include <framework/objects/bitmap_object.hpp>
 #include <framework/placement2d.hpp>
 #include <framework/element_id.hpp>
-
 
 
 class EntityBase : public ElementID
@@ -24,6 +22,5 @@ public:
    void flag_for_deletion();
    bool collides(const EntityBase &other);
 };
-
 
 
