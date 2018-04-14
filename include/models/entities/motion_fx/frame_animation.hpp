@@ -10,10 +10,10 @@ namespace MotionFX
    class FrameAnimation : public Base
    {
    private:
-      int current_frame;
-      int num_frames;
-      float frames_per_second;
       SpriteSheet sprite_sheet;
+      float frames_per_second;
+      int num_frames;
+      int current_frame;
 
    public:
       FrameAnimation(ElementID *parent, std::string sprite_sheet_filename, int frame_width, int frame_height, int scale, float x, float y);
