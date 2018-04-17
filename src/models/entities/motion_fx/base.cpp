@@ -1,13 +1,10 @@
 
 
-
 #include <models/entities/motion_fx/base.hpp>
-
 
 
 namespace MotionFX
 {
-
 
 
 Base::Base(ElementID *parent, std::string motion_fx_type, float x, float y, float duration)
@@ -19,9 +16,7 @@ Base::Base(ElementID *parent, std::string motion_fx_type, float x, float y, floa
 }
 
 
-
 Base::~Base() {}
-
 
 
 void Base::update()
@@ -31,8 +26,6 @@ void Base::update()
 }
 
 
-
-}
-
+} // namespace MotionFX
 
 
