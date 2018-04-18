@@ -3,12 +3,12 @@
 
 #include <framework/screens/gamer_input_screen.hpp>
 #include <framework/screen.hpp>
-#include <controllers/audio_controller.hpp>
-#include <emitters/user_event_emitter.hpp>
-#include <factories/storyboard_factory.hpp>
-#include <screens/title_screen.hpp>
-#include <screens/game_play_screen.hpp>
-#include <user_events.hpp>
+#include <dungeon/controllers/audio_controller.hpp>
+#include <dungeon/emitters/user_event_emitter.hpp>
+#include <dungeon/factories/storyboard_factory.hpp>
+#include <dungeon/screens/title_screen.hpp>
+#include <dungeon/screens/game_play_screen.hpp>
+#include <dungeon/user_events.hpp>
 
 
 
