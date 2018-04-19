@@ -1,9 +1,9 @@
 #pragma once
 
 
-#include <dungeon/models/entities/enemies/kid_entity.hpp>
-#include <framework/shader.hpp>
+#include <dungeon/models/entities/enemy/kid_entity.hpp>
 #include <dungeon/models/sprite_sheet.hpp>
+#include <framework/shader.hpp>
 
 
 class ElementID;

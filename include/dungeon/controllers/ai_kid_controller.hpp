@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <dungeon/models/entities/enemies/kid_entity.hpp>
+#include <dungeon/models/entities/enemy/kid_entity.hpp>
 #include <dungeon/controllers/ai_controller_base.hpp>
 
 

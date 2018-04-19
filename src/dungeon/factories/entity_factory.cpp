@@ -7,9 +7,8 @@
 #include <framework/image_processing.hpp>
 #include <dungeon/models/entities/motion_fx/frame_animation.hpp>
 #include <dungeon/models/entities/motion_fx/hit_damage.hpp>
-#include <dungeon/models/entities/enemies/knight_entity.hpp>
-#include <dungeon/models/entities/enemies/kid_entity.hpp>
-#include <dungeon/models/entities/enemies/enemy_base.hpp>
+#include <dungeon/models/entities/enemy/base.hpp>
+#include <dungeon/models/entities/enemy/knight_entity.hpp>
 #include <dungeon/models/entities/background_entity.hpp>
 #include <dungeon/models/entities/door_entity.hpp>
 #include <dungeon/models/entities/damage_zone_entity.hpp>

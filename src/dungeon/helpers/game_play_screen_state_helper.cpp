@@ -3,6 +3,7 @@
 
 #include <dungeon/helpers/game_play_screen_state_helper.hpp>
 
+#include <dungeon/models/entities/enemy/base.hpp>
 #include <framework/screens/gamer_input_screen.hpp>
 #include <dungeon/controllers/ai_controller_base.hpp>
 #include <dungeon/emitters/user_event_emitter.hpp>

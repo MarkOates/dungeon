@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <dungeon/models/entities/enemies/kid_entity.hpp>
+#include <dungeon/models/entities/enemy/kid_entity.hpp>
 #include <dungeon/generators/kid_name_generator.hpp>
 #include <string>
 #include <vector>

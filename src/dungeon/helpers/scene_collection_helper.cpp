@@ -3,9 +3,9 @@
 
 #include <dungeon/helpers/scene_collection_helper.hpp>
 
-#include <dungeon/models/entities/enemies/enemy_base.hpp>
-#include <dungeon/models/entities/enemies/knight_entity.hpp>
-#include <dungeon/models/entities/enemies/kid_entity.hpp>
+#include <dungeon/models/entities/enemy/base.hpp>
+#include <dungeon/models/entities/enemy/knight_entity.hpp>
+#include <dungeon/models/entities/enemy/kid_entity.hpp>
 #include <dungeon/models/entities/damage_zone_entity.hpp>
 #include <dungeon/models/entities/door_entity.hpp>
 #include <dungeon/entity_attribute_names.hpp>
@@ -52,9 +52,9 @@ std::vector<KnightEntity *> SceneCollectionHelper::get_knights()
 
 
 
-std::vector<EnemyBase *> SceneCollectionHelper::get_enemies()
+std::vector<Enemy::Base *> SceneCollectionHelper::get_enemies()
 {
-   return ElementID::recast_collection<EnemyBase>(scene->find_all_descendants("enemy_type"));
+   return ElementID::recast_collection<Enemy::Base>(scene->find_all_descendants("enemy_type"));
 }
 
 
@@ -112,9 +112,9 @@ std::vector<KidEntity *> SceneCollectionHelper::get_kids_flagged_for_deletion()
 
 
 
-std::vector<EnemyBase *> SceneCollectionHelper::get_enemies_flagged_for_deletion()
+std::vector<Enemy::Base *> SceneCollectionHelper::get_enemies_flagged_for_deletion()
 {
-   std::vector<EnemyBase* > enemies_flagged_for_deletion;
+   std::vector<Enemy::Base* > enemies_flagged_for_deletion;
 
    for (auto &enemy : get_enemies())
       if (enemy->exists("can_be_deleted")) enemies_flagged_for_deletion.push_back(enemy);

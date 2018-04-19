@@ -4,7 +4,7 @@
 #include <dungeon/helpers/scene_collision_helper.hpp>
 
 #include <dungeon/emitters/user_event_emitter.hpp>
-#include <dungeon/models/entities/enemies/kid_entity.hpp>
+#include <dungeon/models/entities/enemy/kid_entity.hpp>
 #include <dungeon/models/entities/damage_zone_entity.hpp>
 #include <dungeon/models/entities/entity_base.hpp>
 #include <dungeon/models/entities/door_entity.hpp>
