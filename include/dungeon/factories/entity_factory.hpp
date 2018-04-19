@@ -7,7 +7,7 @@
 
 
 class ElementID;
-class EntityBase;
+namespace Entity { class Base; }
 class EnemyBase;
 class KnightEntity;
 
@@ -38,32 +38,32 @@ private:
    ~EntityFactory();
 
 public:
-   static EntityBase *create_random_kid(ElementID *parent, float x, float y);
+   static Entity::Base *create_random_kid(ElementID *parent, float x, float y);
    static KidEntity *create_named_kid(ElementID *parent, std::string name, behavior_t behavior, int sprite_index, float x, float y);
    static KnightEntity *create_knight_entity(ElementID *parent, float x, float y);
-   static EntityBase *create_krampus(ElementID *parent, float x, float y);
-   static EntityBase *create_krampus_attack_damage_zone(ElementID *parent, float x, float y, float w, float h);
-   static EntityBase *create_krampus_attack_damage_zone_with_club(ElementID *parent, float x, float y, float w, float h);
-   static EntityBase *create_enemy_attack_damage_zone(ElementID *parent, float x, float y, float w, float h);
-   static EntityBase *create_door1(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name);
-   static EntityBase *create_door2(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name);
-   static EntityBase *create_door3(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name);
-   static EntityBase *create_door4(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name);
-   static EntityBase *create_door5(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name);
-   static EntityBase *create_door6(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name);
-   static EntityBase *create_club_item(ElementID *parent, float x, float y);
-   static EntityBase *create_stone_of_defiance_item(ElementID *parent, float x, float y);
-   static EntityBase *create_naughty_list_item(ElementID *parent, float x, float y);
-   static EntityBase *create_key_item(ElementID *parent, float x, float y);
-   static EntityBase *create_hit_damage_motion_fx(ElementID *parent, float x, float y, std::string damage_string);
-   static EntityBase *create_reverse_explosion_fx(ElementID *parent, float x, float y);
+   static Entity::Base *create_krampus(ElementID *parent, float x, float y);
+   static Entity::Base *create_krampus_attack_damage_zone(ElementID *parent, float x, float y, float w, float h);
+   static Entity::Base *create_krampus_attack_damage_zone_with_club(ElementID *parent, float x, float y, float w, float h);
+   static Entity::Base *create_enemy_attack_damage_zone(ElementID *parent, float x, float y, float w, float h);
+   static Entity::Base *create_door1(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name);
+   static Entity::Base *create_door2(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name);
+   static Entity::Base *create_door3(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name);
+   static Entity::Base *create_door4(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name);
+   static Entity::Base *create_door5(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name);
+   static Entity::Base *create_door6(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name);
+   static Entity::Base *create_club_item(ElementID *parent, float x, float y);
+   static Entity::Base *create_stone_of_defiance_item(ElementID *parent, float x, float y);
+   static Entity::Base *create_naughty_list_item(ElementID *parent, float x, float y);
+   static Entity::Base *create_key_item(ElementID *parent, float x, float y);
+   static Entity::Base *create_hit_damage_motion_fx(ElementID *parent, float x, float y, std::string damage_string);
+   static Entity::Base *create_reverse_explosion_fx(ElementID *parent, float x, float y);
 
-   static EntityBase *create_background1(ElementID *parent, float x, float y);
-   static EntityBase *create_background2(ElementID *parent, float x, float y);
-   static EntityBase *create_background3(ElementID *parent, float x, float y);
-   static EntityBase *create_background4(ElementID *parent, float x, float y);
-   static EntityBase *create_background5(ElementID *parent, float x, float y);
-   static EntityBase *create_background6(ElementID *parent, float x, float y);
+   static Entity::Base *create_background1(ElementID *parent, float x, float y);
+   static Entity::Base *create_background2(ElementID *parent, float x, float y);
+   static Entity::Base *create_background3(ElementID *parent, float x, float y);
+   static Entity::Base *create_background4(ElementID *parent, float x, float y);
+   static Entity::Base *create_background5(ElementID *parent, float x, float y);
+   static Entity::Base *create_background6(ElementID *parent, float x, float y);
 };
 
 

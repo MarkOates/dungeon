@@ -18,18 +18,18 @@ SceneCollectionHelper::SceneCollectionHelper(Scene *scene)
 
 
 
-std::vector<EntityBase *> SceneCollectionHelper::get_all_entities()
+std::vector<Entity::Base *> SceneCollectionHelper::get_all_entities()
 {
-   return scene->get_flat_list_of_descendants<EntityBase>();
+   return scene->get_flat_list_of_descendants<Entity::Base>();
 }
 
 
 
-std::vector<EntityBase *> SceneCollectionHelper::get_all_entities_y_sorted()
+std::vector<Entity::Base *> SceneCollectionHelper::get_all_entities_y_sorted()
 {
-   std::vector<EntityBase *> flat_list = scene->get_flat_list_of_descendants<EntityBase>();
+   std::vector<Entity::Base *> flat_list = scene->get_flat_list_of_descendants<Entity::Base>();
 
-   std::sort(flat_list.begin(), flat_list.end(),[](const EntityBase *a, const EntityBase *b)
+   std::sort(flat_list.begin(), flat_list.end(),[](const Entity::Base *a, const Entity::Base *b)
          { return a->place.position.y < b->place.position.y; }
       );
 
@@ -87,16 +87,16 @@ KrampusEntity *SceneCollectionHelper::get_krampus()
 
 
 
-std::vector<EntityBase *> SceneCollectionHelper::get_entities_bound_in_world()
+std::vector<Entity::Base *> SceneCollectionHelper::get_entities_bound_in_world()
 {
-   return ElementID::recast_collection<EntityBase>(scene->find_all_descendants("bound_in_world"));
+   return ElementID::recast_collection<Entity::Base>(scene->find_all_descendants("bound_in_world"));
 }
 
 
 
-std::vector<EntityBase *> SceneCollectionHelper::get_all_flagged_for_deletion()
+std::vector<Entity::Base *> SceneCollectionHelper::get_all_flagged_for_deletion()
 {
-   return ElementID::recast_collection<EntityBase>(scene->find_all_descendants("can_be_deleted"));
+   return ElementID::recast_collection<Entity::Base>(scene->find_all_descendants("can_be_deleted"));
 }
 
 

@@ -3,7 +3,7 @@
 
 #include <dungeon/factories/scene_factory.hpp>
 
-#include <dungeon/models/entities/entity_base.hpp>
+#include <dungeon/models/entities/base.hpp>
 #include <dungeon/factories/entity_factory.hpp>
 
 

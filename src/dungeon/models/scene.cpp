@@ -1,7 +1,7 @@
 
 
 
-#include <dungeon/models/entities/entity_base.hpp>
+#include <dungeon/models/entities/base.hpp>
 #include <dungeon/helpers/scene_collection_helper.hpp>
 #include <dungeon/helpers/scene_collision_helper.hpp>
 #include <dungeon/models/scene.hpp>
@@ -70,7 +70,7 @@ void Scene::draw_all()
 {
    SceneCollectionHelper collection_helper(this);
 
-   std::vector<EntityBase *> y_sorted_entities = collection_helper.get_all_entities_y_sorted();
+   std::vector<Entity::Base *> y_sorted_entities = collection_helper.get_all_entities_y_sorted();
 
    for (auto &entity : y_sorted_entities) if (!entity->exists(ALWAYS_ON_TOP)) entity->draw();
    for (auto &entity : y_sorted_entities) if (entity->exists(ALWAYS_ON_TOP)) entity->draw();

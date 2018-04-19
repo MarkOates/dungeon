@@ -8,7 +8,7 @@
 
 namespace MotionFX
 {
-   class HitDamage : public Base
+   class HitDamage : public MotionFX::Base
    {
    private:
       ALLEGRO_FONT *font;

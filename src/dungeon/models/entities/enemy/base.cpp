@@ -8,7 +8,7 @@ namespace Enemy
 
 
 Base::Base(ElementID *parent, std::string enemy_type, float x, float y, int health)
-   : EntityBase(parent, "enemy_base", x, y)
+   : Entity::Base(parent, "enemy_base", x, y)
    , health(health)
 {
    set("enemy_type", enemy_type);

@@ -50,7 +50,7 @@ private:
    friend class GamePlayScreenStateHelper;
 
    int _item_recently_collected;
-   void _destroy_ai_controller(EntityBase *entity);
+   void _destroy_ai_controller(Entity::Base *entity);
 
 public:
    GamePlayScreen(Display *display, GamerInputScreen *gamer_input_screen);

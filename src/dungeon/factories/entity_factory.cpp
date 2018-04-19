@@ -59,7 +59,7 @@ EntityFactory::EntityFactory()
 
 
 
-EntityBase *EntityFactory::create_random_kid(ElementID *parent, float x, float y)
+Entity::Base *EntityFactory::create_random_kid(ElementID *parent, float x, float y)
 {
    behavior_t behavior = (behavior_t)random_int(BEHAVIOR_ADULT, BEHAVIOR_NICE);
    return new KidEntity(parent, &get_instance()->character_sprite_sheet, &get_instance()->flat_color_shader, x, y, "[random name]", behavior, -1, -1);
@@ -84,154 +84,154 @@ KnightEntity *EntityFactory::create_knight_entity(ElementID *parent, float x, fl
 
 
 
-EntityBase *EntityFactory::create_krampus(ElementID *parent, float x, float y)
+Entity::Base *EntityFactory::create_krampus(ElementID *parent, float x, float y)
 {
    return new KrampusEntity(parent, &get_instance()->character_sprite_sheet, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_krampus_attack_damage_zone(ElementID *parent, float x, float y, float w, float h)
+Entity::Base *EntityFactory::create_krampus_attack_damage_zone(ElementID *parent, float x, float y, float w, float h)
 {
    return new DamageZoneEntity(parent, "krampus_damage_zone", false, true, x, y, w, h);
 }
 
 
 
-EntityBase *EntityFactory::create_krampus_attack_damage_zone_with_club(ElementID *parent, float x, float y, float w, float h)
+Entity::Base *EntityFactory::create_krampus_attack_damage_zone_with_club(ElementID *parent, float x, float y, float w, float h)
 {
    return new DamageZoneEntity(parent, "krampus_damage_zone_club", false, true, x, y, w, h);
 }
 
 
 
-EntityBase *EntityFactory::create_enemy_attack_damage_zone(ElementID *parent, float x, float y, float w, float h)
+Entity::Base *EntityFactory::create_enemy_attack_damage_zone(ElementID *parent, float x, float y, float w, float h)
 {
    return new DamageZoneEntity(parent, "enemy_attack_damage_zone", true, false, x, y, w, h);
 }
 
 
 
-EntityBase *EntityFactory::create_background1(ElementID *parent, float x, float y)
+Entity::Base *EntityFactory::create_background1(ElementID *parent, float x, float y)
 {
    return new BackgroundEntity(parent, get_instance()->background1, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_background2(ElementID *parent, float x, float y)
+Entity::Base *EntityFactory::create_background2(ElementID *parent, float x, float y)
 {
    return new BackgroundEntity(parent, get_instance()->background2, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_background3(ElementID *parent, float x, float y)
+Entity::Base *EntityFactory::create_background3(ElementID *parent, float x, float y)
 {
    return new BackgroundEntity(parent, get_instance()->background3, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_background4(ElementID *parent, float x, float y)
+Entity::Base *EntityFactory::create_background4(ElementID *parent, float x, float y)
 {
    return new BackgroundEntity(parent, get_instance()->background4, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_background5(ElementID *parent, float x, float y)
+Entity::Base *EntityFactory::create_background5(ElementID *parent, float x, float y)
 {
    return new BackgroundEntity(parent, get_instance()->background5, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_background6(ElementID *parent, float x, float y)
+Entity::Base *EntityFactory::create_background6(ElementID *parent, float x, float y)
 {
    return new BackgroundEntity(parent, get_instance()->background6, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_door1(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name)
+Entity::Base *EntityFactory::create_door1(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name)
 {
    return new DoorEntity(parent, name, destination_scene, destination_door_name, get_instance()->door1, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_door2(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name)
+Entity::Base *EntityFactory::create_door2(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name)
 {
    return new DoorEntity(parent, name, destination_scene, destination_door_name, get_instance()->door2, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_door3(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name)
+Entity::Base *EntityFactory::create_door3(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name)
 {
    return new DoorEntity(parent, name, destination_scene, destination_door_name, get_instance()->door3, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_door4(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name)
+Entity::Base *EntityFactory::create_door4(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name)
 {
    return new DoorEntity(parent, name, destination_scene, destination_door_name, get_instance()->door4, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_door5(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name)
+Entity::Base *EntityFactory::create_door5(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name)
 {
    return new DoorEntity(parent, name, destination_scene, destination_door_name, get_instance()->door5, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_door6(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name)
+Entity::Base *EntityFactory::create_door6(ElementID *parent, float x, float y, std::string name, int destination_scene, std::string destination_door_name)
 {
    return new DoorEntity(parent, name, destination_scene, destination_door_name, get_instance()->door6, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_club_item(ElementID *parent, float x, float y)
+Entity::Base *EntityFactory::create_club_item(ElementID *parent, float x, float y)
 {
    return new ItemEntity(parent, get_instance()->character_sprite_sheet.get_sprite(23), ITEM_TYPE_CLUB, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_stone_of_defiance_item(ElementID *parent, float x, float y)
+Entity::Base *EntityFactory::create_stone_of_defiance_item(ElementID *parent, float x, float y)
 {
    return new ItemEntity(parent, get_instance()->character_sprite_sheet.get_sprite(24), ITEM_TYPE_STONE_OF_DEFIANCE, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_naughty_list_item(ElementID *parent, float x, float y)
+Entity::Base *EntityFactory::create_naughty_list_item(ElementID *parent, float x, float y)
 {
    return new ItemEntity(parent, get_instance()->character_sprite_sheet.get_sprite(25), ITEM_TYPE_NAUGHTY_LIST, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_key_item(ElementID *parent, float x, float y)
+Entity::Base *EntityFactory::create_key_item(ElementID *parent, float x, float y)
 {
    return new ItemEntity(parent, get_instance()->character_sprite_sheet.get_sprite(26), ITEM_TYPE_KEY, x, y);
 }
 
 
 
-EntityBase *EntityFactory::create_hit_damage_motion_fx(ElementID *parent, float x, float y, std::string damage_string)
+Entity::Base *EntityFactory::create_hit_damage_motion_fx(ElementID *parent, float x, float y, std::string damage_string)
 {
    return new MotionFX::HitDamage(parent, x, y, damage_string);
 }
 
 
 
-EntityBase *EntityFactory::create_reverse_explosion_fx(ElementID *parent, float x, float y)
+Entity::Base *EntityFactory::create_reverse_explosion_fx(ElementID *parent, float x, float y)
 {
    MotionFX::FrameAnimation *frame_animation = new MotionFX::FrameAnimation(parent, get_instance()->reverse_explosion_fx_frames_filename, 64, 64, 5, x, y);
    return frame_animation;

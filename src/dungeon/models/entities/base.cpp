@@ -1,11 +1,16 @@
 
 
 
-#include <dungeon/models/entities/entity_base.hpp>
+#include <dungeon/models/entities/base.hpp>
 
 
 
-EntityBase::EntityBase(ElementID *parent, std::string type, float x, float y)
+namespace Entity
+{
+
+
+
+Base::Base(ElementID *parent, std::string type, float x, float y)
    : ElementID(parent)
    , place(x, y, 20, 10)
    , velocity()
@@ -18,24 +23,24 @@ EntityBase::EntityBase(ElementID *parent, std::string type, float x, float y)
 
 
 
-EntityBase::~EntityBase()
+Base::~Base()
 {}
 
 
 
-void EntityBase::update()
+void Base::update()
 {}
 
 
 
-void EntityBase::flag_for_deletion()
+void Base::flag_for_deletion()
 {
    set("can_be_deleted");
 }
 
 
 
-void EntityBase::draw()
+void Base::draw()
 {
    place.start_transform();
    al_draw_filled_rectangle(0, 0, place.size.x, place.size.y, color::red);
@@ -46,7 +51,7 @@ void EntityBase::draw()
 
 
 
-bool EntityBase::collides(const EntityBase &other)
+bool Base::collides(const Base &other)
 {
    float h_width = place.size.x * 0.5;
    float h_height = place.size.y * 0.5;
@@ -56,6 +61,10 @@ bool EntityBase::collides(const EntityBase &other)
 
    return other.place.collide(place.x, place.y, h_height, h_width, h_height, h_width);
 }
+
+
+
+} // namespace Entity
 
 
 

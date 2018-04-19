@@ -12,7 +12,7 @@
 
 
 KrampusEntity::KrampusEntity(ElementID *parent, SpriteSheet *sprite_sheet, float x, float y)
-   : EntityBase(parent, "krampus", x, y)
+   : Entity::Base(parent, "krampus", x, y)
    , state_is_busy(false)
    , health(3)
    , walking_speed(5.0)

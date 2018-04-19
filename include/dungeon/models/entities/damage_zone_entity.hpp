@@ -1,10 +1,10 @@
 #pragma once
 
 
-#include <dungeon/models/entities/entity_base.hpp>
+#include <dungeon/models/entities/base.hpp>
 
 
-class DamageZoneEntity : public EntityBase
+class DamageZoneEntity : public Entity::Base
 {
 private:
    bool dealing_damage;

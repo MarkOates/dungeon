@@ -1,20 +1,20 @@
 #pragma once
 
 
-class EntityBase;
+namespace Entity { class Base; }
 
 
 class AIControllerBase
 {
 private:
-   EntityBase *entity;
+   Entity::Base *entity;
 
 public:
-   AIControllerBase(EntityBase *entity);
+   AIControllerBase(Entity::Base *entity);
    virtual ~AIControllerBase();
 
    virtual void update();
-   bool is_controlling(EntityBase *possibly_controlled_entity);
+   bool is_controlling(Entity::Base *possibly_controlled_entity);
 };
 
 

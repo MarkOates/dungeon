@@ -5,7 +5,7 @@
 
 
 
-Camera::Camera(Display *display, EntityBase *target)
+Camera::Camera(Display *display, Entity::Base *target)
    : place(0, 0, display->width(), display->height())
    , target(target)
    , overlay_color(color::transparent)
@@ -14,7 +14,7 @@ Camera::Camera(Display *display, EntityBase *target)
 
 
 
-void Camera::set_target(EntityBase *new_target)
+void Camera::set_target(Entity::Base *new_target)
 {
    target = new_target;
 }

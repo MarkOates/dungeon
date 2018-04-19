@@ -7,7 +7,7 @@
 
 namespace MotionFX
 {
-   class FrameAnimation : public Base
+   class FrameAnimation : public MotionFX::Base
    {
    private:
       SpriteSheet sprite_sheet;

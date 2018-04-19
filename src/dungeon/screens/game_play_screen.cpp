@@ -281,7 +281,7 @@ void GamePlayScreen::enter_scene(int scene_id, char door_name)
 
 
 
-void GamePlayScreen::_destroy_ai_controller(EntityBase *entity)
+void GamePlayScreen::_destroy_ai_controller(Entity::Base *entity)
 {
    for (unsigned i=0; i<ai_controllers.size(); i++)
       if (ai_controllers[i]->is_controlling(entity))

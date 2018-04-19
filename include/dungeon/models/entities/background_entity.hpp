@@ -1,10 +1,10 @@
 #pragma once
 
 
-#include <dungeon/models/entities/entity_base.hpp>
+#include <dungeon/models/entities/base.hpp>
 
 
-class BackgroundEntity : public EntityBase
+class BackgroundEntity : public Entity::Base
 {
 private:
    ALLEGRO_BITMAP *al_bitmap;

@@ -6,7 +6,7 @@
 #include <dungeon/emitters/user_event_emitter.hpp>
 #include <dungeon/models/entities/enemy/kid_entity.hpp>
 #include <dungeon/models/entities/damage_zone_entity.hpp>
-#include <dungeon/models/entities/entity_base.hpp>
+#include <dungeon/models/entities/base.hpp>
 #include <dungeon/models/entities/door_entity.hpp>
 #include <dungeon/models/entities/krampus_entity.hpp>
 #include <dungeon/helpers/scene_collection_helper.hpp>

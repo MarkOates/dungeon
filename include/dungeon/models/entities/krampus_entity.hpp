@@ -1,11 +1,11 @@
 #pragma once
 
 
-#include <dungeon/models/entities/entity_base.hpp>
+#include <dungeon/models/entities/base.hpp>
 #include <dungeon/models/sprite_sheet.hpp>
 
 
-class KrampusEntity : public EntityBase
+class KrampusEntity : public Entity::Base
 {
 public:
    enum state_t

@@ -1,13 +1,13 @@
 #pragma once
 
 
-#include <dungeon/models/entities/entity_base.hpp>
+#include <dungeon/models/entities/base.hpp>
 #include <framework/placement2d.hpp>
 
 
 namespace MotionFX
 {
-   class Base : public EntityBase
+   class Base : public Entity::Base
    {
    protected:
       float duration;

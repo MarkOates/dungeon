@@ -5,7 +5,7 @@
 
 
 
-AIControllerBase::AIControllerBase(EntityBase *entity)
+AIControllerBase::AIControllerBase(Entity::Base *entity)
    : entity(entity)
 {
 }
@@ -24,7 +24,7 @@ void AIControllerBase::update()
 
 
 
-bool AIControllerBase::is_controlling(EntityBase *possibly_controlled_entity)
+bool AIControllerBase::is_controlling(Entity::Base *possibly_controlled_entity)
 {
    return entity == possibly_controlled_entity;
 }

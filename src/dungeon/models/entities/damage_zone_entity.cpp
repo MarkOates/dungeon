@@ -8,7 +8,7 @@
 
 
 DamageZoneEntity::DamageZoneEntity(ElementID *parent, std::string damage_zone_type, bool damages_krampus, bool damages_enemies, float x, float y, float w, float h)
-   : EntityBase(parent, "damage_zone", x, y)
+   : Entity::Base(parent, "damage_zone", x, y)
    , dealing_damage(true)
 {
    place.size = vec2d(w, h);
@@ -27,7 +27,7 @@ DamageZoneEntity::~DamageZoneEntity()
 
 void DamageZoneEntity::draw()
 {
-   EntityBase::draw();
+   Entity::Base::draw();
 }
 
 

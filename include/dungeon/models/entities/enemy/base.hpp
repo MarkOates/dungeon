@@ -1,12 +1,12 @@
 #pragma once
 
 
-#include <dungeon/models/entities/entity_base.hpp>
+#include <dungeon/models/entities/base.hpp>
 
 
 namespace Enemy
 {
-   class Base : public EntityBase
+   class Base : public Entity::Base
    {
    private:
       int health;

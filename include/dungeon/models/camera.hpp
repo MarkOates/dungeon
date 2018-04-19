@@ -1,23 +1,23 @@
 #pragma once
 
 
+#include <dungeon/models/entities/base.hpp>
 #include <framework/display.hpp>
 #include <framework/motion.hpp>
-#include <dungeon/models/entities/entity_base.hpp>
 
 
 class Camera
 {
 private:
    placement2d place;
-   EntityBase *target;
+   Entity::Base *target;
    ALLEGRO_COLOR overlay_color;
    Motion motion;
 
 public:
-   Camera(Display *display, EntityBase *target);
+   Camera(Display *display, Entity::Base *target);
 
-   void set_target(EntityBase *new_target=nullptr);
+   void set_target(Entity::Base *new_target=nullptr);
 
    void update(float max_x);
    void start_transform();
