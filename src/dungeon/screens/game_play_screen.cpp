@@ -245,6 +245,8 @@ void GamePlayScreen::enter_scene(int scene_id, char door_name)
    float new_knight_y = random_float(min_y, max_y);
    EntityFactory::create_knight_entity(scene, new_knight_x, new_knight_y);
 
+   EntityFactory::create_skull_enemy(scene, scene_width, new_knight_y, min_y, max_y);
+
    // create AI controllers to control all the enemies
    for (auto &ai_controller : ai_controllers)
       delete ai_controller;

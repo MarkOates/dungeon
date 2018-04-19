@@ -9,6 +9,7 @@
 #include <dungeon/models/entities/motion_fx/hit_damage.hpp>
 #include <dungeon/models/entities/enemy/base.hpp>
 #include <dungeon/models/entities/enemy/knight_entity.hpp>
+#include <dungeon/models/entities/enemy/Skull.hpp>
 #include <dungeon/models/entities/background_entity.hpp>
 #include <dungeon/models/entities/door_entity.hpp>
 #include <dungeon/models/entities/damage_zone_entity.hpp>
@@ -80,6 +81,13 @@ KidEntity *EntityFactory::create_named_kid(ElementID *parent, std::string name, 
 KnightEntity *EntityFactory::create_knight_entity(ElementID *parent, float x, float y)
 {
    return new KnightEntity(parent, &get_instance()->character_sprite_sheet, &get_instance()->flat_color_shader, x, y, "Harold", knight_behavior_t::BEHAVIOR_NORMAL, 32, -1);
+}
+
+
+
+Entity::Base *EntityFactory::create_skull_enemy(ElementID *parent, float x, float y, float min_y, float max_y)
+{
+   return new Enemy::Skull(parent, &get_instance()->character_sprite_sheet, x, y, min_y, max_y);
 }
 
 
