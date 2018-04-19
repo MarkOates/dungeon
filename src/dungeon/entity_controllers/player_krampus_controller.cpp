@@ -1,7 +1,7 @@
 
 
 
-#include <dungeon/controllers/player_krampus_controller.hpp>
+#include <dungeon/entity_controllers/player_krampus_controller.hpp>
 
 #include <framework/screens/gamer_input_screen.hpp>
 

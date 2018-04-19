@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <dungeon/controllers/player_krampus_controller.hpp>
+#include <dungeon/entity_controllers/player_krampus_controller.hpp>
 #include <dungeon/helpers/game_play_screen_state_helper.hpp>
 #include <dungeon/models/camera.hpp>
 #include <dungeon/models/hud.hpp>

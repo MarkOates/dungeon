@@ -1,7 +1,7 @@
 
 
 
-#include <dungeon/controllers/audio_controller.hpp>
+#include <dungeon/models/audio_controller.hpp>
 
 #include <dungeon/music_track_nums.hpp>
 #include <framework/framework.hpp>

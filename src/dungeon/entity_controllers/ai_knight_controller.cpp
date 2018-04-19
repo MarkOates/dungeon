@@ -1,7 +1,7 @@
 
 
 
-#include <dungeon/controllers/ai_knight_controller.hpp>
+#include <dungeon/entity_controllers/ai_knight_controller.hpp>
 
 
 

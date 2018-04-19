@@ -3,7 +3,7 @@
 
 #include <framework/screens/gamer_input_screen.hpp>
 #include <framework/screen.hpp>
-#include <dungeon/controllers/audio_controller.hpp>
+#include <dungeon/models/audio_controller.hpp>
 #include <dungeon/emitters/user_event_emitter.hpp>
 #include <dungeon/factories/storyboard_factory.hpp>
 #include <dungeon/screens/title_screen.hpp>

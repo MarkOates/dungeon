@@ -5,9 +5,9 @@
 
 #include <framework/screens/gamer_input_screen.hpp>
 #include <dungeon/models/entities/door_entity.hpp>
-#include <dungeon/controllers/ai_controller_base.hpp>
-#include <dungeon/controllers/ai_kid_controller.hpp>
-#include <dungeon/controllers/ai_knight_controller.hpp>
+#include <dungeon/entity_controllers/ai_controller_base.hpp>
+#include <dungeon/entity_controllers/ai_kid_controller.hpp>
+#include <dungeon/entity_controllers/ai_knight_controller.hpp>
 #include <dungeon/emitters/user_event_emitter.hpp>
 #include <dungeon/factories/entity_factory.hpp>
 #include <dungeon/factories/scene_factory.hpp>

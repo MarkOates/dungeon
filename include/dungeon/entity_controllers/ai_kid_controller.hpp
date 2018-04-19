@@ -2,7 +2,7 @@
 
 
 #include <dungeon/models/entities/enemy/kid_entity.hpp>
-#include <dungeon/controllers/ai_controller_base.hpp>
+#include <dungeon/entity_controllers/ai_controller_base.hpp>
 
 
 class AIKidController : public AIControllerBase

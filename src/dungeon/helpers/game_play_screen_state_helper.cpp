@@ -5,7 +5,7 @@
 
 #include <dungeon/models/entities/enemy/base.hpp>
 #include <framework/screens/gamer_input_screen.hpp>
-#include <dungeon/controllers/ai_controller_base.hpp>
+#include <dungeon/entity_controllers/ai_controller_base.hpp>
 #include <dungeon/emitters/user_event_emitter.hpp>
 #include <dungeon/factories/dialogue_factory.hpp>
 #include <dungeon/helpers/scene_collection_helper.hpp>

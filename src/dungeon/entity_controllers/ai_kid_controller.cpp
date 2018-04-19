@@ -1,7 +1,7 @@
 
 
 
-#include <dungeon/controllers/ai_kid_controller.hpp>
+#include <dungeon/entity_controllers/ai_kid_controller.hpp>
 
 
 

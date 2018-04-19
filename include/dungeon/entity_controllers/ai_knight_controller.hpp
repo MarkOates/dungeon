@@ -2,7 +2,7 @@
 
 
 #include <dungeon/models/entities/enemy/knight_entity.hpp>
-#include <dungeon/controllers/ai_controller_base.hpp>
+#include <dungeon/entity_controllers/ai_controller_base.hpp>
 
 
 class AIKnightController : public AIControllerBase
