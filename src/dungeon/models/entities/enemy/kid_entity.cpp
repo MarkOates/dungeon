@@ -164,7 +164,7 @@ void KidEntity::set_state(state_t new_state)
    case STATE_TAKING_HIT:
       velocity.position = vec2d(0.0, 0.0);
       UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, HURT_SOUND_EFFECT);
-      UserEventEmitter::emit_event(SPAWN_MOTION_FX, (intptr_t)(new std::string(MOTION_FX_SLASH_POOF)), place.position.x, place.position.y);
+      UserEventEmitter::emit_event(SPAWN_MOTION_FX, (intptr_t)(new std::string(MOTION_FX_SLASH_POOF)), place.position.x + place.size.x/2, place.position.y + place.size.y/2);
       flag_for_deletion();
       //reveal_behavior();
       break;

@@ -12,7 +12,7 @@ namespace Entity
 
 Base::Base(ElementID *parent, std::string type, float x, float y)
    : ElementID(parent)
-   , place(x, y, 20, 10)
+   , place(x, y, 1, 1)
    , velocity()
    , bitmap(nullptr)
 {

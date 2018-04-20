@@ -15,7 +15,7 @@ KrampusEntity::KrampusEntity(ElementID *parent, SpriteSheet *sprite_sheet, float
    : Entity::Base(parent, "krampus", x, y)
    , state_is_busy(false)
    , health(3)
-   , walking_speed(5.0)
+   , walking_speed(8.0)
    , facing_right(true)
    , _has_weapon(false)
    , _has_stone_of_defiance(false)
