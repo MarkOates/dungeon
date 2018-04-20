@@ -25,6 +25,18 @@ FrameAnimation::~FrameAnimation()
 }
 
 
+void FrameAnimation::set_frames_per_second(float fps)
+{
+   this->frames_per_second = fps;
+}
+
+
+float FrameAnimation::get_frames_per_second()
+{
+   return frames_per_second;
+}
+
+
 void FrameAnimation::advance_frame()
 {
    current_frame++;

@@ -4,6 +4,7 @@
 #include <dungeon/models/entities/enemy/kid_entity.hpp>
 
 #include <dungeon/emitters/user_event_emitter.hpp>
+#include <dungeon/motion_fx_type_names.hpp>
 #include <dungeon/music_track_nums.hpp>
 #include <dungeon/user_events.hpp>
 #include <cmath>
@@ -24,6 +25,7 @@ KidEntity::KidEntity(ElementID *parent, SpriteSheet *sprite_sheet, Shader *flat_
    , identity_reveal_counter(IDENTITY_REVEAL_MAX)
    , kid_bitmap(sprite_sheet->get_sprite(sprite_index))
    , identity_bitmap(sprite_sheet->get_sprite(identity_sprite_index))
+   , health(1)
 {
    place.size = vec2d(60, 30);
 
@@ -162,7 +164,9 @@ void KidEntity::set_state(state_t new_state)
    case STATE_TAKING_HIT:
       velocity.position = vec2d(0.0, 0.0);
       UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, HURT_SOUND_EFFECT);
-      reveal_behavior();
+      UserEventEmitter::emit_event(SPAWN_MOTION_FX, (intptr_t)(new std::string(MOTION_FX_SLASH_POOF)), place.position.x, place.position.y);
+      flag_for_deletion();
+      //reveal_behavior();
       break;
    }
 }

@@ -109,6 +109,13 @@ void GamePlayScreen::user_event_func()
             int y = event->user.data3;
             EntityFactory::create_reverse_explosion_fx(scene, x, y);
          }
+         if (*type == MOTION_FX_SLASH_POOF)
+         {
+            int x = event->user.data2;
+            int y = event->user.data3;
+            EntityFactory::create_slash_poof_fx(scene, x, y);
+            std::cout << "slash poof created" << std::endl;
+         }
 
          delete type;
          break;

@@ -31,6 +31,7 @@ private:
    ALLEGRO_BITMAP *door6;
    ALLEGRO_BITMAP *club_item;
    std::string reverse_explosion_fx_frames_filename;
+   std::string slash_poof_fx_frames_filename;
    static EntityFactory *instance;
    static EntityFactory *get_instance();
 
@@ -58,6 +59,7 @@ public:
    static Entity::Base *create_key_item(ElementID *parent, float x, float y);
    static Entity::Base *create_hit_damage_motion_fx(ElementID *parent, float x, float y, std::string damage_string);
    static Entity::Base *create_reverse_explosion_fx(ElementID *parent, float x, float y);
+   static Entity::Base *create_slash_poof_fx(ElementID *parent, float x, float y);
 
    static Entity::Base *create_background1(ElementID *parent, float x, float y);
    static Entity::Base *create_background2(ElementID *parent, float x, float y);

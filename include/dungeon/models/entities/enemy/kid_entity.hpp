@@ -37,6 +37,7 @@ private:
    ALLEGRO_BITMAP *kid_bitmap, *identity_bitmap;
    ALLEGRO_COLOR get_identity_color();
    float get_identity_tint_intensity();
+   int health;
 
    void set_state(state_t);
 

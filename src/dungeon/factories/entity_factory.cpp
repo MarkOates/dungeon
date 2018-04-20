@@ -43,6 +43,7 @@ EntityFactory::EntityFactory()
    , door5(nullptr)
    , door6(nullptr)
    , reverse_explosion_fx_frames_filename("reverse_explosion.png")
+   , slash_poof_fx_frames_filename("slash_poof_fx.png")
 {
    background1 = create_pixel_perfect_scaled_render(Framework::bitmap("background-1-08.png"), 5);
    background2 = create_pixel_perfect_scaled_render(Framework::bitmap("background-2-02.png"), 5);
@@ -235,6 +236,15 @@ Entity::Base *EntityFactory::create_key_item(ElementID *parent, float x, float y
 Entity::Base *EntityFactory::create_hit_damage_motion_fx(ElementID *parent, float x, float y, std::string damage_string)
 {
    return new MotionFX::HitDamage(parent, x, y, damage_string);
+}
+
+
+
+Entity::Base *EntityFactory::create_slash_poof_fx(ElementID *parent, float x, float y)
+{
+   MotionFX::FrameAnimation *frame_animation = new MotionFX::FrameAnimation(parent, get_instance()->slash_poof_fx_frames_filename, 48, 48, 5, x, y);
+   frame_animation->set_frames_per_second(20.0);
+   return frame_animation;
 }
 
 

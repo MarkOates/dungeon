@@ -19,6 +19,9 @@ namespace MotionFX
       FrameAnimation(ElementID *parent, std::string sprite_sheet_filename, int frame_width, int frame_height, int scale, float x, float y);
       ~FrameAnimation();
 
+      void set_frames_per_second(float fps);
+      float get_frames_per_second();
+
       void advance_frame();
 
       void update() override;

@@ -60,7 +60,7 @@ void Skull::set_state(state_t new_state)
       break;
    case STATE_DEAD:
       UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(DYING_ENEMY_SOUND_EFFECT)));
-      UserEventEmitter::emit_event(SPAWN_MOTION_FX, (intptr_t)(new std::string(MOTION_FX_REVERSE_EXPLOSION)), place.position.x, place.position.y);
+      UserEventEmitter::emit_event(SPAWN_MOTION_FX, (intptr_t)(new std::string(MOTION_FX_SLASH_POOF)), place.position.x, place.position.y);
       flag_for_deletion();
       break;
    default:
