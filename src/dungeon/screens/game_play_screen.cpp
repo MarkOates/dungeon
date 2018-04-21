@@ -223,7 +223,10 @@ void GamePlayScreen::enter_scene(int scene_id, char door_name)
 {
    if (scene) delete scene;
 
-   scene = SceneFactory::create_scene_by_id(scene_id);
+   scene = SceneFactory::create_scene_by_id(999);
+
+   // player
+   EntityFactory::create_krampus(scene, 600, 600);
 
    SceneCollectionHelper collections(scene);
 

@@ -49,6 +49,9 @@ public:
    // player
    static Entity::Base *create_krampus(ElementID *parent, float x, float y);
 
+   // interactable props
+   static Entity::Base *create_bookshelf(ElementID *parent, float x, float y);
+
    // damage zones
    static Entity::Base *create_krampus_attack_damage_zone(ElementID *parent, float x, float y, float w, float h);
    static Entity::Base *create_krampus_attack_damage_zone_with_club(ElementID *parent, float x, float y, float w, float h);

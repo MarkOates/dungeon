@@ -53,11 +53,16 @@ Scene *SceneFactory::create_test_scene()
    // doors
    EntityFactory::create_door1(scene, door_notch_x(0), FLOOR_TOP, "A", 999, "A");
 
+   // bookshelf
+   EntityFactory::create_bookshelf(scene, 100 + 420, 500);
+   EntityFactory::create_bookshelf(scene, 100 + 420 + 48*5, 500);
+   EntityFactory::create_bookshelf(scene, 100 + 420 + 48*5*2, 500);
+
    // items
-   EntityFactory::create_club_item(scene, 800, 565);
-   EntityFactory::create_naughty_list_item(scene, 900, 565);
-   EntityFactory::create_stone_of_defiance_item(scene, 1000, 565);
-   EntityFactory::create_key_item(scene, 1100, 565);
+   //EntityFactory::create_club_item(scene, 800, 565);
+   //EntityFactory::create_naughty_list_item(scene, 900, 565);
+   //EntityFactory::create_stone_of_defiance_item(scene, 1000, 565);
+   //EntityFactory::create_key_item(scene, 1100, 565);
 
    return scene;
 }
@@ -83,9 +88,6 @@ Scene *SceneFactory::create_scene_by_id(int scene_id)
    case 999: scene = SceneFactory::create_test_scene(); break;
    default: break;
    }
-
-   // player
-   EntityFactory::create_krampus(scene, 600, 600);
 
    return scene;
 }
