@@ -21,9 +21,9 @@ namespace php
    bool file_exists(std::string filename);
    std::string file_get_contents(std::string filename);
    bool file_put_contents(std::string filename, std::string contents);
-   std::string ltrim(std::string &s);
-   std::string rtrim(std::string &s);
-   std::string trim(std::string &s);
+   //std::string ltrim(std::string &s);
+   //std::string rtrim(std::string &s);
+   //std::string trim(std::string &s);
    char *url_encode(char *str);
    char *url_decode(char *str);
    std::string number_format(double number, int precision);

@@ -4,6 +4,7 @@
 #include <dungeon/generators/kid_name_generator.hpp>
 
 #include <algorithm>
+#include <AllegroFlare/Random.hpp>
 
 
 
@@ -95,8 +96,13 @@ KidNameGenerator::KidNameGenerator()
    , next_boy_name_index(0)
    , next_girl_name_index(0)
 {
-   std::random_shuffle(boy_names.begin(), boy_names.end());
-   std::random_shuffle(girl_names.begin(), girl_names.end());
+   AllegroFlare::Random random;
+   random.shuffle_elements(boy_names);
+   random.shuffle_elements(girl_names);
+   //std::vector<T> &elements)
+
+   //std::random_shuffle(boy_names.begin(), boy_names.end());
+   //std::random_shuffle(girl_names.begin(), girl_names.end());
 }
 
 
