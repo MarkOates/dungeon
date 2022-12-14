@@ -56,7 +56,7 @@ void Skull::set_state(state_t new_state)
       break;
    case STATE_DYING:
       bitmap.bitmap(sprite_sheet->get_sprite(38));
-      state_counter = 0.0;
+      state_counter = 1.0;
       break;
    case STATE_DEAD:
       UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(DYING_ENEMY_SOUND_EFFECT)));
@@ -110,7 +110,7 @@ void Skull::draw()
 {
    place.start_transform();
    bitmap.draw();
-   //al_draw_filled_rectangle(0, 0, place.w, place.h, color::yellow);
+   al_draw_filled_rectangle(0, 0, place.w, place.h, color::yellow);
    place.restore_transform();
 }
 
