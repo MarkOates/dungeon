@@ -88,12 +88,38 @@ public:
 
 
 
+
+#include <AllegroFlare/Frameworks/Full.hpp>
+#include <AllegroFlare/Screens/Base.hpp>
+
+
+class WrappedKrampusHackProject : public KrampusHackProject, public AllegroFlare::Screens::Base
+{
+public:
+   WrappedKrampusHackProject()
+      : KrampusHackProject(nullptr)
+   {}
+   ~WrappedKrampusHackProject() {}
+};
+
+
+
 int main(int argc, char **argv)
 {
-	Framework::initialize();
-	Display *display = Framework::create_display(1280, 720, ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
-   KrampusHackProject *proj = new KrampusHackProject(display);
-	Framework::run_loop();
+   AllegroFlare::Frameworks::Full framework;
+   framework.disable_fullscreen();
+   framework.initialize();
+
+   WrappedKrampusHackProject wrapped_krampus_hack_project;
+   framework.register_screen("wrapped_krampus_hack_project", &wrapped_krampus_hack_project);
+   framework.activate_screen("wrapped_krampus_hack_project");
+   
+   framework.run_loop();
+
+	//Framework::initialize();
+	//Display *display = Framework::create_display(1280, 720, ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
+   //KrampusHackProject *proj = new KrampusHackProject(display);
+	//Framework::run_loop();
 	return 0;
 }
 
