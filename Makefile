@@ -35,7 +35,7 @@ INDIVIDUAL_TEST_EXECUTABLES := $(TEST_SOURCES:tests/%.cpp=bin/tests/%)
 
 
 
-bin/framework: programs/framework.cpp $(OBJECTS)
+bin/krampushack: programs/krampushack.cpp $(OBJECTS)
 	g++ -std=gnu++11 $(OBJECTS) $< -o $@ $(ALLEGRO_LIBS) -L$(ALLEGRO_DIR)/lib $(OPENGL_LIB) -I$(ALLEGRO_DIR)/include -I./include
 
 
