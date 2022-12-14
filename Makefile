@@ -17,10 +17,24 @@ GOOGLE_TEST_INCLUDE_DIR=$(GOOGLE_TEST_DIR)/googletest/include
 # these are the names of the libs you are linking
 ALLEGRO_LIBS_WITHOUT_MAIN=-lallegro_color -lallegro_font -lallegro_ttf -lallegro_dialog -lallegro_audio -lallegro_acodec -lallegro_primitives -lallegro_image -lallegro
 ALLEGRO_LIBS=$(ALLEGRO_LIBS_WITHOUT_MAIN) -lallegro_main
-OPENGL_LIB=-framework OpenGL
+# OPENGL_LIB=-framework OpenGL
 # OPENGL_LIB=-lopengl32
 GOOGLE_TEST_LIBS=gtest
 VERSION_FLAG=-std=c++17
+
+ifeq ($(OS), Windows_NT)
+	OPENGL_LIB=-lopengl32
+	# WINDOWS_SUBSYSTEM_FLAGS=-Wl,--subsystem,windows
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Linux)
+		OPENGL_LIB=-lGL
+	endif
+	ifeq ($(UNAME_S),Darwin)
+		OPENGL_LIB=-framework OpenGL
+	endif
+endif
+
 
 
 
