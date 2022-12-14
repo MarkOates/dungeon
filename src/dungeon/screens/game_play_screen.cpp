@@ -3,7 +3,7 @@
 
 #include <dungeon/screens/game_play_screen.hpp>
 
-#include <framework/screens/gamer_input_screen.hpp>
+//#include <framework/screens/gamer_input_screen.hpp>
 #include <dungeon/models/entities/door_entity.hpp>
 #include <dungeon/entity_controllers/ai_controller_base.hpp>
 #include <dungeon/entity_controllers/ai_kid_controller.hpp>
@@ -24,8 +24,9 @@
 
 
 
-GamePlayScreen::GamePlayScreen(Display *display, GamerInputScreen *gamer_input_screen)
-   : Screen(display)
+//GamePlayScreen::GamePlayScreen(GamerInputScreen *gamer_input_screen)
+GamePlayScreen::GamePlayScreen()
+   : AllegroFlare::Screens::Base()
    , scene(nullptr)
    , state(NONE)
    , player_krampus_controller()
@@ -37,7 +38,7 @@ GamePlayScreen::GamePlayScreen(Display *display, GamerInputScreen *gamer_input_s
    , state_helper(this)
    , camera(display, nullptr)
    , _item_recently_collected(0)
-   , gamer_input_screen(gamer_input_screen)
+   //, gamer_input_screen(gamer_input_screen)
 {
    enter_scene(START_SCENE_ID);
    set_state(GAME_PLAY);
@@ -47,7 +48,7 @@ GamePlayScreen::GamePlayScreen(Display *display, GamerInputScreen *gamer_input_s
 
 void GamePlayScreen::primary_timer_func()
 {
-   update(gamer_input_screen);
+   //update(gamer_input_screen);
    draw();
 }
 

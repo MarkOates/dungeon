@@ -9,13 +9,13 @@
 #include <dungeon/models/inventory_screen.hpp>
 #include <dungeon/models/naughty_list.hpp>
 #include <dungeon/models/scene.hpp>
-#include <framework/screen.hpp>
+//#include <framework/screen.hpp>
 
 
 class AIControllerBase;
 
 
-class GamePlayScreen : public Screen
+class GamePlayScreen : public AllegroFlare::Screens::Base
 {
 private:
    enum state_t
@@ -53,7 +53,7 @@ private:
    void _destroy_ai_controller(Entity::Base *entity);
 
 public:
-   GamePlayScreen(Display *display, GamerInputScreen *gamer_input_screen);
+   GamePlayScreen(GamerInputScreen *gamer_input_screen),
 
    void primary_timer_func() override;
    void user_event_func() override;

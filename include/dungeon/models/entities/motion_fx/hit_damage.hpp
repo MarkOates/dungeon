@@ -2,7 +2,7 @@
 
 
 #include <dungeon/models/entities/motion_fx/base.hpp>
-#include <framework/objects/text_object.hpp>
+//#include <framework/objects/text_object.hpp>
 #include <allegro5/allegro_font.h>
 
 

@@ -1,13 +1,13 @@
 #pragma once
 
 
-#include <framework/screen.hpp>
-#include <framework/objects/text_object.hpp>
-#include <framework/objects/bitmap_object.hpp>
+//#include <framework/screen.hpp>
+//#include <framework/objects/text_object.hpp>
+//#include <framework/objects/bitmap_object.hpp>
 #include <dungeon/models/sprite_sheet.hpp>
 
 
-class TitleScreen : public Screen
+class TitleScreen : public AllegroFlare::Screens::Base
 {
 private:
    enum
@@ -26,7 +26,7 @@ public:
    int state;
    BitmapObject menu_cursor_sprite;
 
-   TitleScreen(Display *display);
+   TitleScreen();
 
    void primary_timer_func() override;
    void user_event_func() override;

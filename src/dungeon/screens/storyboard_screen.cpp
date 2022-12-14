@@ -3,15 +3,15 @@
 
 #include <dungeon/screens/storyboard_screen.hpp>
 
-#include <framework/screens/gamer_input_screen.hpp>
+//#include <framework/screens/gamer_input_screen.hpp>
 #include <dungeon/emitters/user_event_emitter.hpp>
-#include <framework/framework.hpp>
+//#include <framework/framework.hpp>
 #include <dungeon/user_events.hpp>
 
 
 
-StoryboardScreen::StoryboardScreen(Display *display, std::vector<std::string> pages, intptr_t event_to_emit_after_completing)
-   : Screen(display)
+StoryboardScreen::StoryboardScreen(std::vector<std::string> pages, intptr_t event_to_emit_after_completing)
+   : Screen()
    , text_font(Framework::font("ChronoTrigger.ttf 60"))
    , pages(pages)
    , current_page(0)

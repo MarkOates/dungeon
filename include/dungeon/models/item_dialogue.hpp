@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <framework/objects/bitmap_object.hpp>
+//#include <framework/objects/bitmap_object.hpp>
 #include <vector>
 #include <string>
 

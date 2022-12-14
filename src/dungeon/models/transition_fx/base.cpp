@@ -2,7 +2,7 @@
 
 #include <dungeon/models/transition_fx/base.hpp>
 
-#include <framework/color.hpp>
+//#include <framework/color.hpp>
 
 
 namespace TransitionFX

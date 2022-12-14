@@ -3,7 +3,7 @@
 
 #include <dungeon/models/inventory_screen.hpp>
 
-#include <framework/display.hpp>
+//#include <framework/display.hpp>
 #include <dungeon/emitters/user_event_emitter.hpp>
 #include <dungeon/models/inventory.hpp>
 #include <dungeon/render_components/inventory_screen_render_component.hpp>
@@ -12,7 +12,7 @@
 
 
 
-InventoryScreen::InventoryScreen(Inventory *inventory, Display *display)
+InventoryScreen::InventoryScreen(Inventory *inventory)
    : inventory(inventory)
    , motion()
    , display_counter(0)
@@ -21,7 +21,7 @@ InventoryScreen::InventoryScreen(Inventory *inventory, Display *display)
    , cursor(0)
    , selector(0)
    //, inventory_screen_render_component(this, display)
-   , display(display)
+   //, display(display)
    , fonts()
    , title(TextObject("Inventory"))
    , item_render_components()
@@ -31,12 +31,12 @@ InventoryScreen::InventoryScreen(Inventory *inventory, Display *display)
    title.font(font)
       .align(0.5, 1.1)
       .scale(1, 1)
-      .position(display->center(), display->middle()-200);
+      .position(1920/2, 1080/2-200);
 
    int spacing = 150;
    float row_y = 270;
    float row_spacing = 150;
-   int center = display->width() / 2;
+   int center = 1920 / 2;
    //int top_row = display->height() / 6 * 3;
    //int bottom_row = display->height() / 6 * 4;
 
@@ -178,12 +178,12 @@ void InventoryScreen::update(float time_now)
 
 
 
-void InventoryScreen::draw(Display *display)
+void InventoryScreen::draw()
 {
-   if (!display) throw std::runtime_error("InventoryScreen::draw(): cannot draw() on a nullptr display");
+   //if (!display) throw std::runtime_error("InventoryScreen::draw(): cannot draw() on a nullptr display");
 
    float padding = 40;
-   al_draw_filled_rectangle(padding, padding, display->width()-padding, display->height()-padding, color::black);
+   al_draw_filled_rectangle(padding, padding, 1920-padding, 1080-padding, color::black);
    title.draw();
 
    for (auto &item_render_component : item_render_components) item_render_component->draw();

@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <framework/objects/bitmap_object.hpp>
+//#include <framework/objects/bitmap_object.hpp>
 #include <dungeon/models/inventory.hpp>
 #include <dungeon/models/naughty_list.hpp>
 #include <dungeon/models/sprite_sheet.hpp>

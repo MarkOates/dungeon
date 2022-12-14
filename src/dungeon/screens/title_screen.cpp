@@ -3,8 +3,8 @@
 
 #include <dungeon/screens/title_screen.hpp>
 
-#include <framework/screens/gamer_input_screen.hpp>
-#include <framework/framework.hpp>
+//#include <framework/screens/gamer_input_screen.hpp>
+//#include <framework/framework.hpp>
 #include <dungeon/emitters/user_event_emitter.hpp>
 #include <dungeon/item_type_nums.hpp>
 #include <dungeon/user_events.hpp>
@@ -17,8 +17,8 @@
 
 
 
-TitleScreen::TitleScreen(Display *display)
-   : Screen(display)
+TitleScreen::TitleScreen()
+   : AllegroFlare::Screens::Base()
    , sprite_sheet(SPRITES_GRID_FILENAME, SPRITES_GRID_SPRITE_WIDTH, SPRITES_GRID_SPRITE_HEIGHT, SPRITES_GRID_SPRITE_SCALING)
    , fonts()
    , menu_cursor_pos(0)
@@ -34,17 +34,21 @@ TitleScreen::TitleScreen(Display *display)
 {
    ALLEGRO_FONT *font = fonts["ChronoTrigger.ttf 60"];
 
+   u
+
    title.font(font)
       .align(0.5, 1.0)
       .scale(2.5, 2.5)
       .color(color::mix(color::yellow, color::red, 0.6))
-      .position(display->center(), display->middle()-100);
+      .position(1920/2, 1080/2-100);
+      //.position(display->center(), display->middle()-100);
 
    title2.font(font)
       .align(0.5, -0.1)
       .scale(1.5, 1.5)
       .color(color::mix(color::yellow, color::red, 0.9))
-      .position(display->center(), display->middle()-100);
+      .position(1920/2, 1080/2-100);
+      //.position(display->center(), display->middle()-100);
 
    menu_cursor_sprite
       .align(0.5, 0.5)
@@ -57,7 +61,8 @@ TitleScreen::TitleScreen(Display *display)
       menu_item.first.font(font)
          .align(0, 0.5)
          .scale(1.0, 1.0)
-         .position(display->center(), display->middle()+count*50 + 100);
+         .position(1920/2, 1080/2+count*50 + 100);
+         //.position(display->center(), display->middle()+count*50 + 100);
 
       count++;
    }

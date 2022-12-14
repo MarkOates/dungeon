@@ -3,7 +3,7 @@
 
 #include <dungeon/models/entities/enemy/kid_entity.hpp>
 #include <dungeon/models/sprite_sheet.hpp>
-#include <framework/shader.hpp>
+//#include <framework/shader.hpp>
 
 
 class ElementID;

@@ -1,8 +1,8 @@
 #pragma once
 
 
-#include <framework/objects/bitmap_object.hpp>
-#include <framework/placement2d.hpp>
+//#include <framework/objects/bitmap_object.hpp>
+//#include <framework/placement2d.hpp>
 #include <dungeon/models/sprite_sheet.hpp>
 #include <dungeon/item_type_nums.hpp>
 

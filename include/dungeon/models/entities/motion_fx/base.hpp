@@ -2,7 +2,7 @@
 
 
 #include <dungeon/models/entities/base.hpp>
-#include <framework/placement2d.hpp>
+//#include <framework/placement2d.hpp>
 
 
 namespace MotionFX

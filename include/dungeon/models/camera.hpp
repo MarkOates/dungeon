@@ -2,8 +2,8 @@
 
 
 #include <dungeon/models/entities/base.hpp>
-#include <framework/display.hpp>
-#include <framework/motion.hpp>
+//#include <framework/display.hpp>
+//#include <framework/motion.hpp>
 
 
 class Camera
@@ -15,7 +15,7 @@ private:
    Motion motion;
 
 public:
-   Camera(Display *display, Entity::Base *target);
+   Camera(Entity::Base *target);
 
    void set_target(Entity::Base *new_target=nullptr);
 

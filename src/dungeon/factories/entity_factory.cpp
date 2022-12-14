@@ -3,8 +3,8 @@
 
 #include <dungeon/factories/entity_factory.hpp>
 
-#include <framework/framework.hpp>
-#include <framework/image_processing.hpp>
+//#include <framework/framework.hpp>
+//#include <framework/image_processing.hpp>
 #include <dungeon/models/entities/motion_fx/frame_animation.hpp>
 #include <dungeon/models/entities/motion_fx/hit_damage.hpp>
 #include <dungeon/models/entities/enemy/base.hpp>

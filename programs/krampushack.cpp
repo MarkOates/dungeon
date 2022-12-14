@@ -1,8 +1,8 @@
 
 
 
-#include <framework/screens/gamer_input_screen.hpp>
-#include <framework/screen.hpp>
+//#include <framework/screens/gamer_input_screen.hpp>
+//#include <framework/screen.hpp>
 #include <dungeon/models/audio_controller.hpp>
 #include <dungeon/emitters/user_event_emitter.hpp>
 #include <dungeon/factories/storyboard_factory.hpp>
@@ -12,18 +12,19 @@
 
 
 
-class KrampusHackProject : public Screen
+class KrampusHackProject : public AllegroFlare::Screens::Base
 {
 public:
    Screen *current_screen;
    GamerInputScreen gamer_input_screen;
    AudioController audio_controller;
 
-	KrampusHackProject(Display *display)
-      : Screen(display)
+	KrampusHackProject()
+      //: Screen(display)
+      : AllegroFlare::Screens::Base()
       , current_screen(nullptr)
       , audio_controller()
-      , gamer_input_screen(display)
+      , gamer_input_screen()
    {
       UserEventEmitter::emit_event(START_TITLE_SCREEN);
       gamer_input_screen.show_graphic = true;
@@ -43,22 +44,22 @@ public:
          break;
       case START_TITLE_SCREEN:
          if (current_screen) delete current_screen;
-         current_screen = new TitleScreen(display);
+         current_screen = new TitleScreen();
          audio_controller.play_game_show_music();
          break;
       case START_INTRO_STORYBOARD_SCREEN:
          if (current_screen) delete current_screen;
-         current_screen = StoryboardFactory::create_opening_storyboard_screen(display);
+         current_screen = StoryboardFactory::create_opening_storyboard_screen();
          audio_controller.play_storyboard_music();
          break;
       case START_CLOSING_STORYBOARD_SCREEN:
          if (current_screen) delete current_screen;
-         current_screen = StoryboardFactory::create_closing_storyboard_screen(display);
+         current_screen = StoryboardFactory::create_closing_storyboard_screen();
          audio_controller.play_game_show_music();
          break;
       case START_GAME_EVENT:
          delete current_screen;
-         current_screen = new GamePlayScreen(display, &gamer_input_screen);
+         current_screen = new GamePlayScreen(&gamer_input_screen);
          break;
       case PLAY_MUSIC_TRACK:
          {
@@ -93,14 +94,14 @@ public:
 #include <AllegroFlare/Screens/Base.hpp>
 
 
-class WrappedKrampusHackProject : public KrampusHackProject, public AllegroFlare::Screens::Base
-{
-public:
-   WrappedKrampusHackProject()
-      : KrampusHackProject(nullptr)
-   {}
-   ~WrappedKrampusHackProject() {}
-};
+//class WrappedKrampusHackProject : public KrampusHackProject, public AllegroFlare::Screens::Base
+//{
+//public:
+   //WrappedKrampusHackProject()
+      //: KrampusHackProject(nullptr)
+   //{}
+   //~WrappedKrampusHackProject() {}
+//};
 
 
 

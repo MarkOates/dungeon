@@ -3,16 +3,16 @@
 #include <dungeon/render_components/inventory_screen_render_component.hpp>
 
 #include <allegro5/allegro_primitives.h>
-#include <framework/display.hpp>
-#include <framework/color.hpp>
+//#include <framework/display.hpp>
+//#include <framework/color.hpp>
 #include <dungeon/models/inventory_screen.hpp>
 #include <dungeon/item_type_nums.hpp>
 
 
 
-InventoryScreenRenderComponent::InventoryScreenRenderComponent(InventoryScreen *inventory_screen, Display *display)
+InventoryScreenRenderComponent::InventoryScreenRenderComponent(InventoryScreen *inventory_screen)
    : inventory_screen(inventory_screen)
-   , display(display)
+   //, display(display)
    , fonts()
    , title(TextObject("Inventory"))
    , item_render_components()
@@ -22,12 +22,12 @@ InventoryScreenRenderComponent::InventoryScreenRenderComponent(InventoryScreen *
    title.font(font)
       .align(0.5, 1.1)
       .scale(1, 1)
-      .position(display->center(), display->middle()-200);
+      .position(1920/2, 1080/2-200);
 
    int spacing = 150;
    float row_y = 270;
    float row_spacing = 150;
-   int center = display->width() / 2;
+   int center = 1920 / 2;
    //int top_row = display->height() / 6 * 3;
    //int bottom_row = display->height() / 6 * 4;
 
@@ -90,10 +90,10 @@ void InventoryScreenRenderComponent::select(int index)
 void InventoryScreenRenderComponent::draw()
 {
    if (!inventory_screen) throw std::runtime_error("InventoryScreenRenderComponent::draw(): cannot draw() on a nullptr inventory_screen");
-   if (!display) throw std::runtime_error("InventoryScreenRenderComponent::draw(): cannot draw() on a nullptr display");
+   //if (!display) throw std::runtime_error("InventoryScreenRenderComponent::draw(): cannot draw() on a nullptr display");
 
    float padding = 40;
-   al_draw_filled_rectangle(padding, padding, display->width()-padding, display->height()-padding, color::black);
+   al_draw_filled_rectangle(padding, padding, 1920/2-padding, 1080/2-padding, color::black);
    title.draw();
 
    for (auto &item_render_component : item_render_components) item_render_component->draw();

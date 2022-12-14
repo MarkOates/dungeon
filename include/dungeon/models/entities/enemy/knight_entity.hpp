@@ -3,7 +3,7 @@
 
 #include <dungeon/models/entities/enemy/base.hpp>
 
-#include <framework/shader.hpp>
+//#include <framework/shader.hpp>
 #include <dungeon/models/sprite_sheet.hpp>
 
 

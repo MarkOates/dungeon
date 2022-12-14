@@ -5,8 +5,8 @@
 
 
 
-Camera::Camera(Display *display, Entity::Base *target)
-   : place(0, 0, display->width(), display->height())
+Camera::Camera(Entity::Base *target)
+   : place(0, 0, 1920, 1080)
    , target(target)
    , overlay_color(color::transparent)
    , motion()

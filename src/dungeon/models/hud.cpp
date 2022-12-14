@@ -3,8 +3,8 @@
 
 #include <dungeon/models/hud.hpp>
 
-#include <framework/framework.hpp>
-#include <framework/image_processing.hpp>
+//#include <framework/framework.hpp>
+//#include <framework/image_processing.hpp>
 #include <framework/objects/text_object.hpp>
 #include <dungeon/item_type_nums.hpp>
 #include <sstream>

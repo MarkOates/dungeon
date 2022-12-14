@@ -1,10 +1,11 @@
 #pragma once
 
 
-#include <framework/element_id.hpp>
+//#include <framework/element_id.hpp>
+#include <AllegroFlare/ElementID.hpp>
 
 
-class Scene : public ElementID
+class Scene : public AllegroFlare::ElementID
 {
 private:
    float floor_min_y, floor_max_y;

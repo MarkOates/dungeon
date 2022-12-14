@@ -1,9 +1,9 @@
 #pragma once
 
 
-#include <framework/objects/bitmap_object.hpp>
-#include <framework/placement2d.hpp>
-#include <framework/element_id.hpp>
+//#include <framework/objects/bitmap_object.hpp>
+//#include <framework/placement2d.hpp>
+//#include <framework/element_id.hpp>
 
 
 namespace Entity
