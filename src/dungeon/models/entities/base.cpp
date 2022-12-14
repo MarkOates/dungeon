@@ -43,7 +43,7 @@ void Base::flag_for_deletion()
 void Base::draw()
 {
    place.start_transform();
-   al_draw_filled_rectangle(0, 0, place.size.x, place.size.y, color::red);
+   //al_draw_filled_rectangle(0, 0, place.size.x, place.size.y, color::red);
    bitmap.position(place.size.x/2, place.size.y/2);
    bitmap.draw();
    place.restore_transform();

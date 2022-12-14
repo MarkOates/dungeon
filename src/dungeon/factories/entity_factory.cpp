@@ -15,6 +15,7 @@
 #include <dungeon/models/entities/damage_zone_entity.hpp>
 #include <dungeon/models/entities/item_entity.hpp>
 #include <dungeon/models/entities/krampus_entity.hpp>
+#include <dungeon/models/entities/bookshelf_entity.hpp>
 #include <dungeon/item_type_nums.hpp>
 
 
@@ -253,6 +254,13 @@ Entity::Base *EntityFactory::create_reverse_explosion_fx(ElementID *parent, floa
 {
    MotionFX::FrameAnimation *frame_animation = new MotionFX::FrameAnimation(parent, get_instance()->reverse_explosion_fx_frames_filename, 64, 64, 5, x, y);
    return frame_animation;
+}
+
+
+
+Entity::Base *EntityFactory::create_bookshelf(ElementID *parent, float x, float y)
+{
+   return new BookshelfEntity(parent, get_instance()->character_sprite_sheet.get_sprite(44), x, y);
 }
 
 

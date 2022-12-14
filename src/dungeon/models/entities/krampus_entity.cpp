@@ -25,7 +25,7 @@ KrampusEntity::KrampusEntity(ElementID *parent, SpriteSheet *sprite_sheet, float
    , sprite_sheet(sprite_sheet)
 {
    place.size = vec2d(120, 30);
-   bitmap.bitmap(sprite_sheet->get_sprite(18));
+   bitmap.bitmap(sprite_sheet->get_sprite(4));
    bitmap.align(0.5, 1.0);
    bitmap.scale(2.0, 2.0);
    bitmap.position(place.size.x/2, place.size.y/2);
@@ -132,6 +132,7 @@ void KrampusEntity::update()
 void KrampusEntity::draw()
 {
    place.start_transform();
+   //al_draw_filled_rectangle(0, 0, place.size.x, place.size.y, color::midnightblue);
    bitmap.start_transform();
    bitmap.draw_raw();
    if (has_weapon()) club_bitmap.draw();
@@ -151,7 +152,7 @@ void KrampusEntity::attack()
 
 void KrampusEntity::take_hit()
 {
-   set_state(TAKING_HIT);
+   //set_state(TAKING_HIT);
 }
 
 
@@ -240,23 +241,23 @@ bool KrampusEntity::set_state(state_t new_state, bool override_if_busy)
    switch(new_state)
    {
    case WALKING_UP:
-      bitmap.bitmap(sprite_sheet->get_sprite(18));
+      bitmap.bitmap(sprite_sheet->get_sprite(4));
       velocity.position = vec2d(0.0, -walking_speed/2);
       shield_bitmap.flip(true, false);
       break;
    case WALKING_DOWN:
-      bitmap.bitmap(sprite_sheet->get_sprite(18));
+      bitmap.bitmap(sprite_sheet->get_sprite(4));
       velocity.position = vec2d(0.0, walking_speed/2);
       shield_bitmap.flip(true, false);
       break;
    case WALKING_LEFT:
-      bitmap.bitmap(sprite_sheet->get_sprite(18));
+      bitmap.bitmap(sprite_sheet->get_sprite(4));
       face_left();
       velocity.position = vec2d(-walking_speed, 0.0);
       shield_bitmap.flip(true, false);
       break;
    case WALKING_RIGHT:
-      bitmap.bitmap(sprite_sheet->get_sprite(18));
+      bitmap.bitmap(sprite_sheet->get_sprite(4));
       face_right();
       velocity.position = vec2d(walking_speed, 0.0);
       shield_bitmap.flip(true, false);
@@ -285,7 +286,7 @@ bool KrampusEntity::set_state(state_t new_state, bool override_if_busy)
       break;
    case STANDING:
       bitmap.anchor(0, 0);
-      bitmap.bitmap(sprite_sheet->get_sprite(18));
+      bitmap.bitmap(sprite_sheet->get_sprite(4));
       velocity.position = vec2d(0.0, 0.0);
       club_bitmap.position(bitmap.w()/2 + 36, bitmap.h()-20);
       club_bitmap.rotation(FULL_ROTATION * 0.25 - 0.2);
