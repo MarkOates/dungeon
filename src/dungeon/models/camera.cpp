@@ -43,7 +43,7 @@ void Camera::update(float max_x)
 
 
 
-   float right_camera_edge = max_x-place.size.y/2;
+   float right_camera_edge = max_x-place.size.x/2;
    float left_camera_edge = 0;
 
 
