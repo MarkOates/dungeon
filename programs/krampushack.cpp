@@ -18,6 +18,7 @@
 #include <AllegroFlare/Frameworks/Full.hpp>
 
 #include <dungeon/factories/entity_factory.hpp>
+#include <dungeon/factories/dialogue_factory.hpp>
 
 
    //: game_show_music(Framework::sample("game_show_music.ogg"))
@@ -172,6 +173,14 @@ int main(int argc, char **argv)
          &framework.get_font_bin_ref(),
          framework.get_bitmap_bin_ref().auto_get("sprites_grid-x.png")
       );
+
+
+
+   DialogueFactory::init(
+         &framework.get_font_bin_ref(),
+         framework.get_bitmap_bin_ref().auto_get("sprites_grid-x.png")
+      );
+
 
 
 

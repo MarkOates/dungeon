@@ -122,7 +122,9 @@ void GamePlayScreen::virtual_control_axis_change_func(ALLEGRO_EVENT *ev)
 
 void GamePlayScreen::user_event_func(ALLEGRO_EVENT *ev)
 {
-   std::cout << "EVENT! " << std::endl;
+   // DEBUG:
+
+   //std::cout << "EVENT! " << std::endl;
 
 
    ALLEGRO_EVENT *event = ev;
@@ -158,7 +160,7 @@ void GamePlayScreen::user_event_func(ALLEGRO_EVENT *ev)
       //}
       case ENTER_DOOR_EVENT:
       {
-         std::cout << "DOOR!" << std::endl;
+         //std::cout << "DOOR!" << std::endl;
          int scene_id = event->user.data1;
          std::string destination_door_name;
          destination_door_name.push_back((char)event->user.data2);

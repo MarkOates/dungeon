@@ -141,9 +141,9 @@ void HUD::draw()
    // draw the black bars
    float black_bar_height = 100;
    float top_bar_y = 0 - black_bar_height * (1.0 - black_bar_counter);
-   float bottom_bar_y = 720-black_bar_height + black_bar_height * (1.0 - black_bar_counter);
-   al_draw_filled_rectangle(0, top_bar_y, 1280, top_bar_y+black_bar_height, AllegroFlare::color::black);
-   al_draw_filled_rectangle(0, bottom_bar_y, 1280, bottom_bar_y+black_bar_height, AllegroFlare::color::black);
+   float bottom_bar_y = 1080-black_bar_height + black_bar_height * (1.0 - black_bar_counter);
+   //al_draw_filled_rectangle(0, top_bar_y, 1920, top_bar_y+black_bar_height, AllegroFlare::color::black);
+   //al_draw_filled_rectangle(0, bottom_bar_y, 1920, bottom_bar_y+black_bar_height, AllegroFlare::color::black);
 }
 
 
