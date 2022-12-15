@@ -45,8 +45,8 @@ void Camera::update(float max_x)
    if (target) place.position.x = target->place.position.x;
    place.position.y = (int)(world_height * 0.5);
 
-   //if (place.position.x < place.position.x/2) place.position.x = place.size.x/2;
-   //if (place.position.x > max_x-place.position.x/2) place.position.x = max_x-place.size.x/2;
+   if (place.position.x < place.size.x/2) place.position.x = place.size.x/2;
+   if (place.position.x > max_x-place.size.x/2) place.position.x = max_x-place.size.x/2;
 }
 
 
@@ -106,7 +106,7 @@ void Camera::fade_to_clear(float duration)
 
 void Camera::set_zoom(float scale)
 {
-   scale -= 0.15;
+   //scale -= 0.0;
    place.scale.x = scale;
    place.scale.y = scale;
 }
@@ -115,7 +115,7 @@ void Camera::set_zoom(float scale)
 
 void Camera::zoom_to(float scale, float duration)
 {
-   scale -= 0.15;
+   //scale -= 0.0;
    motion.cmove_to(&place.scale.x, scale, duration);
    motion.cmove_to(&place.scale.y, scale, duration);
 }
