@@ -15,13 +15,19 @@ private:
    AllegroFlare::Random random;
    float state_counter;
    bool _can_bypass_dialogue();
+   bool up_pressed;
+   bool down_pressed;
+   bool left_pressed;
+   bool right_pressed;
 
 public:
    GamePlayScreenStateHelper(AllegroFlare::EventEmitter *event_emitter, GamePlayScreen *game_play_screen);
 
    void process_key_down(int input_button);
+   void process_key_up(int input_button);
    void set_state(int new_state);
    void update_state();
+
    void draw_state();
 
    void update_scene();

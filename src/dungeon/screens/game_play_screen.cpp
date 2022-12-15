@@ -59,6 +59,67 @@ void GamePlayScreen::primary_timer_func()
 
 
 
+void GamePlayScreen::virtual_control_button_up_func(int player_num, int button_num, bool repeat)
+{
+   switch (state)
+   {
+      case GAME_PLAY:
+      {
+         //int user_input = event->user.data1;
+         player_krampus_controller.on_key_up(button_num);
+         break;
+      }
+      default: break;
+   }
+   //player_krampus_controller.on_key_up(user_input);
+}
+
+
+
+
+void GamePlayScreen::virtual_control_button_down_func(int player_num, int button_num, bool repeat)
+{
+   state_helper.process_key_down(button_num);
+
+
+   //switch (event->user.type)
+   //{
+      //case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
+      //{
+         //int user_input = event->user.data1;
+         //state_helper.process_key_down(user_input);
+         //break;
+      //}
+      ////case ALLEGRO_EVENT_GAMER_BUTTON_UP:
+      //case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP:
+      //{
+         //switch (state)
+         //{
+            //case GAME_PLAY:
+            //{
+               //int user_input = event->user.data1;
+               //player_krampus_controller.on_key_up(user_input);
+               //break;
+            //}
+            //default: break;
+         //}
+         //break;
+      //}
+   //}
+}
+
+
+
+
+void GamePlayScreen::virtual_control_axis_change_func(ALLEGRO_EVENT *ev)
+{
+   ALLEGRO_EVENT *event = ev;
+}
+
+
+
+
+
 void GamePlayScreen::user_event_func(ALLEGRO_EVENT *ev)
 {
    ALLEGRO_EVENT *event = ev;
@@ -70,27 +131,27 @@ void GamePlayScreen::user_event_func(ALLEGRO_EVENT *ev)
          set_state(GAME_LOST);
       }
       //case ALLEGRO_EVENT_GAMER_BUTTON_DOWN:
-      case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
-      {
-         int user_input = event->user.data1;
-         state_helper.process_key_down(user_input);
-         break;
-      }
-      //case ALLEGRO_EVENT_GAMER_BUTTON_UP:
-      case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP:
-      {
-         switch (state)
-         {
-            case GAME_PLAY:
-            {
-               int user_input = event->user.data1;
-               player_krampus_controller.on_key_up(user_input);
-               break;
-            }
-            default: break;
-         }
-         break;
-      }
+      //case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
+      //{
+         //int user_input = event->user.data1;
+         //state_helper.process_key_down(user_input);
+         //break;
+      //}
+      ////case ALLEGRO_EVENT_GAMER_BUTTON_UP:
+      //case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP:
+      //{
+         //switch (state)
+         //{
+            //case GAME_PLAY:
+            //{
+               //int user_input = event->user.data1;
+               //player_krampus_controller.on_key_up(user_input);
+               //break;
+            //}
+            //default: break;
+         //}
+         //break;
+      //}
       case ENTER_DOOR_EVENT:
       {
          int scene_id = event->user.data1;

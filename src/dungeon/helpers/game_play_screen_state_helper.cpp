@@ -26,8 +26,36 @@ GamePlayScreenStateHelper::GamePlayScreenStateHelper(AllegroFlare::EventEmitter 
    , game_play_screen(game_play_screen)
    , random()
    , state_counter(1.0)
+   , up_pressed(false)
+   , down_pressed(false)
+   , left_pressed(false)
+   , right_pressed(false)
 {}
 
+
+
+void GamePlayScreenStateHelper::process_key_up(int input_button)
+{
+   auto &GAMER_BUTTON_UP = AllegroFlare::VirtualControls::BUTTON_UP;
+   auto &GAMER_BUTTON_DOWN = AllegroFlare::VirtualControls::BUTTON_DOWN;
+   auto &GAMER_BUTTON_LEFT = AllegroFlare::VirtualControls::BUTTON_LEFT;
+   auto &GAMER_BUTTON_RIGHT = AllegroFlare::VirtualControls::BUTTON_RIGHT;
+
+   switch (game_play_screen->state)
+   {
+      case GamePlayScreen::GAME_PLAY:
+      {
+         //if (input_button == GAMER_BUTTON_UP) up_pressed = false;
+         //if (input_button == GAMER_BUTTON_DOWN) down_pressed = false;
+         //if (input_button == GAMER_BUTTON_LEFT) left_pressed = false;
+         //if (input_button == GAMER_BUTTON_RIGHT) right_pressed = false;
+         //int user_input = event->user.data1;
+         game_play_screen->player_krampus_controller.on_key_up(input_button);
+         break;
+      }
+      default: break;
+   }
+}
 
 
 
@@ -48,6 +76,10 @@ void GamePlayScreenStateHelper::process_key_down(int input_button)
       if (input_button == GAMER_BUTTON_START) event_emitter->emit_event(OPEN_INVENTORY_SCREEN);
       else
       {
+         if (input_button == GAMER_BUTTON_UP) up_pressed = true;
+         if (input_button == GAMER_BUTTON_DOWN) down_pressed = true;
+         if (input_button == GAMER_BUTTON_LEFT) left_pressed = true;
+         if (input_button == GAMER_BUTTON_RIGHT) right_pressed = true;
          game_play_screen->player_krampus_controller.on_key_down(input_button);
       }
       break;
@@ -173,10 +205,10 @@ void GamePlayScreenStateHelper::update_state()
          // TODO;
          // CRITICAL:
          // OK, serious flaw, this needs to be updated:
-         bool up_pressed = false;
-         bool down_pressed = false;
-         bool left_pressed = false;
-         bool right_pressed = false;
+         //bool up_pressed = false;
+         //bool down_pressed = false;
+         //bool left_pressed = false;
+         //bool right_pressed = false;
          //game_play_screen->player_krampus_controller.update_polled_keyboard_input(gamer_input_screen);
          //bool right_pressed, bool left_pressed, bool up_pressed, bool down_pressed
          game_play_screen->player_krampus_controller.update_polled_keyboard_input(
