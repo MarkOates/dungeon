@@ -50,13 +50,13 @@ INDIVIDUAL_TEST_EXECUTABLES := $(TEST_SOURCES:tests/%.cpp=bin/tests/%)
 
 
 bin/krampushack: programs/krampushack.cpp $(OBJECTS)
-	g++ $(VERSION_FLAG) $(OBJECTS) $< -o $@ $(ALLEGRO_LIBS) -L$(ALLEGRO_DIR)/lib $(OPENGL_LIB) -I$(ALLEGRO_DIR)/include -I./include
+	g++ -g $(VERSION_FLAG) $(OBJECTS) $< -o $@ $(ALLEGRO_LIBS) -L$(ALLEGRO_DIR)/lib $(OPENGL_LIB) -I$(ALLEGRO_DIR)/include -I./include
 
 
 
 obj/%.o: src/%.cpp
 	@mkdir -p $(@D)
-	g++ -c $(VERSION_FLAG) $< -o $@ -I$(ALLEGRO_DIR)/include -I./include
+	g++ -g -c $(VERSION_FLAG) $< -o $@ -I$(ALLEGRO_DIR)/include -I./include
 
 
 
@@ -67,7 +67,7 @@ tests: $(INDIVIDUAL_TEST_EXECUTABLES)
 bin/tests/%: obj/tests/%.o
 	@mkdir -p $(@D)
 	@printf "compiling standalone test \e[1m\e[36m$<\033[0m...\n"
-	@g++ $(VERSION_FLAG) -Wall -Wuninitialized -Weffc++ $(OBJECTS) $< -o $@ -l$(GOOGLE_TEST_LIBS) -I./include -I$(GOOGLE_TEST_INCLUDE_DIR) -L$(GOOGLE_TEST_LIB_DIR) $(ALLEGRO_LIBS_WITHOUT_MAIN) -L$(ALLEGRO_DIR)/lib $(OPENGL_LIB) -I$(ALLEGRO_DIR)/include
+	@g++ -g $(VERSION_FLAG) -Wall -Wuninitialized -Weffc++ $(OBJECTS) $< -o $@ -l$(GOOGLE_TEST_LIBS) -I./include -I$(GOOGLE_TEST_INCLUDE_DIR) -L$(GOOGLE_TEST_LIB_DIR) $(ALLEGRO_LIBS_WITHOUT_MAIN) -L$(ALLEGRO_DIR)/lib $(OPENGL_LIB) -I$(ALLEGRO_DIR)/include
 	@echo "done. Executable at \033[1m\033[32m$@\033[0m"
 
 
@@ -75,7 +75,7 @@ bin/tests/%: obj/tests/%.o
 obj/tests/%.o: tests/%.cpp $(OBJECTS)
 	@mkdir -p $(@D)
 	@printf "compiling test obj file \e[1m\e[36m$<\033[0m...\n"
-	@g++ -c $(VERSION_FLAG) -Wall -Wuninitialized -Weffc++ $< -o $@ -I./include -I$(GOOGLE_TEST_INCLUDE_DIR)
+	@g++ -g -c $(VERSION_FLAG) -Wall -Wuninitialized -Weffc++ $< -o $@ -I./include -I$(GOOGLE_TEST_INCLUDE_DIR)
 	@echo "done. Object at \033[1m\033[32m$@\033[0m"
 
 
