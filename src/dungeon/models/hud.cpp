@@ -46,6 +46,8 @@ HUD::HUD(AllegroFlare::Shader *flat_color_shader, AllegroFlare::BitmapBin *bitma
    AllegroFlare::ImageProcessing image_processing(hud_chrome);
    ALLEGRO_BITMAP *hud_chrome_scaled = image_processing.create_pixel_perfect_scaled_render(5);
    chrome_bitmap.bitmap(hud_chrome_scaled);
+   //chrome_bitmap.position(0, 0);
+   //chrome_bitmap.align(0, 0);
    chrome_bitmap.position(1920/2, 1080/2);
    chrome_bitmap.align(0.5, 0.5);
    chrome_bitmap.set_swapping_colors(true);

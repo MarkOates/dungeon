@@ -50,8 +50,8 @@ void main()
    vec4 tmp = texture2D(al_tex, varying_texcoord);
 
    if (swapping_colors) tmp = swap_color(tmp);
-   gl_FragColor = tmp;
-   return;
+   //gl_FragColor = tmp;
+   //return;
 
    float inverse_tint_intensity = 1.0 - tint_intensity;
    tmp.r = (tmp.r * inverse_tint_intensity + tint.r * tint_intensity) * tmp.a;

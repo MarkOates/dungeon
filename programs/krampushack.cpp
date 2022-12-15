@@ -162,10 +162,14 @@ public:
 
 int main(int argc, char **argv)
 {
+
+
+
    AllegroFlare::Frameworks::Full framework;
-   framework.disable_fullscreen();
+   //framework.disable_fullscreen();
    framework.initialize();
 
+   al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
 
 
 
@@ -207,7 +211,6 @@ int main(int argc, char **argv)
       );
 
    gameplay_screen.init();
-
 
 
 
