@@ -37,6 +37,8 @@
 #include <AllegroFlare/Random.hpp>
 
 #include <AllegroFlare/InteractiveDevelopment.hpp>
+#include <AllegroFlare/UsefulPHP.hpp>
+
 
 
 
@@ -53,11 +55,16 @@ GamePlayScreen::GamePlayScreen(AllegroFlare::EventEmitter *event_emitter, Allegr
    , player_krampus_controller()
    , ai_controllers()
    , player_inventory()
+   , flat_color_shader(
+         AllegroFlare::php::file_get_contents("data/shaders/flat_color_shader.vertex.glsl"),
+         AllegroFlare::php::file_get_contents("data/shaders/flat_color_shader.fragment.glsl")
+      )
+   //, flat_color_shader("data/shaders/flat_color_shader.vertex.glsl", "data/shaders/flat_color_shader.fragment.glsl")
    , naughty_list()
    , event_emitter(event_emitter)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
-   , hud(font_bin, bitmap_bin->auto_get("top_hud-x.png"), &player_inventory, &naughty_list)
+   , hud(&flat_color_shader, bitmap_bin, font_bin, bitmap_bin->auto_get("top_hud-x.png"), &player_inventory, &naughty_list)
    , inventory_screen(font_bin, &player_inventory)
    //, state_helper(event_emitter, this)
    , camera(nullptr)
@@ -73,11 +80,19 @@ GamePlayScreen::GamePlayScreen(AllegroFlare::EventEmitter *event_emitter, Allegr
    , down_pressed(false)
    , left_pressed(false)
    , right_pressed(false)
-
+   , initialized(false)
 {
    if (!event_emitter) throw std::runtime_error("GamePlayScreen:: no event_emitter");
+}
+
+
+
+void GamePlayScreen::init()
+{
+   flat_color_shader.initialize();
    enter_scene(START_SCENE_ID);
    set_state(GAME_PLAY);
+   initialized = true;
 }
 
 
@@ -524,8 +539,6 @@ void GamePlayScreen::draw_scene_with_camera()
    camera.start_transform();
    scene->draw_all();
    camera.restore_transform();
-
-   hud.draw();
 }
 
 
@@ -555,7 +568,7 @@ void GamePlayScreen::draw()
 {
    //state_helper.draw_state();
 
-   al_clear_to_color(AllegroFlare::color::black);
+   //al_clear_to_color(AllegroFlare::color::black); // not needed because allegro flare clears automatically
 
    switch (state)
    {
@@ -611,7 +624,8 @@ void GamePlayScreen::draw()
    // draw the camera's overlay color
    camera.draw_overlay();
 
-
+   // note the hud is always displayed over the camera
+   hud.draw();
 }
 
 
@@ -749,6 +763,12 @@ void GamePlayScreen::enter_scene(int scene_id, char door_name)
    }
 
    set_state(ENTERING_THROUGH_DOOR);
+}
+
+
+AllegroFlare::Shader *GamePlayScreen::get_flat_color_shader()
+{
+   return &flat_color_shader;
 }
 
 

@@ -21,7 +21,7 @@ class EntityFactory
 {
 private:
    SpriteSheet character_sprite_sheet;
-   AllegroFlare::Shader flat_color_shader;
+   AllegroFlare::Shader *flat_color_shader;
    ALLEGRO_BITMAP *background1;
    ALLEGRO_BITMAP *background2;
    ALLEGRO_BITMAP *background3;
@@ -47,13 +47,13 @@ private:
    static bool initialized;
    static AllegroFlare::Random random;
 
-   EntityFactory(AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap);
+   EntityFactory(AllegroFlare::Shader *flat_color_shader, AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap);
    ~EntityFactory();
 
 public:
 
 
-   static void init(AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap);
+   static void init(AllegroFlare::Shader *flat_color_shader, AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap);
 
    ALLEGRO_BITMAP *create_pixel_perfect_scaled_render(ALLEGRO_BITMAP *bitmap, float scale);
 

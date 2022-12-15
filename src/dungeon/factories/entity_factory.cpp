@@ -31,11 +31,11 @@ EntityFactory *EntityFactory::get_instance()
 
 
 
-void EntityFactory::init(AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap)
+void EntityFactory::init(AllegroFlare::Shader *flat_color_shader, AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap)
 {
    if (!instance)
    {
-      instance = new EntityFactory(event_emitter, bitmap_bin, font_bin, sprites_grid_bitmap);
+      instance = new EntityFactory(flat_color_shader, event_emitter, bitmap_bin, font_bin, sprites_grid_bitmap);
       initialized = true;
    }
    //if (!instance) instance = new EntityFactory();
@@ -44,9 +44,10 @@ void EntityFactory::init(AllegroFlare::EventEmitter *event_emitter, AllegroFlare
 
 
 
-EntityFactory::EntityFactory(AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap)
+EntityFactory::EntityFactory(AllegroFlare::Shader *flat_color_shader, AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap)
    : character_sprite_sheet(sprites_grid_bitmap, SPRITES_GRID_SPRITE_WIDTH, SPRITES_GRID_SPRITE_HEIGHT, SPRITES_GRID_SPRITE_SCALING)
-   , flat_color_shader("data/shaders/flat_color_shader.vertex.glsl", "data/shaders/flat_color_shader.fragment.glsl")
+   , flat_color_shader(flat_color_shader)
+   //, flat_color_shader("data/shaders/flat_color_shader.vertex.glsl", "data/shaders/flat_color_shader.fragment.glsl")
    //, flat_color_shader("flat_color_shader", "data/shaders/flat_color_shader.vertex.glsl", "data/shaders/flat_color_shader.fragment.glsl")
    , background1(nullptr)
    , background2(nullptr)
@@ -70,6 +71,7 @@ EntityFactory::EntityFactory(AllegroFlare::EventEmitter *event_emitter, AllegroF
    if (!bitmap_bin) throw std::runtime_error("EntityFactory no bitmap_bin");
    if (!font_bin) throw std::runtime_error("EntityFactory no font_bin");
    if (!event_emitter) throw std::runtime_error("EntityFactory no event_emitter");
+   if (!flat_color_shader) throw std::runtime_error("EntityFactory no flat_color_shader");
 
    background1 = create_pixel_perfect_scaled_render(bitmap_bin->auto_get("background-1-08.png"), 5);
    background2 = create_pixel_perfect_scaled_render(bitmap_bin->auto_get("background-2-02.png"), 5);
@@ -105,7 +107,7 @@ Entity::Base *EntityFactory::create_random_kid(AllegroFlare::ElementID *parent, 
    if (!initialized) throw std::runtime_error("EntityFactory not initialized C");
 
    behavior_t behavior = (behavior_t)random.get_random_int(BEHAVIOR_ADULT, BEHAVIOR_NICE);
-   return new KidEntity(parent, get_instance()->event_emitter, &get_instance()->character_sprite_sheet, &get_instance()->flat_color_shader, x, y, "[random name]", behavior, -1, -1);
+   return new KidEntity(parent, get_instance()->event_emitter, &get_instance()->character_sprite_sheet, get_instance()->flat_color_shader, x, y, "[random name]", behavior, -1, -1);
 }
 
 
@@ -117,7 +119,7 @@ KidEntity *EntityFactory::create_named_kid(AllegroFlare::ElementID *parent, std:
    int identity_sprite_index = 29;
    if (behavior == BEHAVIOR_NAUGHTY) identity_sprite_index = 28;
    else if (behavior == BEHAVIOR_NICE) identity_sprite_index = 27;
-   return new KidEntity(parent, get_instance()->event_emitter, &get_instance()->character_sprite_sheet, &get_instance()->flat_color_shader, x, y, name, behavior, sprite_index, identity_sprite_index);
+   return new KidEntity(parent, get_instance()->event_emitter, &get_instance()->character_sprite_sheet, get_instance()->flat_color_shader, x, y, name, behavior, sprite_index, identity_sprite_index);
 }
 
 
@@ -126,7 +128,7 @@ KnightEntity *EntityFactory::create_knight_entity(AllegroFlare::ElementID *paren
 {
    if (!initialized) throw std::runtime_error("EntityFactory not initialized E");
 
-   return new KnightEntity(parent, get_instance()->event_emitter, &get_instance()->character_sprite_sheet, &get_instance()->flat_color_shader, x, y, "Harold", knight_behavior_t::BEHAVIOR_NORMAL, 32, -1);
+   return new KnightEntity(parent, get_instance()->event_emitter, &get_instance()->character_sprite_sheet, get_instance()->flat_color_shader, x, y, "Harold", knight_behavior_t::BEHAVIOR_NORMAL, 32, -1);
 }
 
 

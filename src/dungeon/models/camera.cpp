@@ -39,7 +39,6 @@ void Camera::update(float max_x)
    if (debugger_active)
    {
       debugger_active = false;
-      // DEBUG
    }
 
 

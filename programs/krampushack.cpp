@@ -168,14 +168,6 @@ int main(int argc, char **argv)
 
 
 
-   EntityFactory::init(
-         &framework.get_event_emitter_ref(),
-         &framework.get_bitmap_bin_ref(),
-         &framework.get_font_bin_ref(),
-         framework.get_bitmap_bin_ref().auto_get("sprites_grid-x.png")
-      );
-
-
 
    DialogueFactory::init(
          &framework.get_font_bin_ref(),
@@ -205,6 +197,16 @@ int main(int argc, char **argv)
          &framework.get_font_bin_ref()
       );
    framework.register_screen("gameplay_screen", &gameplay_screen);
+
+   EntityFactory::init(
+         gameplay_screen.get_flat_color_shader(),
+         &framework.get_event_emitter_ref(),
+         &framework.get_bitmap_bin_ref(),
+         &framework.get_font_bin_ref(),
+         framework.get_bitmap_bin_ref().auto_get("sprites_grid-x.png")
+      );
+
+   gameplay_screen.init();
 
 
 

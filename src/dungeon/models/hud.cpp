@@ -16,7 +16,7 @@
 
 
 
-HUD::HUD(AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid, Inventory *player_inventory, NaughtyList *naughty_list)
+HUD::HUD(AllegroFlare::Shader *flat_color_shader, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid, Inventory *player_inventory, NaughtyList *naughty_list)
    : player_inventory(player_inventory)
    , naughty_list(naughty_list)
    , player_health(0)
@@ -25,25 +25,36 @@ HUD::HUD(AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid, Inventor
    , font(nullptr)
    , font_bigger(nullptr)
    , black_bar_counter(0)
+   , flat_color_shader(flat_color_shader)
+   , bitmap_bin(bitmap_bin)
+   , font_bin(font_bin)
    , sprite_sheet(sprites_grid, SPRITES_GRID_SPRITE_WIDTH, SPRITES_GRID_SPRITE_HEIGHT, SPRITES_GRID_SPRITE_SCALING)
    , weapon_bitmap(nullptr)
    , shield_bitmap(nullptr)
    , item_bitmap(nullptr)
 {
    if (!font_bin) throw std::runtime_error("HUD:: no font_bin!");
+   if (!bitmap_bin) throw std::runtime_error("HUD:: no bitmap_bin!");
    if (!sprites_grid) throw std::runtime_error("HUD:: no sprites_grid!");
+   if (!flat_color_shader) throw std::runtime_error("HUD:: no flat_color_shader!");
 
    font = font_bin->auto_get("ChronoTrigger.ttf 40");
    font_bigger = font_bin->auto_get("ChronoTrigger.ttf 55");
 
 
-   AllegroFlare::ImageProcessing image_processing(sprites_grid);
-   ALLEGRO_BITMAP *bmp = image_processing.create_pixel_perfect_scaled_render( 5);
-   chrome_bitmap.bitmap(bmp);
+   ALLEGRO_BITMAP *hud_chrome = bitmap_bin->auto_get("hud_chrome-x.png");
+   AllegroFlare::ImageProcessing image_processing(hud_chrome);
+   ALLEGRO_BITMAP *hud_chrome_scaled = image_processing.create_pixel_perfect_scaled_render(5);
+   chrome_bitmap.bitmap(hud_chrome_scaled);
+   chrome_bitmap.position(1920/2, 1080/2);
+   chrome_bitmap.align(0.5, 0.5);
+   chrome_bitmap.set_swapping_colors(true);
+   chrome_bitmap.set_swap_color_0(ALLEGRO_COLOR{0.0, 0.0, 0.0, 1.0});
+   chrome_bitmap.set_swap_color_1(ALLEGRO_COLOR{0.1, 0.12, 0.105, 1.0});
+   chrome_bitmap.set_swap_color_2(al_color_html("164650")); //ALLEGRO_COLOR{0.0, 0.2, 0.2, 1.0});
+   chrome_bitmap.set_swap_color_3(ALLEGRO_COLOR{0.6, 0.63, 0.61, 1.0});
+   //chrome_bitmap.scale(0.95);
 
-   chrome_bitmap.position(1920/2, 20);
-   chrome_bitmap.align(0.5, 2.0);
-   chrome_bitmap.scale(0.95);
 
    weapon_bitmap.bitmap(sprite_sheet.get_sprite(31))
       .position(640-135, 84)
@@ -75,14 +86,14 @@ void HUD::set_mode(mode_t new_mode)
    switch(new_mode)
    {
    case MODE_GAME_PLAY:
-      chrome_bitmap.get_attr("align_y") = 0.0; //<- a really annoying way to have to do this
+      //chrome_bitmap.get_attr("align_y") = 0.0; //<- a really annoying way to have to do this
       weapon_bitmap.scale(1.6, 1.6);
       shield_bitmap.scale(1.6, 1.6);
       item_bitmap.scale(1.65, 1.65);
       black_bar_counter = 0.0;
       break;
    case MODE_CINEMA:
-      chrome_bitmap.get_attr("align_y") = 2.0; //<- a really annoying way to have to do this
+      //chrome_bitmap.get_attr("align_y") = 2.0; //<- a really annoying way to have to do this
       weapon_bitmap.scale(0.0, 0.0);
       shield_bitmap.scale(0.0, 0.0);
       item_bitmap.scale(0.0, 0.0);
@@ -126,7 +137,10 @@ void HUD::set_item(ALLEGRO_BITMAP *bmp)
 
 void HUD::draw()
 {
+   flat_color_shader->activate();
+   // DEBUG
    chrome_bitmap.draw();
+   flat_color_shader->deactivate();
 
    weapon_bitmap.draw();
    shield_bitmap.draw();
@@ -135,8 +149,8 @@ void HUD::draw()
    // fill the player health bar
    std::string player_health_str = "";
    // NOTE: std::to_string here to replace previous tostring
-   player_health_str += std::to_string(player_health) + " / " + std::to_string(player_max_health);
-   if (mode == MODE_GAME_PLAY) al_draw_text(font, AllegroFlare::color::white, 324, 86, ALLEGRO_ALIGN_CENTRE, player_health_str.c_str());
+   //player_health_str += std::to_string(player_health) + " / " + std::to_string(player_max_health);
+   //if (mode == MODE_GAME_PLAY) al_draw_text(font, AllegroFlare::color::white, 324, 86, ALLEGRO_ALIGN_CENTRE, player_health_str.c_str());
 
    // draw the black bars
    float black_bar_height = 100;

@@ -13,6 +13,7 @@
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
+#include <AllegroFlare/Shader.hpp>
 //#include <framework/screen.hpp>
 
 
@@ -43,6 +44,7 @@ private:
    AllegroFlare::BitmapBin *bitmap_bin;
    AllegroFlare::FontBin *font_bin;
    AllegroFlare::Random random;
+   AllegroFlare::Shader flat_color_shader;
    state_t state;
    Scene *scene;
    PlayerKrampusController player_krampus_controller;
@@ -62,6 +64,7 @@ private:
    bool down_pressed;
    bool left_pressed;
    bool right_pressed;
+   bool initialized;
 
    //GamerInputScreen *gamer_input_screen;
 
@@ -72,6 +75,8 @@ private:
 
 public:
    GamePlayScreen(AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin);
+
+   void init();
 
    virtual void primary_timer_func() override;
    virtual void user_event_func(ALLEGRO_EVENT *ev) override;
@@ -89,6 +94,7 @@ public:
    bool _can_bypass_dialogue();
    void set_state(state_t new_state);
    void enter_scene(int scene_to_enter, char door_name='!');
+   AllegroFlare::Shader *get_flat_color_shader();
 };
 
 
