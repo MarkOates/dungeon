@@ -92,10 +92,10 @@ void KrampusEntity::update()
             club_bitmap.position(bitmap.w()/2 + 36, bitmap.h()-20);
             club_bitmap.rotation(FULL_ROTATION * 0.25 + 0.1);
 
-            float dh = place.h;
-            float dy = place.y;
+            float dh = place.size.y;
+            float dy = place.position.y;
             float dw = 80;
-            float dx = facing_right ? place.x + place.w : place.x - place.w;
+            float dx = facing_right ? place.position.x + place.size.x : place.position.x - place.size.x;
             if (has_weapon())
             {
                event_emitter->emit_event(PLAY_SOUND_EFFECT, STRONG_PUNCH_SOUND_EFFECT);

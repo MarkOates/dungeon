@@ -84,7 +84,7 @@ void Skull::update()
       place += velocity;
       if (((int)(al_get_time() * 4.0) % 2) < 1.0) bitmap.bitmap(sprite_sheet->get_sprite(36));
       else bitmap.bitmap(sprite_sheet->get_sprite(37));
-      if (place.x <= 0) set_state(STATE_DYING);
+      if (place.position.x <= 0) set_state(STATE_DYING);
       EntityFactory::create_enemy_attack_damage_zone(get_parent(), place.position.x, place.position.y, place.size.x, place.size.y);
       break;
    case STATE_TAKE_DAMAGE:
@@ -115,7 +115,7 @@ void Skull::draw()
 {
    place.start_transform();
    bitmap.draw();
-   al_draw_filled_rectangle(0, 0, place.w, place.h, AllegroFlare::color::yellow);
+   al_draw_filled_rectangle(0, 0, place.size.x, place.size.y, AllegroFlare::color::yellow);
    place.restore_transform();
 }
 

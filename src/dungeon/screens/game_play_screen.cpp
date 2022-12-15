@@ -122,6 +122,9 @@ void GamePlayScreen::virtual_control_axis_change_func(ALLEGRO_EVENT *ev)
 
 void GamePlayScreen::user_event_func(ALLEGRO_EVENT *ev)
 {
+   std::cout << "EVENT! " << std::endl;
+
+
    ALLEGRO_EVENT *event = ev;
 
    switch (event->user.type)
@@ -130,6 +133,7 @@ void GamePlayScreen::user_event_func(ALLEGRO_EVENT *ev)
       {
          set_state(GAME_LOST);
       }
+      break;
       //case ALLEGRO_EVENT_GAMER_BUTTON_DOWN:
       //case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
       //{
@@ -154,6 +158,7 @@ void GamePlayScreen::user_event_func(ALLEGRO_EVENT *ev)
       //}
       case ENTER_DOOR_EVENT:
       {
+         std::cout << "DOOR!" << std::endl;
          int scene_id = event->user.data1;
          std::string destination_door_name;
          destination_door_name.push_back((char)event->user.data2);
@@ -357,7 +362,7 @@ void GamePlayScreen::enter_scene(int scene_id, char door_name)
    // place krampus at the destination_door and walk down
    if (door)
    {
-      krampus->place.position = door->place.position + AllegroFlare::Vec2D{ 0.0, door->place.h/2 + krampus->place.h/2 } + 5;
+      krampus->place.position = door->place.position + AllegroFlare::Vec2D{ 0.0, door->place.size.y/2 + krampus->place.size.y/2 } + 5;
    }
 
    set_state(ENTERING_THROUGH_DOOR);

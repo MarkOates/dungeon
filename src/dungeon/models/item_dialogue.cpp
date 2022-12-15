@@ -34,8 +34,8 @@ void ItemDialogue::draw(int page_num)
 
    // draw the background and frame
    float padding_x = 40, padding_y = 40;
-   al_draw_filled_rectangle(0-padding_x, 0-padding_y, place.w+padding_x, place.h+padding_y, AllegroFlare::color::black);
-   al_draw_rectangle(0-padding_x, 0-padding_y, place.w+padding_x, place.h+padding_y, AllegroFlare::color::white, 5.0);
+   al_draw_filled_rectangle(0-padding_x, 0-padding_y, place.size.x+padding_x, place.size.y+padding_y, AllegroFlare::color::black);
+   al_draw_rectangle(0-padding_x, 0-padding_y, place.size.x+padding_x, place.size.y+padding_y, AllegroFlare::color::white, 5.0);
 
    // draw the item
    bitmap.draw();
@@ -47,7 +47,7 @@ void ItemDialogue::draw(int page_num)
             AllegroFlare::color::white,
             150,
             0,
-            place.w - 150,
+            place.size.x - 150,
             al_get_font_line_height(font),
             0,
             pages[page_num].c_str()
@@ -58,7 +58,7 @@ void ItemDialogue::draw(int page_num)
    {
       TextObject continue_notification("press ENTER to continue");
       continue_notification.font(font);
-      continue_notification.position(place.w, place.h + 30);
+      continue_notification.position(place.size.x, place.size.y + 30);
       continue_notification.align(1.0, 1.0);
       continue_notification.scale(0.80, 0.80);
       //continue_notification.color(AllegroFlare::color::yellow); // COLOR

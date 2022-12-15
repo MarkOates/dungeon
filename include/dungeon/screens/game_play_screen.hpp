@@ -63,11 +63,11 @@ private:
 public:
    GamePlayScreen(AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin);
 
-   void primary_timer_func() override;
-   void user_event_func(ALLEGRO_EVENT *ev) override;
-   void virtual_control_button_up_func(int player_num, int button_num, bool repeat=false) override;
-   void virtual_control_button_down_func(int player_num, int button_num, bool repeat=false) override;
-   void virtual_control_axis_change_func(ALLEGRO_EVENT *ev) override;
+   virtual void primary_timer_func() override;
+   virtual void user_event_func(ALLEGRO_EVENT *ev) override;
+   virtual void virtual_control_button_up_func(int player_num, int button_num, bool repeat=false) override;
+   virtual void virtual_control_button_down_func(int player_num, int button_num, bool repeat=false) override;
+   virtual void virtual_control_axis_change_func(ALLEGRO_EVENT *ev) override;
 
    void update();
    void draw();

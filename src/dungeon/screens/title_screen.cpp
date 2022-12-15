@@ -94,7 +94,7 @@ void TitleScreen::primary_timer_func()
       if (i == menu_cursor_pos)
       {
          menu_item.first._placement->start_transform();
-         float height = menu_item.first._placement->h;
+         float height = menu_item.first._placement->size.y;
          menu_cursor_sprite.position(-30, height/2);
          menu_cursor_sprite.draw();
          menu_item.first._placement->restore_transform();
