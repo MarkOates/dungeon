@@ -15,6 +15,7 @@
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
+#include <AllegroFlare/Frameworks/Full.hpp>
 
 
 
@@ -40,6 +41,7 @@
 class KrampusHackProject : public AllegroFlare::Screens::Base
 {
 public:
+   AllegroFlare::Frameworks::Full *framework;
    AllegroFlare::EventEmitter *event_emitter;
    AllegroFlare::BitmapBin *bitmap_bin;
    AllegroFlare::FontBin *font_bin;
@@ -48,80 +50,87 @@ public:
    //GamerInputScreen gamer_input_screen; // << -- THIS input screen not working
    //AudioController audio_controller; // TODO: replace this! // TODO: REPLACE THIS
 
-	KrampusHackProject(AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin)
+	KrampusHackProject(AllegroFlare::Frameworks::Full *framework, AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin)
       //: Screen(display)
       : AllegroFlare::Screens::Base()
+      , framework(framework)
       , event_emitter(event_emitter)
       , bitmap_bin(bitmap_bin)
       , font_bin(font_bin)
-      , current_screen(nullptr)
+      //, current_screen(nullptr)
       //, audio_controller()
       //, gamer_input_screen()
    {
       if (!event_emitter) throw std::runtime_error("KrampusHackProject:: no event_emitter");
-      event_emitter->emit_event(START_TITLE_SCREEN);
+      event_emitter->emit_game_event(AllegroFlare::GameEvent("START_TITLE_SCREEN"));
       //gamer_input_screen.show_graphic = true;
    }
 
-   void user_event_func(ALLEGRO_EVENT *ev) override
+   void blast_current_screen()
    {
-      ALLEGRO_EVENT *event = ev; ////Framework::current_event;
+      //std::string currently_active_screen_name = framework->get_currently_active_screen_name();
+      ////framework->unregister_screen(currently_active_screen_name);
+      ////framework->deactivate_screen();
+      //if (current_screen) delete current_screen;
+   }
 
-      switch (event->user.type)
+   //void game_event_func(ALLEGRO_EVENT *ev) override
+   void game_event_func(AllegroFlare::GameEvent *game_event) override
+   {
+      std::string event_type = game_event->get_type();
+      //ALLEGRO_EVENT *event = ev; ////Framework::current_event;
+
+      //switch (event->user.type)
+      if (game_event->is_type("START_TITLE_SCREEN"))
       {
-      case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP:
-      //case ALLEGRO_FLARE_EVENT_GAMER_BUTTON_UP:
-         //std::cout << "Button RELEASED: " << event->user.data1 << " - " << gamer_input_screen. get_button_name((button_t)event->user.data1) << std::endl;
-         break;
-      case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
-      //case ALLEGRO_EVENT_GAMER_BUTTON_DOWN:
-         //std::cout << "Button RELEASED: " << event->user.data1 << " - " << gamer_input_screen. get_button_name((button_t)event->user.data1) << std::endl;
-         break;
-      case START_TITLE_SCREEN:
-         if (current_screen) delete current_screen;
-         current_screen = new TitleScreen(event_emitter, font_bin, bitmap_bin->auto_get("sprites_grid-x.png"));
+         framework->activate_screen("title_screen");
+      //case START_TITLE_SCREEN:
+         //if (current_screen) delete current_screen;
+         //current_screen = new TitleScreen(event_emitter, font_bin, bitmap_bin->auto_get("sprites_grid-x.png"));
          // audio_controller.play_game_show_music(); // TODO: REPLACE THIS
-         break;
-      case START_INTRO_STORYBOARD_SCREEN:
-         if (current_screen) delete current_screen;
-         current_screen = StoryboardFactory::create_opening_storyboard_screen(event_emitter, font_bin->auto_get("ChronoTrigger.ttf 60"));
-                  //);
-         // audio_controller.play_storyboard_music(); // TODO: REPLACE THIS
-         break;
-      case START_CLOSING_STORYBOARD_SCREEN:
-         if (current_screen) delete current_screen;
-         current_screen = StoryboardFactory::create_closing_storyboard_screen(event_emitter, font_bin->auto_get("ChronoTrigger.ttf 60"));
-         // audio_controller.play_game_show_music(); // TODO: REPLACE THIS
-         break;
-      case START_GAME_EVENT:
-         delete current_screen;
-         current_screen = new GamePlayScreen(event_emitter, bitmap_bin, font_bin); //&gamer_input_screen);
-         break;
-      case PLAY_MUSIC_TRACK:
-         {
-            int track_id = event->user.data1;
-            // audio_controller.play_audio_track_by_id(track_id);
-         }
-         break;
-      case PLAY_SOUND_EFFECT:
-         {
-            int sound_effect_id = event->user.data1;
-            std::string *track_id_str_ptr = (std::string *)event->user.data2;
-
-            // TODO: REPLACE THIS
-            // if (sound_effect_id != 0) audio_controller.play_sound_effect_by_id(sound_effect_id);
-            // if (track_id_str_ptr)
-            // {
-               // audio_controller.play_sound_effect_by_name(*track_id_str_ptr);
-               // delete track_id_str_ptr;
-            // }
-         }
-         break;
-      case QUIT_GAME_EVENT:
-         event_emitter->emit_exit_game_event();
-         //AllegroFlare::FrameworksFramework::shutdown_program = true;
-         break;
+         //break;
       }
+      //else if 
+      //case START_INTRO_STORYBOARD_SCREEN:
+         //if (current_screen) delete current_screen;
+         //current_screen = StoryboardFactory::create_opening_storyboard_screen(event_emitter, font_bin->auto_get("ChronoTrigger.ttf 60"));
+                  ////);
+         //// audio_controller.play_storyboard_music(); // TODO: REPLACE THIS
+         //break;
+      //case START_CLOSING_STORYBOARD_SCREEN:
+         //if (current_screen) delete current_screen;
+         //current_screen = StoryboardFactory::create_closing_storyboard_screen(event_emitter, font_bin->auto_get("ChronoTrigger.ttf 60"));
+         //// audio_controller.play_game_show_music(); // TODO: REPLACE THIS
+         //break;
+      //case START_GAME_EVENT:
+         //delete current_screen;
+         //current_screen = new GamePlayScreen(event_emitter, bitmap_bin, font_bin); //&gamer_input_screen);
+         //break;
+      //case PLAY_MUSIC_TRACK:
+         //{
+            //int track_id = event->user.data1;
+            //// audio_controller.play_audio_track_by_id(track_id);
+         //}
+         //break;
+      //case PLAY_SOUND_EFFECT:
+         //{
+            //int sound_effect_id = event->user.data1;
+            //std::string *track_id_str_ptr = (std::string *)event->user.data2;
+
+            //// TODO: REPLACE THIS
+            //// if (sound_effect_id != 0) audio_controller.play_sound_effect_by_id(sound_effect_id);
+            //// if (track_id_str_ptr)
+            //// {
+               //// audio_controller.play_sound_effect_by_name(*track_id_str_ptr);
+               //// delete track_id_str_ptr;
+            //// }
+         //}
+         //break;
+      //case QUIT_GAME_EVENT:
+         //event_emitter->emit_exit_game_event();
+         ////AllegroFlare::FrameworksFramework::shutdown_program = true;
+         //break;
+      //}
    }
 };
 
@@ -149,13 +158,30 @@ int main(int argc, char **argv)
    framework.disable_fullscreen();
    framework.initialize();
 
-   KrampusHackProject wrapped_krampus_hack_project(
+
+
+   TitleScreen title_screen(
+         &framework.get_event_emitter_ref(),
+         &framework.get_font_bin_ref(),
+         framework.get_bitmap_bin_ref().auto_get("sprites_grid-x.png")
+      );
+   framework.register_screen("title_screen", &title_screen);
+   //title_screen.
+
+
+
+   KrampusHackProject krampus_hack_project(
+         &framework,
          &framework.get_event_emitter_ref(),
          &framework.get_bitmap_bin_ref(),
          &framework.get_font_bin_ref()
       );
-   framework.register_screen("wrapped_krampus_hack_project", &wrapped_krampus_hack_project);
-   framework.activate_screen("wrapped_krampus_hack_project");
+   framework.register_screen("krampus_hack_project", &krampus_hack_project);
+   framework.activate_screen("krampus_hack_project");
+
+
+
+
    
    framework.run_loop();
 
