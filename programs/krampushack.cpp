@@ -11,6 +11,7 @@
 #include <dungeon/user_events.hpp>
 
 
+#include <AllegroFlare/InteractiveDevelopment.hpp>
 #include <AllegroFlare/VirtualControls.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/FontBin.hpp>

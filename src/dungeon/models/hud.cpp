@@ -41,7 +41,7 @@ HUD::HUD(AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid, Inventor
    ALLEGRO_BITMAP *bmp = image_processing.create_pixel_perfect_scaled_render( 5);
    chrome_bitmap.bitmap(bmp);
 
-   chrome_bitmap.position(1280/2, 20);
+   chrome_bitmap.position(1920/2, 20);
    chrome_bitmap.align(0.5, 2.0);
    chrome_bitmap.scale(0.95);
 

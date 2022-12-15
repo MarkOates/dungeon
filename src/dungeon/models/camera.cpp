@@ -1,6 +1,10 @@
 
 
 
+
+#include <AllegroFlare/InteractiveDevelopment.hpp>
+
+
 #include <dungeon/models/camera.hpp>
 
 #include <allegro5/allegro_primitives.h>
@@ -15,6 +19,7 @@ Camera::Camera(Entity::Base *target)
    , target(target)
    , overlay_color(AllegroFlare::color::transparent)
    , motion()
+   , world_height(144*5)
 {}
 
 
@@ -26,15 +31,23 @@ void Camera::set_target(Entity::Base *new_target)
 
 
 
+
 void Camera::update(float max_x)
 {
    motion.update(al_get_time());
 
-   if (target) place.position.x = target->place.position.x;
-   place.position.y = place.size.y/2;
+   if (debugger_active)
+   {
+      debugger_active = false;
+      // DEBUG
+   }
 
-   if (place.position.x < place.position.x/2) place.position.x = place.size.x/2;
-   if (place.position.x > max_x-place.position.x/2) place.position.x = max_x-place.size.x/2;
+
+   if (target) place.position.x = target->place.position.x;
+   place.position.y = (int)(world_height * 0.5);
+
+   //if (place.position.x < place.position.x/2) place.position.x = place.size.x/2;
+   //if (place.position.x > max_x-place.position.x/2) place.position.x = max_x-place.size.x/2;
 }
 
 

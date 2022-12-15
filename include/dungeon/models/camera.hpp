@@ -15,6 +15,7 @@ private:
    Entity::Base *target;
    ALLEGRO_COLOR overlay_color;
    AllegroFlare::Motion motion;
+   float world_height;
 
 public:
    Camera(Entity::Base *target);

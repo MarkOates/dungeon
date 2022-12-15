@@ -36,6 +36,8 @@
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Random.hpp>
 
+#include <AllegroFlare/InteractiveDevelopment.hpp>
+
 
 
 #define TEST_SCENE_ID 999
@@ -219,12 +221,21 @@ void GamePlayScreen::virtual_control_axis_change_func(ALLEGRO_EVENT *ev)
 
 
 
+void GamePlayScreen::key_down_func(ALLEGRO_EVENT *ev)
+{
+   switch (ev->keyboard.keycode)
+   {
+      case ALLEGRO_KEY_D:
+         debugger_active = true;
+      break;
+   }
+}
+
+
 
 
 void GamePlayScreen::user_event_func(ALLEGRO_EVENT *ev)
 {
-   // DEBUG:
-
    //std::cout << "EVENT! " << std::endl;
 
 
