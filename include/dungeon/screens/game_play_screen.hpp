@@ -2,7 +2,7 @@
 
 
 #include <dungeon/entity_controllers/player_krampus_controller.hpp>
-#include <dungeon/helpers/game_play_screen_state_helper.hpp>
+//#include <dungeon/helpers/game_play_screen_state_helper.hpp>
 #include <dungeon/models/camera.hpp>
 #include <dungeon/models/hud.hpp>
 #include <dungeon/models/inventory.hpp>
@@ -51,11 +51,21 @@ private:
    NaughtyList naughty_list;
    HUD hud;
    InventoryScreen inventory_screen;
-   GamePlayScreenStateHelper state_helper;
+   //GamePlayScreenStateHelper state_helper;
    Camera camera;
+   //AllegroFlare::EventEmitter *event_emitter;
+   //GamePlayScreen *game_play_screen;
+   //AllegroFlare::Random random;
+   float state_counter;
+   //bool _can_bypass_dialogue();
+   bool up_pressed;
+   bool down_pressed;
+   bool left_pressed;
+   bool right_pressed;
+
    //GamerInputScreen *gamer_input_screen;
 
-   friend class GamePlayScreenStateHelper;
+   //friend class GamePlayScreenStateHelper;
 
    int _item_recently_collected;
    void _destroy_ai_controller(Entity::Base *entity);
@@ -72,6 +82,10 @@ public:
    void update();
    void draw();
 
+   void update_scene();
+   void draw_scene_with_camera();
+   void check_for_win_or_loss_condition();
+   bool _can_bypass_dialogue();
    void set_state(state_t new_state);
    void enter_scene(int scene_to_enter, char door_name='!');
 };
