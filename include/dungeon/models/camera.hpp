@@ -2,20 +2,22 @@
 
 
 #include <dungeon/models/entities/base.hpp>
-#include <framework/display.hpp>
-#include <framework/motion.hpp>
+//#include <framework/display.hpp>
+//#include <framework/motion.hpp>
+#include <AllegroFlare/Placement2D.hpp>
+#include <AllegroFlare/Motion.hpp>
 
 
 class Camera
 {
 private:
-   placement2d place;
+   AllegroFlare::Placement2D place;
    Entity::Base *target;
    ALLEGRO_COLOR overlay_color;
-   Motion motion;
+   AllegroFlare::Motion motion;
 
 public:
-   Camera(Display *display, Entity::Base *target);
+   Camera(Entity::Base *target);
 
    void set_target(Entity::Base *new_target=nullptr);
 

@@ -2,6 +2,7 @@
 
 
 #include <dungeon/models/entities/base.hpp>
+#include <AllegroFlare/EventEmitter.hpp>
 
 
 namespace Enemy

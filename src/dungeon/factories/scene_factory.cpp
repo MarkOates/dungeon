@@ -12,15 +12,20 @@ float SceneFactory::door_notch_x(int pos)
    // door_notch_x is a convience function for easily
    // getting an x coordintate for placing a door
 {
+   if (!event_emitter) throw std::runtime_error("SceneFactory no event_emitter");
+
    float door_spacing = ONE_SCREEN_WIDTH / 6.0;
    return door_spacing + (door_spacing * 2) * pos;
 }
 
 
 
+
 Scene *SceneFactory::_create_scene_by_dimentions(int screen_widths, int background_type)
 {
-   Scene *scene = new Scene(ONE_SCREEN_WIDTH*screen_widths);
+   if (!event_emitter) throw std::runtime_error("SceneFactory no event_emitter");
+
+   Scene *scene = new Scene(event_emitter, ONE_SCREEN_WIDTH*screen_widths);
 
    // background
    for (int i=-1; i<(screen_widths+1); i++)
@@ -44,11 +49,13 @@ Scene *SceneFactory::_create_scene_by_dimentions(int screen_widths, int backgrou
 
 Scene *SceneFactory::create_test_scene()
 {
+   if (!event_emitter) throw std::runtime_error("SceneFactory no event_emitter");
+
    Scene *scene = _create_scene_by_dimentions(2);
 
    // enemies
    for (unsigned i=0; i<20; i++)
-      EntityFactory::create_random_kid(scene, random_float(200, 900), random_float(400, 600));
+      EntityFactory::create_random_kid(scene, random.get_random_float(200, 900), random.get_random_float(400, 600));
 
    // doors
    EntityFactory::create_door1(scene, door_notch_x(0), FLOOR_TOP, "A", 999, "A");
@@ -66,6 +73,8 @@ Scene *SceneFactory::create_test_scene()
 
 Scene *SceneFactory::create_scene_by_id(int scene_id)
 {
+   if (!event_emitter) throw std::runtime_error("SceneFactory no event_emitter");
+
    Scene *scene = nullptr;
 
    switch (scene_id)
@@ -92,8 +101,17 @@ Scene *SceneFactory::create_scene_by_id(int scene_id)
 
 
 
+void SceneFactory::set_event_emitter(AllegroFlare::EventEmitter *event_emitter)
+{
+   SceneFactory::event_emitter = event_emitter;
+}
+
+
+
 Scene *SceneFactory::create_scene_0()
 {
+   if (!event_emitter) throw std::runtime_error("SceneFactory no event_emitter");
+
    Scene *scene = _create_scene_by_dimentions(1, 2);
 
    // doors
@@ -107,6 +125,8 @@ Scene *SceneFactory::create_scene_0()
 Scene *SceneFactory::create_scene_1()
    // master corridor
 {
+   if (!event_emitter) throw std::runtime_error("SceneFactory no event_emitter");
+
    Scene *scene = _create_scene_by_dimentions(4, 1);
 
    // doors
@@ -122,6 +142,8 @@ Scene *SceneFactory::create_scene_1()
 
 Scene *SceneFactory::create_scene_2()
 {
+   if (!event_emitter) throw std::runtime_error("SceneFactory no event_emitter");
+
    Scene *scene = _create_scene_by_dimentions(2, 4);
 
    // doors
@@ -135,6 +157,8 @@ Scene *SceneFactory::create_scene_2()
 
 Scene *SceneFactory::create_scene_3()
 {
+   if (!event_emitter) throw std::runtime_error("SceneFactory no event_emitter");
+
    Scene *scene = _create_scene_by_dimentions(2, 3);
 
    // doors
@@ -149,6 +173,8 @@ Scene *SceneFactory::create_scene_3()
 
 Scene *SceneFactory::create_scene_4()
 {
+   if (!event_emitter) throw std::runtime_error("SceneFactory no event_emitter");
+
    Scene *scene = _create_scene_by_dimentions(1, 4);
 
    // doors
@@ -165,6 +191,8 @@ Scene *SceneFactory::create_scene_4()
 
 Scene *SceneFactory::create_scene_5()
 {
+   if (!event_emitter) throw std::runtime_error("SceneFactory no event_emitter");
+
    Scene *scene = _create_scene_by_dimentions(1, 5);
 
    // doors
@@ -180,6 +208,8 @@ Scene *SceneFactory::create_scene_5()
 
 Scene *SceneFactory::create_scene_6()
 {
+   if (!event_emitter) throw std::runtime_error("SceneFactory no event_emitter");
+
    Scene *scene = _create_scene_by_dimentions(1, 4);
 
    // doors
@@ -195,6 +225,8 @@ Scene *SceneFactory::create_scene_6()
 
 Scene *SceneFactory::create_scene_7()
 {
+   if (!event_emitter) throw std::runtime_error("SceneFactory no event_emitter");
+
    Scene *scene = _create_scene_by_dimentions(3, 4);
 
    // doors
@@ -208,6 +240,8 @@ Scene *SceneFactory::create_scene_7()
 
 Scene *SceneFactory::create_scene_8()
 {
+   if (!event_emitter) throw std::runtime_error("SceneFactory no event_emitter");
+
    Scene *scene = _create_scene_by_dimentions(1, 4);
 
    // doors
@@ -223,6 +257,8 @@ Scene *SceneFactory::create_scene_8()
 
 Scene *SceneFactory::create_scene_9()
 {
+   if (!event_emitter) throw std::runtime_error("SceneFactory no event_emitter");
+
    Scene *scene = _create_scene_by_dimentions(2, 6);
 
    // doors
@@ -232,4 +268,6 @@ Scene *SceneFactory::create_scene_9()
 }
 
 
+AllegroFlare::EventEmitter *SceneFactory::event_emitter = nullptr;
+AllegroFlare::Random SceneFactory::random;
 

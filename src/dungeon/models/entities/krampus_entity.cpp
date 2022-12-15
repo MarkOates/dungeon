@@ -10,9 +10,13 @@
 #include <cmath>
 
 
+#include <AllegroFlare/Useful.hpp> // for FULL_ROTATION
+using AllegroFlare::FULL_ROTATION;
 
-KrampusEntity::KrampusEntity(ElementID *parent, SpriteSheet *sprite_sheet, float x, float y)
+
+KrampusEntity::KrampusEntity(AllegroFlare::ElementID *parent, AllegroFlare::EventEmitter *event_emitter, SpriteSheet *sprite_sheet, float x, float y)
    : Entity::Base(parent, "krampus", x, y)
+   , event_emitter(event_emitter)
    , state_is_busy(false)
    , health(3)
    , walking_speed(8.0)
@@ -24,7 +28,8 @@ KrampusEntity::KrampusEntity(ElementID *parent, SpriteSheet *sprite_sheet, float
    , state(STANDING)
    , sprite_sheet(sprite_sheet)
 {
-   place.size = vec2d(120, 30);
+   if (!event_emitter) throw std::runtime_error("KrampusEntity:: no event emitter");
+   place.size = { 120, 30 };
    bitmap.bitmap(sprite_sheet->get_sprite(18));
    bitmap.align(0.5, 1.0);
    bitmap.scale(2.0, 2.0);
@@ -87,13 +92,14 @@ void KrampusEntity::update()
             club_bitmap.position(bitmap.w()/2 + 36, bitmap.h()-20);
             club_bitmap.rotation(FULL_ROTATION * 0.25 + 0.1);
 
-            float dh = place.h;
-            float dy = place.y;
+            float dh = place.size.y;
+            float dy = place.position.y;
             float dw = 80;
-            float dx = facing_right ? place.x + place.w : place.x - place.w;
+            float dx = facing_right ? place.position.x + place.size.x : place.position.x - place.size.x;
             if (has_weapon())
             {
-               UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, STRONG_PUNCH_SOUND_EFFECT);
+               event_emitter->emit_event(PLAY_SOUND_EFFECT, STRONG_PUNCH_SOUND_EFFECT);
+               //UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, STRONG_PUNCH_SOUND_EFFECT);
                EntityFactory::create_krampus_attack_damage_zone_with_club(get_parent(), dx, dy, dw*2, dh);
             }
             else EntityFactory::create_krampus_attack_damage_zone(get_parent(), dx, dy, dw, dh);
@@ -241,44 +247,47 @@ bool KrampusEntity::set_state(state_t new_state, bool override_if_busy)
    {
    case WALKING_UP:
       bitmap.bitmap(sprite_sheet->get_sprite(18));
-      velocity.position = vec2d(0.0, -walking_speed/2);
+      velocity.position = { 0.0, -walking_speed/2.0f };
       shield_bitmap.flip(true, false);
       break;
    case WALKING_DOWN:
       bitmap.bitmap(sprite_sheet->get_sprite(18));
-      velocity.position = vec2d(0.0, walking_speed/2);
+      velocity.position = { 0.0, walking_speed/2.0f };
       shield_bitmap.flip(true, false);
       break;
    case WALKING_LEFT:
       bitmap.bitmap(sprite_sheet->get_sprite(18));
       face_left();
-      velocity.position = vec2d(-walking_speed, 0.0);
+      velocity.position = { (float)-walking_speed, 0.0 };
       shield_bitmap.flip(true, false);
       break;
    case WALKING_RIGHT:
       bitmap.bitmap(sprite_sheet->get_sprite(18));
       face_right();
-      velocity.position = vec2d(walking_speed, 0.0);
+      velocity.position = { (float)walking_speed, 0.0 };
       shield_bitmap.flip(true, false);
       break;
    case TAKING_HIT:
       health--;
       if (health <= 0)
       {
-         UserEventEmitter::emit_event(PLAYER_DIED_EVENT);
-         velocity.position = vec2d(0.0, 0.0);
-         UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(KRAMPUS_HIT_SOUND_EFFECT)));
+         event_emitter->emit_event(PLAYER_DIED_EVENT);
+         //UserEventEmitter::emit_event(PLAYER_DIED_EVENT);
+         velocity.position = { 0.0, 0.0 };
+         event_emitter->emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(KRAMPUS_HIT_SOUND_EFFECT)));
+         //UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(KRAMPUS_HIT_SOUND_EFFECT)));
       }
       else
       {
-         velocity.position = vec2d(0.0, 0.0);
-         UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(KRAMPUS_HIT_SOUND_EFFECT)));
+         velocity.position = { 0.0, 0.0 };
+         event_emitter->emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(KRAMPUS_HIT_SOUND_EFFECT)));
+         //UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(KRAMPUS_HIT_SOUND_EFFECT)));
       }
       break;
    case BLOCKING:
       bitmap.anchor(0, 0);
       bitmap.bitmap(sprite_sheet->get_sprite(23));
-      velocity.position = vec2d(0.0, 0.0);
+      velocity.position = { 0.0, 0.0 };
       shield_bitmap.position(bitmap.w() * 0.7, bitmap.h() * 0.72);
       shield_bitmap.rotation(-0.07);
       shield_bitmap.flip(false, false);
@@ -286,7 +295,7 @@ bool KrampusEntity::set_state(state_t new_state, bool override_if_busy)
    case STANDING:
       bitmap.anchor(0, 0);
       bitmap.bitmap(sprite_sheet->get_sprite(18));
-      velocity.position = vec2d(0.0, 0.0);
+      velocity.position = { 0.0, 0.0 };
       club_bitmap.position(bitmap.w()/2 + 36, bitmap.h()-20);
       club_bitmap.rotation(FULL_ROTATION * 0.25 - 0.2);
       shield_bitmap.position(bitmap.w() * 0.3, bitmap.h() * 0.78);
@@ -297,7 +306,7 @@ bool KrampusEntity::set_state(state_t new_state, bool override_if_busy)
       bitmap.anchor(0, 0);
       state_is_busy = true;
       bitmap.bitmap(sprite_sheet->get_sprite(19));
-      velocity.position = vec2d(0.0, 0.0);
+      velocity.position = { 0.0, 0.0 };
       club_bitmap.position(bitmap.w()/2, 10);
       club_bitmap.rotation(FULL_ROTATION * -0.2);
       shield_bitmap.position(bitmap.w() * 0.3, bitmap.h() * 0.78);
@@ -306,15 +315,16 @@ bool KrampusEntity::set_state(state_t new_state, bool override_if_busy)
    case CELEBRATING:
       bitmap.anchor(0, 0);
       bitmap.bitmap(sprite_sheet->get_sprite(19));
-      velocity.position = vec2d(0.0, 0.0);
+      velocity.position = { 0.0, 0.0 };
       shield_bitmap.flip(true, false);
       break;
    case USING_MAGIC:
       bitmap.anchor(0, 0);
       state_is_busy = true;
       bitmap.bitmap(sprite_sheet->get_sprite(19));
-      velocity.position = vec2d(0.0, 0.0);
-      UserEventEmitter::emit_event(USE_STONE_OF_DEFIANCE_EVENT);
+      velocity.position = { 0.0, 0.0 };
+      //UserEventEmitter::emit_event(USE_STONE_OF_DEFIANCE_EVENT);
+      event_emitter->emit_event(USE_STONE_OF_DEFIANCE_EVENT);
       shield_bitmap.flip(true, false);
       break;
    default:

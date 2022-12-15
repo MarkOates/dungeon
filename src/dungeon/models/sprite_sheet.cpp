@@ -3,13 +3,14 @@
 
 #include <dungeon/models/sprite_sheet.hpp>
 
-#include <framework/framework.hpp>
-#include <framework/image_processing.hpp>
+//#include <framework/framework.hpp>
+//#include <framework/image_processing.hpp>
+#include <AllegroFlare/ImageProcessing.hpp>
 
 
 
-SpriteSheet::SpriteSheet(std::string filename, int sprite_width, int sprite_height, int scale)
-   : atlas(Framework::bitmap(filename))
+SpriteSheet::SpriteSheet(ALLEGRO_BITMAP *_atlas, int sprite_width, int sprite_height, int scale)
+   : atlas(_atlas)
    , sprites()
    , sprite_width(sprite_width)
    , sprite_height(sprite_height)
@@ -25,7 +26,8 @@ SpriteSheet::SpriteSheet(std::string filename, int sprite_width, int sprite_heig
 
 void SpriteSheet::_create_atlas_copy()
 {
-   atlas = create_pixel_perfect_scaled_render(atlas, scale);
+   AllegroFlare::ImageProcessing image_processing(atlas);
+   atlas = image_processing.create_pixel_perfect_scaled_render(scale);
 }
 
 

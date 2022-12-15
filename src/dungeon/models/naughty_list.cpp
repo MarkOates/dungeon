@@ -2,7 +2,7 @@
 
 
 #include <dungeon/models/naughty_list.hpp>
-#include <framework/useful.hpp>
+//#include <framework/useful.hpp>
 
 
 
@@ -118,7 +118,7 @@ NaughtyList::Kid NaughtyList::_build_kid(int scene_id)
 int NaughtyList::_get_random_sprite_for_boy()
 {
    std::vector<int> boy_sprites = {2, 4, 8, 9, 15, 16};
-   return random_element<int>(boy_sprites);
+   return random.get_random_element<int>(boy_sprites);
 }
 
 
@@ -126,7 +126,7 @@ int NaughtyList::_get_random_sprite_for_boy()
 int NaughtyList::_get_random_sprite_for_girl()
 {
    std::vector<int> girl_sprites = {3, 5, 6, 11, 14, 17};
-   return random_element<int>(girl_sprites);
+   return random.get_random_element<int>(girl_sprites);
 }
 
 
@@ -134,7 +134,7 @@ int NaughtyList::_get_random_sprite_for_girl()
 int NaughtyList::_get_random_sprite_for_adult()
 {
    std::vector<int> girl_sprites = {0, 1, 7, 10, 12, 13};
-   return random_element<int>(girl_sprites);
+   return random.get_random_element<int>(girl_sprites);
 }
 
 

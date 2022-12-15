@@ -1,10 +1,13 @@
 #pragma once
 
 
-#include <framework/objects/bitmap_object.hpp>
+//#include <framework/objects/bitmap_object.hpp>
 #include <dungeon/models/inventory.hpp>
 #include <dungeon/models/naughty_list.hpp>
 #include <dungeon/models/sprite_sheet.hpp>
+#include <dungeon/models/bitmap_object.hpp>
+
+#include <AllegroFlare/FontBin.hpp>
 
 
 class HUD
@@ -16,6 +19,7 @@ private:
       MODE_CINEMA
    };
 
+   AllegroFlare::FontBin *font_bin;
    Inventory *player_inventory;
    NaughtyList *naughty_list;
    int player_health;
@@ -33,7 +37,7 @@ private:
    float black_bar_counter;
 
 public:
-   HUD(Inventory *player_inventory, NaughtyList *naughty_list);
+   HUD(AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid, Inventory *player_inventory, NaughtyList *naughty_list);
 
    void set_values(int player_health, int player_max_health);
    void set_weapon(ALLEGRO_BITMAP *bmp);

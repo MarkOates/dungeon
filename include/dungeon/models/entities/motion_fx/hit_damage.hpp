@@ -2,8 +2,9 @@
 
 
 #include <dungeon/models/entities/motion_fx/base.hpp>
-#include <framework/objects/text_object.hpp>
+//#include <framework/objects/text_object.hpp>
 #include <allegro5/allegro_font.h>
+#include <dungeon/models/text_object.hpp>
 
 
 namespace MotionFX
@@ -15,7 +16,7 @@ namespace MotionFX
       TextObject text_object;
 
    public:
-      HitDamage(ElementID *parent, float x, float y, std::string damage_string);
+      HitDamage(ElementID *parent, ALLEGRO_FONT *font, float x, float y, std::string damage_string);
       ~HitDamage();
 
       void update() override;

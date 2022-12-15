@@ -7,7 +7,7 @@
 
 
 
-StoryboardScreen *StoryboardFactory::create_opening_storyboard_screen(Display *display)
+StoryboardScreen *StoryboardFactory::create_opening_storyboard_screen(AllegroFlare::EventEmitter *event_emitter, ALLEGRO_FONT *font)
 {
    std::vector<std::string> pages;
 
@@ -19,13 +19,16 @@ StoryboardScreen *StoryboardFactory::create_opening_storyboard_screen(Display *d
    pages.push_back("\nYou won't be able to do much damage on your own. You'll need to find a proper weapon to inflict some REAL Christmas pain!");
    pages.push_back("Good Luck!");
 
-   StoryboardScreen *storyboard_screen = new StoryboardScreen(display, pages, START_GAME_EVENT);
+   if (!event_emitter) throw std::runtime_error("StoryboardScreen no event_emitter");
+   if (!font) throw std::runtime_error("StoryboardScreen no font");
+
+   StoryboardScreen *storyboard_screen = new StoryboardScreen(event_emitter, pages, font, START_GAME_EVENT);
    return storyboard_screen;
 }
 
 
 
-StoryboardScreen *StoryboardFactory::create_closing_storyboard_screen(Display *display)
+StoryboardScreen *StoryboardFactory::create_closing_storyboard_screen(AllegroFlare::EventEmitter *event_emitter, ALLEGRO_FONT *font)
 {
    std::vector<std::string> pages;
 
@@ -35,7 +38,10 @@ StoryboardScreen *StoryboardFactory::create_closing_storyboard_screen(Display *d
    pages.push_back("\nAnd so do I! :)");
    pages.push_back("\n\nThanks for being a part of KrampusHack 2016!");
 
-   StoryboardScreen *storyboard_screen = new StoryboardScreen(display, pages, START_TITLE_SCREEN);
+   if (!event_emitter) throw std::runtime_error("StoryboardScreen::closing_storboard no event_emitter");
+   if (!font) throw std::runtime_error("StoryboardScreen::closing_storboard no font");
+
+   StoryboardScreen *storyboard_screen = new StoryboardScreen(event_emitter, pages, font, START_TITLE_SCREEN);
    return storyboard_screen;
 }
 

@@ -5,6 +5,7 @@
 #include <dungeon/generators/kid_name_generator.hpp>
 #include <string>
 #include <vector>
+#include <AllegroFlare/Random.hpp>
 
 
 class NaughtyList
@@ -33,6 +34,7 @@ public:
    };
 
 private:
+   AllegroFlare::Random random;
    std::vector<Kid> kids;
 
    KidNameGenerator kid_name_generator;

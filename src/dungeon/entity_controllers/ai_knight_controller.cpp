@@ -5,6 +5,8 @@
 
 
 
+
+
 AIKnightController::AIKnightController(KnightEntity *knight)
    : AIControllerBase(knight)
    , knight(knight)
@@ -26,7 +28,8 @@ KnightEntity::state_t AIKnightController::_get_a_random_state()
 
    if (possible_states.size() <= 1) throw std::runtime_error("AIKnightController::_get_a_random_state() cannot contain 1 or fewer items.");
 
-   return possible_states[random_int(0, possible_states.size()-1)];
+
+   return possible_states[random.get_random_int(0, possible_states.size()-1)];
 }
 
 
@@ -45,7 +48,7 @@ void AIKnightController::set_new_state()
 {
    knight->set_state(_get_a_random_state_different_from_current_one());
 
-   float duration_until_next_state_chage = random_float(0.5, 1.0);
+   float duration_until_next_state_chage = random.get_random_float(0.5, 1.0);
    state_counter = duration_until_next_state_chage;
 }
 

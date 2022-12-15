@@ -4,21 +4,25 @@
 #include <dungeon/models/entities/base.hpp>
 
 
+#include <allegro5/allegro_primitives.h>
+#include <AllegroFlare/Color.hpp>
+
+
 
 namespace Entity
 {
 
 
 
-Base::Base(ElementID *parent, std::string type, float x, float y)
-   : ElementID(parent)
+Base::Base(AllegroFlare::ElementID *parent, std::string type, float x, float y)
+   : AllegroFlare::ElementID(parent)
    , place(x, y, 1, 1)
    , velocity()
    , bitmap(nullptr)
 {
    set("type", type);
-   velocity.scale = vec2d(0, 0);
-   velocity.align = vec2d(0, 0);
+   velocity.scale = { 0, 0 };
+   velocity.align = { 0, 0 };
 }
 
 
@@ -43,7 +47,7 @@ void Base::flag_for_deletion()
 void Base::draw()
 {
    place.start_transform();
-   al_draw_filled_rectangle(0, 0, place.size.x, place.size.y, color::red);
+   al_draw_filled_rectangle(0, 0, place.size.x, place.size.y, AllegroFlare::color::red);
    bitmap.position(place.size.x/2, place.size.y/2);
    bitmap.draw();
    place.restore_transform();
@@ -51,15 +55,16 @@ void Base::draw()
 
 
 
-bool Base::collides(const Base &other)
+bool Base::collides(Base &other)
 {
-   float h_width = place.size.x * 0.5;
-   float h_height = place.size.y * 0.5;
+   //float h_width = place.size.x * 0.5;
+   //float h_height = place.size.y * 0.5;
 
    // this will not account for rotation or anything fancy.
    // it's an unofficial ballpark close enough for jazz doodad:
 
-   return other.place.collide(place.x, place.y, h_height, h_width, h_height, h_width);
+   return place.collide(other.place);
+   //return other.place.collide(place.x, place.y, h_height, h_width, h_height, h_width);
 }
 
 

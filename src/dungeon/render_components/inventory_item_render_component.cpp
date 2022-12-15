@@ -4,23 +4,25 @@
 #include <dungeon/render_components/inventory_item_render_component.hpp>
 
 #include <allegro5/allegro_primitives.h>
-#include <framework/color.hpp>
+//#include <framework/color.hpp>
 #include <cmath>
+#include <AllegroFlare/Color.hpp>
 
 
 
-InventoryItemRenderComponent::InventoryItemRenderComponent(item_t item_type, float inventory_screen_position_x, float inventory_screen_position_y)
+InventoryItemRenderComponent::InventoryItemRenderComponent(item_t item_type, ALLEGRO_BITMAP *sprites_grid_bitmap, float inventory_screen_position_x, float inventory_screen_position_y)
    : item_type(item_type)
    , inventory_screen_position_x(inventory_screen_position_x)
    , inventory_screen_position_y(inventory_screen_position_y)
    , place(inventory_screen_position_x, inventory_screen_position_y, 80, 80)
    , count(5)
-   , sprite_sheet(SPRITES_GRID_FILENAME, SPRITES_GRID_SPRITE_WIDTH, SPRITES_GRID_SPRITE_HEIGHT, SPRITES_GRID_SPRITE_SCALING)
+   , sprite_sheet(sprites_grid_bitmap, SPRITES_GRID_SPRITE_WIDTH, SPRITES_GRID_SPRITE_HEIGHT, SPRITES_GRID_SPRITE_SCALING)
+   //, sprite_sheet(SPRITES_GRID_FILENAME, SPRITES_GRID_SPRITE_WIDTH, SPRITES_GRID_SPRITE_HEIGHT, SPRITES_GRID_SPRITE_SCALING)
    , bitmap(nullptr)
    , selected(false)
    , hilighted(false)
 {
-   bitmap.position(place.w/2, place.h/2)
+   bitmap.position(place.size.x/2, place.size.y/2)
       .align(0.5, 0.5)
       .scale(1.5);
 
@@ -102,12 +104,12 @@ void InventoryItemRenderComponent::draw()
 {
    place.start_transform();
 
-   float circle_radius = place.w/3*2;
+   float circle_radius = place.size.x/3*2;
 
-   if (selected) al_draw_filled_circle(place.w/2, place.h/2, circle_radius, color::yellow);
-   else al_draw_filled_circle(place.w/2, place.h/2, circle_radius, color::midnightblue);
+   if (selected) al_draw_filled_circle(place.size.x/2, place.size.y/2, circle_radius, AllegroFlare::color::yellow);
+   else al_draw_filled_circle(place.size.x/2, place.size.y/2, circle_radius, AllegroFlare::color::midnightblue);
 
-   if (hilighted) al_draw_circle(place.w/2, place.h/2, circle_radius + 5 + 4.0 * std::sin(al_get_time() * 6), color::orange, 9);
+   if (hilighted) al_draw_circle(place.size.x/2, place.size.y/2, circle_radius + 5 + 4.0 * std::sin(al_get_time() * 6), AllegroFlare::color::orange, 9);
 
    bitmap.draw();
 

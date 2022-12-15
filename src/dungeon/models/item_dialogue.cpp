@@ -3,11 +3,14 @@
 
 #include <dungeon/models/item_dialogue.hpp>
 
-#include <framework/objects/text_object.hpp>
-#include <framework/color.hpp>
-#include <framework/framework.hpp>
+//#include <framework/objects/text_object.hpp>
+//#include <framework/color.hpp>
+//#include <framework/framework.hpp>
 #include <cmath>
 
+#include <AllegroFlare/Color.hpp>
+#include <allegro5/allegro_primitives.h>
+#include <dungeon/models/text_object.hpp>
 
 
 ItemDialogue::ItemDialogue(float x, float y, float w, float h, ALLEGRO_BITMAP *item_bitmap, ALLEGRO_FONT *font, std::vector<std::string> pages)
@@ -31,8 +34,8 @@ void ItemDialogue::draw(int page_num)
 
    // draw the background and frame
    float padding_x = 40, padding_y = 40;
-   al_draw_filled_rectangle(0-padding_x, 0-padding_y, place.w+padding_x, place.h+padding_y, color::black);
-   al_draw_rectangle(0-padding_x, 0-padding_y, place.w+padding_x, place.h+padding_y, color::white, 5.0);
+   al_draw_filled_rectangle(0-padding_x, 0-padding_y, place.size.x+padding_x, place.size.y+padding_y, AllegroFlare::color::black);
+   al_draw_rectangle(0-padding_x, 0-padding_y, place.size.x+padding_x, place.size.y+padding_y, AllegroFlare::color::white, 5.0);
 
    // draw the item
    bitmap.draw();
@@ -41,10 +44,10 @@ void ItemDialogue::draw(int page_num)
    if (font && page_num >= 0 && page_num < get_num_pages())
       al_draw_multiline_text(
             font,
-            color::white,
+            AllegroFlare::color::white,
             150,
             0,
-            place.w - 150,
+            place.size.x - 150,
             al_get_font_line_height(font),
             0,
             pages[page_num].c_str()
@@ -55,12 +58,12 @@ void ItemDialogue::draw(int page_num)
    {
       TextObject continue_notification("press ENTER to continue");
       continue_notification.font(font);
-      continue_notification.position(place.w, place.h + 30);
+      continue_notification.position(place.size.x, place.size.y + 30);
       continue_notification.align(1.0, 1.0);
       continue_notification.scale(0.80, 0.80);
-      continue_notification.color(color::yellow);
-      float notification_opacity = sin(al_get_time()*4.5) * 0.5 + 0.5;
-      continue_notification.opacity(notification_opacity);
+      //continue_notification.color(AllegroFlare::color::yellow); // COLOR
+      //float notification_opacity = sin(al_get_time()*4.5) * 0.5 + 0.5; // NOTE: opacity was removed
+      //continue_notification.opacity(notification_opacity);
       continue_notification.draw();
    }
 

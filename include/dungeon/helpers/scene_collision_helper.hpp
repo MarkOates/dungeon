@@ -10,6 +10,7 @@ class SceneCollisionHelper
 private:
    Scene *scene;
    SceneCollectionHelper collections;
+   AllegroFlare::EventEmitter *event_emitter;
 
    void update_entities();
    void limit_sprites_to_world_bounds();
@@ -19,7 +20,7 @@ private:
    void check_krampus_on_items();
 
 public:
-   SceneCollisionHelper(Scene *scene);
+   SceneCollisionHelper(AllegroFlare::EventEmitter *event_emitter, Scene *scene);
 
    void resolve_collisions();
 };

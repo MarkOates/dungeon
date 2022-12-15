@@ -21,7 +21,7 @@ private:
    void _create_atlas_copy();
 
 public:
-   SpriteSheet(std::string filename, int sprite_width=48, int sprite_height=48, int scale=1);
+   SpriteSheet(ALLEGRO_BITMAP *_atlas, int sprite_width=48, int sprite_height=48, int scale=1);
    ~SpriteSheet();
 
    ALLEGRO_BITMAP *get_sprite(int index);

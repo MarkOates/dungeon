@@ -5,14 +5,17 @@
 
 #include <dungeon/models/item_dialogue.hpp>
 #include <dungeon/item_type_nums.hpp>
-#include <framework/framework.hpp>
+//#include <framework/framework.hpp>
 
 
 
-DialogueFactory::DialogueFactory()
-   : item_sprite_sheet(SPRITES_GRID_FILENAME, SPRITES_GRID_SPRITE_WIDTH, SPRITES_GRID_SPRITE_HEIGHT, SPRITES_GRID_SPRITE_SCALING)
-   , dialogue_font(Framework::font("ChronoTrigger.ttf 50"))
+DialogueFactory::DialogueFactory(AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap)
+   : item_sprite_sheet(sprites_grid_bitmap, SPRITES_GRID_SPRITE_WIDTH, SPRITES_GRID_SPRITE_HEIGHT, SPRITES_GRID_SPRITE_SCALING)
+   //: item_sprite_sheet(SPRITES_GRID_FILENAME, SPRITES_GRID_SPRITE_WIDTH, SPRITES_GRID_SPRITE_HEIGHT, SPRITES_GRID_SPRITE_SCALING)
+   , dialogue_font(nullptr)
 {
+   if (!font_bin) throw std::runtime_error("DialogueFactory no font_bin");
+   dialogue_font = font_bin->auto_get("ChronoTrigger.ttf 50");
 }
 
 
@@ -23,9 +26,21 @@ DialogueFactory::~DialogueFactory()
 
 
 
+void DialogueFactory::init(AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap)
+{
+   if (!instance)
+   {
+      instance = new DialogueFactory(font_bin, sprites_grid_bitmap);
+      initialized = true;
+   }
+   return;
+}
+
+
+
 DialogueFactory *DialogueFactory::get_instance()
 {
-   if (!instance) instance = new DialogueFactory();
+   if (!initialized) throw std::runtime_error("DialogueFactory::get_instance not initialized");
    return instance;
 }
 
@@ -33,6 +48,8 @@ DialogueFactory *DialogueFactory::get_instance()
 
 ItemDialogue DialogueFactory::build_collected_item_dialog(int item_type)
 {
+   if (!initialized) throw std::runtime_error("DialogueFactory::build_collected_item_dialog not initialized");
+
    ALLEGRO_DISPLAY *display = al_get_current_display();
    int dialogue_x = al_get_display_width(display)/2;
    int dialogue_y = al_get_display_height(display)/4;
@@ -73,6 +90,8 @@ ItemDialogue DialogueFactory::build_collected_item_dialog(int item_type)
 
 ItemDialogue DialogueFactory::build_dialogue(std::string message)
 {
+   if (!initialized) throw std::runtime_error("DialogueFactory::build_dialog not initialized");
+
    ALLEGRO_DISPLAY *display = al_get_current_display();
    int dialogue_x = al_get_display_width(display)/2;
    int dialogue_y = al_get_display_height(display)/4;
@@ -90,6 +109,7 @@ ItemDialogue DialogueFactory::build_dialogue(std::string message)
 
 
 DialogueFactory *DialogueFactory::instance = nullptr;
+bool DialogueFactory::initialized = false;
 
 
 

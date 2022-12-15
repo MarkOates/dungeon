@@ -1,12 +1,14 @@
 #pragma once
 
 
-#include <framework/motion.hpp>
+//#include <framework/motion.hpp>
 #include <dungeon/render_components/inventory_screen_render_component.hpp>
+#include <AllegroFlare/Motion.hpp>
+#include <AllegroFlare/FontBin.hpp>
 
 
 class Inventory;
-class Display;
+//class Display;
 
 
 #define INVENTORY_SCREEN__SHOW ALLEGRO_GET_EVENT_TYPE('N','v','S','h')
@@ -22,13 +24,14 @@ class InventoryScreen // (not actually a "Screen" in the framework sense)
 {
 private:
    Inventory *inventory;
-   Motion motion;
+   //AllegroFlare::Eve;
+   AllegroFlare::Motion motion;
    float display_counter;
    int rows, columns;
    int cursor;
    int selector;
-   Display *display;
-   FontBin fonts;
+   //Display *display;
+   AllegroFlare::FontBin *font_bin;
    TextObject title;
    std::vector<InventoryItemRenderComponent *> item_render_components;
    //InventoryScreenRenderComponent inventory_screen_render_component;
@@ -36,7 +39,7 @@ private:
    int get_num_items();
 
 public:
-   InventoryScreen(Inventory *inventory, Display *display);
+   InventoryScreen(AllegroFlare::FontBin *font_bin, Inventory *inventory);
    ~InventoryScreen();
 
    int get_selected_item();
@@ -53,7 +56,7 @@ public:
    void select(int index);
 
    void update(float time_now);
-   void draw(Display *display);
+   void draw();
 };
 
 

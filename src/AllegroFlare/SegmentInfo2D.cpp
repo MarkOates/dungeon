@@ -1,0 +1,1 @@
+../../../allegro_flare/src/AllegroFlare/SegmentInfo2D.cpp

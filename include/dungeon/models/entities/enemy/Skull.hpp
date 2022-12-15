@@ -22,6 +22,7 @@ namespace Enemy
       };
 
    private:
+      AllegroFlare::EventEmitter *event_emitter;
       float state_counter;
       float min_y, max_y;
       SpriteSheet *sprite_sheet;
@@ -29,7 +30,7 @@ namespace Enemy
       int health;
 
    public:
-      Skull(ElementID *parent, SpriteSheet *sprite_sheet, float x, float y, float min_y, float max_y);
+      Skull(AllegroFlare::ElementID *parent, AllegroFlare::EventEmitter *event_emitter, SpriteSheet *sprite_sheet, float x, float y, float min_y, float max_y);
       ~Skull();
 
       void set_state(state_t state);
