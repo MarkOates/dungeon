@@ -107,6 +107,7 @@ void Camera::fade_to_clear(float duration)
 
 void Camera::set_zoom(float scale)
 {
+   scale -= 0.21;
    place.scale.x = scale;
    place.scale.y = scale;
 }
@@ -115,6 +116,7 @@ void Camera::set_zoom(float scale)
 
 void Camera::zoom_to(float scale, float duration)
 {
+   scale -= 0.21;
    motion.cmove_to(&place.scale.x, scale, duration);
    motion.cmove_to(&place.scale.y, scale, duration);
 }
