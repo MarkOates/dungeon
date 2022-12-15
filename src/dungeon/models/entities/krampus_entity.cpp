@@ -204,6 +204,18 @@ void KrampusEntity::walk_right()
 
 
 
+void KrampusEntity::stand_still_if_no_velocity()
+{
+   //if (abs(velocity.position.x) < 0.001) && abs(velocity.position.y)
+   if (state == STANDING) return;
+   if (velocity.position.get_magnitude_squared() < 0.001)
+   {
+      set_state(STANDING);
+   }
+}
+
+
+
 void KrampusEntity::face_left()
 {
    facing_right = false;
@@ -247,24 +259,28 @@ bool KrampusEntity::set_state(state_t new_state, bool override_if_busy)
    {
    case WALKING_UP:
       bitmap.bitmap(sprite_sheet->get_sprite(18));
-      velocity.position = { 0.0, -walking_speed/2.0f };
+      //velocity.position = { 0.0, -walking_speed/2.0f };
+      velocity.position.y = -walking_speed/2.0f;
       shield_bitmap.flip(true, false);
       break;
    case WALKING_DOWN:
       bitmap.bitmap(sprite_sheet->get_sprite(18));
-      velocity.position = { 0.0, walking_speed/2.0f };
+      //velocity.position = { 0.0, walking_speed/2.0f };
+      velocity.position.y = walking_speed/2.0f;
       shield_bitmap.flip(true, false);
       break;
    case WALKING_LEFT:
       bitmap.bitmap(sprite_sheet->get_sprite(18));
       face_left();
-      velocity.position = { (float)-walking_speed, 0.0 };
+      //velocity.position = { (float)-walking_speed, 0.0 };
+      velocity.position.x = -walking_speed;
       shield_bitmap.flip(true, false);
       break;
    case WALKING_RIGHT:
       bitmap.bitmap(sprite_sheet->get_sprite(18));
       face_right();
-      velocity.position = { (float)walking_speed, 0.0 };
+      //velocity.position = { (float)walking_speed, 0.0 };
+      velocity.position.x = walking_speed;
       shield_bitmap.flip(true, false);
       break;
    case TAKING_HIT:

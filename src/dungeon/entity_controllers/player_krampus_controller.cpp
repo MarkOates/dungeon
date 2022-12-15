@@ -76,11 +76,30 @@ void PlayerKrampusController::on_key_up(int input_button)
    // TODO: THIS
    switch(input_button)
    {
-   case GAMER_BUTTON_B: krampus->stand_still(); break;
-   case GAMER_BUTTON_UP: krampus->stand_still(); break;
-   case GAMER_BUTTON_DOWN: krampus->stand_still(); break;
-   case GAMER_BUTTON_RIGHT: krampus->stand_still(); break;
-   case GAMER_BUTTON_LEFT: krampus->stand_still(); break;
+   case GAMER_BUTTON_B:
+      krampus->stand_still();
+   break;
+
+   case GAMER_BUTTON_UP:
+      krampus->velocity.position.y = 0;
+      krampus->stand_still_if_no_velocity();
+   break;
+
+   case GAMER_BUTTON_DOWN:
+      krampus->velocity.position.y = 0;
+      krampus->stand_still_if_no_velocity();
+   break;
+
+   case GAMER_BUTTON_LEFT:
+      krampus->velocity.position.x = 0;
+      krampus->stand_still_if_no_velocity();
+   break;
+
+   case GAMER_BUTTON_RIGHT:
+      krampus->velocity.position.x = 0;
+      krampus->stand_still_if_no_velocity();
+   break;
+
    default: break;
    }
 }
@@ -91,13 +110,13 @@ void PlayerKrampusController::update_polled_keyboard_input(bool right_pressed, b
 {
    //if (!gamer_input_screen) throw std::runtime_error("PlayerKrampusController::update_polled_keyboard_input() cannot is_pressed() on a nullptr gamer_input_screen");
 
-   //if (krampus->is_idle())
-   //{
+   if (krampus->is_idle())
+   {
       //if (right_pressed) krampus->walk_right();
       //if (left_pressed) krampus->walk_left();
       //if (up_pressed) krampus->walk_up();
       //if (down_pressed) krampus->walk_down();
-   //}
+   }
 }
 
 

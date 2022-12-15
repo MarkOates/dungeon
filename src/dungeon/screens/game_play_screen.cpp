@@ -145,10 +145,10 @@ void GamePlayScreen::virtual_control_button_down_func(int player_num, int button
       if (button_num == GAMER_BUTTON_START) event_emitter->emit_event(OPEN_INVENTORY_SCREEN);
       else
       {
-         if (button_num == GAMER_BUTTON_UP) up_pressed = true;
-         if (button_num == GAMER_BUTTON_DOWN) down_pressed = true;
-         if (button_num == GAMER_BUTTON_LEFT) left_pressed = true;
-         if (button_num == GAMER_BUTTON_RIGHT) right_pressed = true;
+         //if (button_num == GAMER_BUTTON_UP) up_pressed = true;
+         //if (button_num == GAMER_BUTTON_DOWN) down_pressed = true;
+         //if (button_num == GAMER_BUTTON_LEFT) left_pressed = true;
+         //if (button_num == GAMER_BUTTON_RIGHT) right_pressed = true;
          player_krampus_controller.on_key_down(button_num);
       }
       break;

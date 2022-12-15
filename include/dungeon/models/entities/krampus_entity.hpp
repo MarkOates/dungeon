@@ -54,6 +54,7 @@ public:
    void walk_down();
    void walk_left();
    void walk_right();
+   void stand_still_if_no_velocity();
    void face_left();
    void face_right();
    void use_stone_of_defiance();
