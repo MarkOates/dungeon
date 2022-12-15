@@ -232,6 +232,8 @@ void GamePlayScreen::virtual_control_button_down_func(int player_num, int button
 void GamePlayScreen::virtual_control_axis_change_func(ALLEGRO_EVENT *ev)
 {
    ALLEGRO_EVENT *event = ev;
+   // TODO: integrate these controls
+   //player stick axis value
 }
 
 

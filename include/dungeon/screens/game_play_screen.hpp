@@ -85,6 +85,7 @@ public:
    virtual void virtual_control_axis_change_func(ALLEGRO_EVENT *ev) override;
    virtual void key_down_func(ALLEGRO_EVENT *ev) override;
 
+
    void update();
    void draw();
 
