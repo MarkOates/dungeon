@@ -17,6 +17,7 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
 
+#include <dungeon/factories/entity_factory.hpp>
 
 
    //: game_show_music(Framework::sample("game_show_music.ogg"))
@@ -62,7 +63,8 @@ public:
       //, gamer_input_screen()
    {
       if (!event_emitter) throw std::runtime_error("KrampusHackProject:: no event_emitter");
-      event_emitter->emit_game_event(AllegroFlare::GameEvent("START_TITLE_SCREEN"));
+      //event_emitter->emit_game_event(AllegroFlare::GameEvent("START_TITLE_SCREEN"));
+      event_emitter->emit_game_event(AllegroFlare::GameEvent("START_GAMEPLAY_SCREEN"));
       //gamer_input_screen.show_graphic = true;
    }
 
@@ -89,6 +91,10 @@ public:
          //current_screen = new TitleScreen(event_emitter, font_bin, bitmap_bin->auto_get("sprites_grid-x.png"));
          // audio_controller.play_game_show_music(); // TODO: REPLACE THIS
          //break;
+      }
+      else if (game_event->is_type("START_GAMEPLAY_SCREEN"))
+      {
+         framework->activate_screen("gameplay_screen");
       }
       //else if 
       //case START_INTRO_STORYBOARD_SCREEN:
@@ -160,15 +166,40 @@ int main(int argc, char **argv)
 
 
 
+   EntityFactory::init(
+         &framework.get_event_emitter_ref(),
+         &framework.get_bitmap_bin_ref(),
+         &framework.get_font_bin_ref(),
+         framework.get_bitmap_bin_ref().auto_get("sprites_grid-x.png")
+      );
+
+
+
+   // title screen
+
    TitleScreen title_screen(
          &framework.get_event_emitter_ref(),
          &framework.get_font_bin_ref(),
          framework.get_bitmap_bin_ref().auto_get("sprites_grid-x.png")
       );
    framework.register_screen("title_screen", &title_screen);
-   //title_screen.
 
 
+
+
+   // gameplay screen
+
+   GamePlayScreen gameplay_screen(
+         &framework.get_event_emitter_ref(),
+         &framework.get_bitmap_bin_ref(),
+         &framework.get_font_bin_ref()
+      );
+   framework.register_screen("gameplay_screen", &gameplay_screen);
+
+
+
+
+   // main controller screen
 
    KrampusHackProject krampus_hack_project(
          &framework,
@@ -178,6 +209,8 @@ int main(int argc, char **argv)
       );
    framework.register_screen("krampus_hack_project", &krampus_hack_project);
    framework.activate_screen("krampus_hack_project");
+
+
 
 
 

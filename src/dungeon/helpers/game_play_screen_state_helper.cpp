@@ -160,7 +160,7 @@ void GamePlayScreenStateHelper::set_state(int new_state)
 
 
 
-void GamePlayScreenStateHelper::update_state(GamerInputScreen *gamer_input_screen)
+void GamePlayScreenStateHelper::update_state()
 {
    float previous_state_counter = state_counter;
    state_counter += 1.0 / 60.0;

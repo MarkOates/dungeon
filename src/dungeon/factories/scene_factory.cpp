@@ -101,6 +101,13 @@ Scene *SceneFactory::create_scene_by_id(int scene_id)
 
 
 
+void SceneFactory::set_event_emitter(AllegroFlare::EventEmitter *event_emitter)
+{
+   SceneFactory::event_emitter = event_emitter;
+}
+
+
+
 Scene *SceneFactory::create_scene_0()
 {
    if (!event_emitter) throw std::runtime_error("SceneFactory no event_emitter");

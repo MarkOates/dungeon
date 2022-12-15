@@ -23,7 +23,7 @@
 
 EntityFactory *EntityFactory::get_instance()
 {
-   if (!initialized) throw std::runtime_error("EntityFactory not initialized");
+   if (!initialized) throw std::runtime_error("EntityFactory not initialized A");
 
    //if (!instance) instance = new EntityFactory();
    return instance;
@@ -92,7 +92,7 @@ EntityFactory::EntityFactory(AllegroFlare::EventEmitter *event_emitter, AllegroF
 
 ALLEGRO_BITMAP *EntityFactory::create_pixel_perfect_scaled_render(ALLEGRO_BITMAP *bitmap, float scale)
 {
-   if (!initialized) throw std::runtime_error("EntityFactory not initialized");
+   //if (!initialized) throw std::runtime_error("EntityFactory not initialized B");
 
    AllegroFlare::ImageProcessing image_processing(bitmap);
    return image_processing.create_pixel_perfect_scaled_render(scale);
@@ -102,7 +102,7 @@ ALLEGRO_BITMAP *EntityFactory::create_pixel_perfect_scaled_render(ALLEGRO_BITMAP
 
 Entity::Base *EntityFactory::create_random_kid(AllegroFlare::ElementID *parent, float x, float y)
 {
-   if (!initialized) throw std::runtime_error("EntityFactory not initialized");
+   if (!initialized) throw std::runtime_error("EntityFactory not initialized C");
 
    behavior_t behavior = (behavior_t)random.get_random_int(BEHAVIOR_ADULT, BEHAVIOR_NICE);
    return new KidEntity(parent, get_instance()->event_emitter, &get_instance()->character_sprite_sheet, &get_instance()->flat_color_shader, x, y, "[random name]", behavior, -1, -1);
@@ -112,7 +112,7 @@ Entity::Base *EntityFactory::create_random_kid(AllegroFlare::ElementID *parent, 
 
 KidEntity *EntityFactory::create_named_kid(AllegroFlare::ElementID *parent, std::string name, behavior_t behavior, int sprite_index, float x, float y)
 {
-   if (!initialized) throw std::runtime_error("EntityFactory not initialized");
+   if (!initialized) throw std::runtime_error("EntityFactory not initialized D");
 
    int identity_sprite_index = 29;
    if (behavior == BEHAVIOR_NAUGHTY) identity_sprite_index = 28;
@@ -124,7 +124,7 @@ KidEntity *EntityFactory::create_named_kid(AllegroFlare::ElementID *parent, std:
 
 KnightEntity *EntityFactory::create_knight_entity(AllegroFlare::ElementID *parent, float x, float y)
 {
-   if (!initialized) throw std::runtime_error("EntityFactory not initialized");
+   if (!initialized) throw std::runtime_error("EntityFactory not initialized E");
 
    return new KnightEntity(parent, get_instance()->event_emitter, &get_instance()->character_sprite_sheet, &get_instance()->flat_color_shader, x, y, "Harold", knight_behavior_t::BEHAVIOR_NORMAL, 32, -1);
 }
@@ -133,7 +133,7 @@ KnightEntity *EntityFactory::create_knight_entity(AllegroFlare::ElementID *paren
 
 Entity::Base *EntityFactory::create_skull_enemy(AllegroFlare::ElementID *parent, float x, float y, float min_y, float max_y)
 {
-   if (!initialized) throw std::runtime_error("EntityFactory not initialized");
+   if (!initialized) throw std::runtime_error("EntityFactory not initialized F");
 
    return new Enemy::Skull(parent, get_instance()->event_emitter, &get_instance()->character_sprite_sheet, x, y, min_y, max_y);
 }
@@ -142,7 +142,7 @@ Entity::Base *EntityFactory::create_skull_enemy(AllegroFlare::ElementID *parent,
 
 Entity::Base *EntityFactory::create_krampus(AllegroFlare::ElementID *parent, float x, float y)
 {
-   if (!initialized) throw std::runtime_error("EntityFactory not initialized");
+   if (!initialized) throw std::runtime_error("EntityFactory not initialized G");
 
    return new KrampusEntity(parent, get_instance()->event_emitter, &get_instance()->character_sprite_sheet, x, y);
 }
@@ -151,7 +151,7 @@ Entity::Base *EntityFactory::create_krampus(AllegroFlare::ElementID *parent, flo
 
 Entity::Base *EntityFactory::create_krampus_attack_damage_zone(AllegroFlare::ElementID *parent, float x, float y, float w, float h)
 {
-   if (!initialized) throw std::runtime_error("EntityFactory not initialized");
+   if (!initialized) throw std::runtime_error("EntityFactory not initialized H");
 
    return new DamageZoneEntity(parent, "krampus_damage_zone", false, true, x, y, w, h);
 }

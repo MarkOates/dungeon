@@ -66,7 +66,7 @@ public:
    void primary_timer_func() override;
    void user_event_func(ALLEGRO_EVENT *ev) override;
 
-   void update(GamerInputScreen *gamer_input_screen);
+   void update();
    void draw();
 
    void set_state(state_t new_state);

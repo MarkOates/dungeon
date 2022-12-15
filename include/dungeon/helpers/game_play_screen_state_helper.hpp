@@ -21,7 +21,7 @@ public:
 
    void process_key_down(int input_button);
    void set_state(int new_state);
-   void update_state(GamerInputScreen *gamer_input_screen);
+   void update_state();
    void draw_state();
 
    void update_scene();

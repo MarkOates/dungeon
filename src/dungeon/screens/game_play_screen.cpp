@@ -36,7 +36,7 @@ GamePlayScreen::GamePlayScreen(AllegroFlare::EventEmitter *event_emitter, Allegr
    , event_emitter(event_emitter)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
-   , hud(font_bin, bitmap_bin->auto_get("sprites_grid-x.png"), &player_inventory, &naughty_list)
+   , hud(font_bin, bitmap_bin->auto_get("top_hud-x.png"), &player_inventory, &naughty_list)
    , inventory_screen(font_bin, &player_inventory)
    , state_helper(event_emitter, this)
    , camera(nullptr)
@@ -52,9 +52,10 @@ GamePlayScreen::GamePlayScreen(AllegroFlare::EventEmitter *event_emitter, Allegr
 
 void GamePlayScreen::primary_timer_func()
 {
-   //update(gamer_input_screen);
+   update();
    draw();
 }
+
 
 
 
@@ -205,10 +206,14 @@ void GamePlayScreen::user_event_func(ALLEGRO_EVENT *ev)
 
 
 
-void GamePlayScreen::update(GamerInputScreen *gamer_input_screen)
+void GamePlayScreen::update()
 {
-   state_helper.update_state(gamer_input_screen);
+   state_helper.update_state();
 }
+//void GamePlayScreen::update(GamerInputScreen *gamer_input_screen)
+//{
+   //state_helper.update_state(gamer_input_screen);
+//}
 
 
 
@@ -229,6 +234,8 @@ void GamePlayScreen::set_state(state_t new_state)
 void GamePlayScreen::enter_scene(int scene_id, char door_name)
 {
    if (scene) delete scene;
+
+   SceneFactory::set_event_emitter(event_emitter);
 
    scene = SceneFactory::create_scene_by_id(scene_id);
 
