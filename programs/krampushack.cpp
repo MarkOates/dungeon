@@ -163,7 +163,7 @@ public:
 int main(int argc, char **argv)
 {
    AllegroFlare::Frameworks::Full framework;
-   framework.disable_fullscreen();
+   //framework.disable_fullscreen();
    framework.initialize();
 
 
