@@ -708,28 +708,28 @@ void GamePlayScreen::enter_scene(int scene_id, char door_name)
    KrampusEntity *krampus = collections.get_krampus();
    DoorEntity *door = collections.get_door(door_name);
 
-   // create entities for the alive kids in this scene
-   for (auto &kid : naughty_list_kids)
-   {
-      float min_y, max_y;
-      float scene_width = scene->get_width();
-      scene->get_y_bounds(&min_y, &max_y);
+   //// create entities for the alive kids in this scene
+   //for (auto &kid : naughty_list_kids)
+   //{
+      //float min_y, max_y;
+      //float scene_width = scene->get_width();
+      //scene->get_y_bounds(&min_y, &max_y);
 
-      float new_kid_x = random.get_random_float(0, scene->get_width());
-      float new_kid_y = random.get_random_float(min_y, max_y);
+      //float new_kid_x = random.get_random_float(0, scene->get_width());
+      //float new_kid_y = random.get_random_float(min_y, max_y);
 
-      EntityFactory::create_named_kid(scene, kid.get_name(), kid.get_behavior(), kid.get_sprite_index(), new_kid_x, new_kid_y);
-   }
+      //EntityFactory::create_named_kid(scene, kid.get_name(), kid.get_behavior(), kid.get_sprite_index(), new_kid_x, new_kid_y);
+   //}
 
-   // create a knight because you can
-   float min_y, max_y;
-   float scene_width = scene->get_width();
-   scene->get_y_bounds(&min_y, &max_y);
-   float new_knight_x = random.get_random_float(0, scene->get_width());
-   float new_knight_y = random.get_random_float(min_y, max_y);
-   EntityFactory::create_knight_entity(scene, new_knight_x, new_knight_y);
+   //// create a knight because you can
+   //float min_y, max_y;
+   //float scene_width = scene->get_width();
+   //scene->get_y_bounds(&min_y, &max_y);
+   //float new_knight_x = random.get_random_float(0, scene->get_width());
+   //float new_knight_y = random.get_random_float(min_y, max_y);
+   //EntityFactory::create_knight_entity(scene, new_knight_x, new_knight_y);
 
-   EntityFactory::create_skull_enemy(scene, scene_width, new_knight_y, min_y, max_y);
+   //EntityFactory::create_skull_enemy(scene, scene_width, new_knight_y, min_y, max_y);
 
    // create AI controllers to control all the enemies
    for (auto &ai_controller : ai_controllers)
