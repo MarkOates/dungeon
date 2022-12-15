@@ -3,11 +3,13 @@
 
 #include <dungeon/models/entities/enemy/kid_entity.hpp>
 #include <dungeon/entity_controllers/ai_controller_base.hpp>
+#include <AllegroFlare/Random.hpp>
 
 
 class AIKidController : public AIControllerBase
 {
 private:
+   AllegroFlare::Random random;
    float state_counter;
    KidEntity *kid;
    KidEntity::state_t _get_a_random_state();

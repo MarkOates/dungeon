@@ -9,6 +9,10 @@
 #include <dungeon/models/inventory_screen.hpp>
 #include <dungeon/models/naughty_list.hpp>
 #include <dungeon/models/scene.hpp>
+#include <AllegroFlare/Screens/Base.hpp>
+#include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/EventEmitter.hpp>
 //#include <framework/screen.hpp>
 
 
@@ -35,6 +39,10 @@ private:
       BOSS_FIGHT,
       STATE_COMPLETE
    };
+   AllegroFlare::EventEmitter *event_emitter;
+   AllegroFlare::BitmapBin *bitmap_bin;
+   AllegroFlare::FontBin *font_bin;
+   AllegroFlare::Random random;
    state_t state;
    Scene *scene;
    PlayerKrampusController player_krampus_controller;
@@ -45,7 +53,7 @@ private:
    InventoryScreen inventory_screen;
    GamePlayScreenStateHelper state_helper;
    Camera camera;
-   GamerInputScreen *gamer_input_screen;
+   //GamerInputScreen *gamer_input_screen;
 
    friend class GamePlayScreenStateHelper;
 
@@ -53,10 +61,10 @@ private:
    void _destroy_ai_controller(Entity::Base *entity);
 
 public:
-   GamePlayScreen(GamerInputScreen *gamer_input_screen),
+   GamePlayScreen(AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin);
 
    void primary_timer_func() override;
-   void user_event_func() override;
+   void user_event_func(ALLEGRO_EVENT *ev) override;
 
    void update(GamerInputScreen *gamer_input_screen);
    void draw();

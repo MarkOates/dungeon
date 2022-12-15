@@ -8,6 +8,8 @@
 #include <dungeon/motion_fx_type_names.hpp>
 #include <dungeon/music_track_nums.hpp>
 #include <dungeon/user_events.hpp>
+#include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Interpolators.hpp>
 #include <cmath>
 
 
@@ -16,11 +18,12 @@
 
 
 
-KnightEntity::KnightEntity(ElementID *parent, SpriteSheet *sprite_sheet, Shader *flat_color_shader, float x, float y, std::string name, knight_behavior_t behavior, int sprite_index, int identity_sprite_index)
+KnightEntity::KnightEntity(ElementID *parent, AllegroFlare::EventEmitter *event_emitter, SpriteSheet *sprite_sheet, AllegroFlare::Shader *flat_color_shader, float x, float y, std::string name, knight_behavior_t behavior, int sprite_index, int identity_sprite_index)
    : Enemy::Base(parent, "knight", x, y)
    , sprite_sheet(sprite_sheet)
    , name(name)
    , walk_speed(1.5)
+   , event_emitter(event_emitter)
    , state(STATE_STANDING_STILL)
    , flat_color_shader(flat_color_shader)
    , behavior(behavior)
@@ -28,9 +31,11 @@ KnightEntity::KnightEntity(ElementID *parent, SpriteSheet *sprite_sheet, Shader 
    , identity_bitmap(sprite_sheet->get_sprite(identity_sprite_index))
    , health(5)
 {
-   place.size = vec2d(60, 30);
+   if (!event_emitter) throw std::runtime_error("KnightEntity:: no event emitter");
 
-   if (sprite_index < 0) sprite_index = random_int(0, 16);
+   place.size = { 60, 30 };
+
+   if (sprite_index < 0) sprite_index = random.get_random_int(0, 16);
    bitmap.bitmap(sprite_sheet->get_sprite(34));
    bitmap.align(0.5, 1.0);
    bitmap.scale(2.0, 2.0);
@@ -85,7 +90,8 @@ void KnightEntity::draw()
    ALLEGRO_COLOR identity_color = get_identity_color();
    float tint_intensity = get_identity_tint_intensity();
 
-   flat_color_shader->use();
+   //flat_color_shader->use();
+   flat_color_shader->activate();
 
    flat_color_shader->set_vec3("tint", identity_color.r, identity_color.g, identity_color.b);
    flat_color_shader->set_float("tint_intensity", tint_intensity);
@@ -93,7 +99,8 @@ void KnightEntity::draw()
    place.start_transform();
    bitmap.draw();
 
-   flat_color_shader->stop();
+   //flat_color_shader->stop();
+   flat_color_shader->deactivate();
 
    //bitmap.bitmap(identity_bitmap);
       //bitmap.opacity(tint_intensity);
@@ -168,8 +175,8 @@ void KnightEntity::set_state(state_t new_state)
    switch (state)
    {
    case STATE_DYING:
-      UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(DYING_ENEMY_SOUND_EFFECT)));
-      UserEventEmitter::emit_event(SPAWN_MOTION_FX, (intptr_t)(new std::string(MOTION_FX_SLASH_POOF)), place.position.x, place.position.y);
+      event_emitter->emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(DYING_ENEMY_SOUND_EFFECT)));
+      event_emitter->emit_event(SPAWN_MOTION_FX, (intptr_t)(new std::string(MOTION_FX_SLASH_POOF)), place.position.x, place.position.y);
       flag_for_deletion();
       break;
    case STATE_TAKING_HIT:
@@ -180,9 +187,9 @@ void KnightEntity::set_state(state_t new_state)
       }
       else
       {
-         velocity.position = vec2d(0.0, 0.0);
-         UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(METAL_KLANK_SOUND_EFFECT)));
-         UserEventEmitter::emit_event(SPAWN_MOTION_FX, (intptr_t)(new std::string(MOTION_FX_DAMAGE_HIT)), place.position.x, place.position.y, (intptr_t)(new std::string("HIT!")));
+         velocity.position = { 0.0, 0.0 };
+         event_emitter->emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(METAL_KLANK_SOUND_EFFECT)));
+         event_emitter->emit_event(SPAWN_MOTION_FX, (intptr_t)(new std::string(MOTION_FX_DAMAGE_HIT)), place.position.x, place.position.y, (intptr_t)(new std::string("HIT!")));
          reveal_behavior();
       }
       break;
@@ -192,19 +199,19 @@ void KnightEntity::set_state(state_t new_state)
       state_counter = 0.3;
       break;
    case STATE_STANDING_STILL:
-      velocity.position = vec2d(0.0, 0.0);
+      velocity.position = { 0.0, 0.0 };
       break;
    case STATE_WALKING_UP:
-      velocity.position = vec2d(0.0, -walk_speed/2);
+      velocity.position = { 0.0, (float)-walk_speed/2 };
       break;
    case STATE_WALKING_DOWN:
-      velocity.position = vec2d(0.0, walk_speed/2);
+      velocity.position = { 0.0, (float)walk_speed/2 };
       break;
    case STATE_WALKING_LEFT:
-      velocity.position = vec2d(-walk_speed, 0.0);
+      velocity.position = { (float)-walk_speed, 0.0 };
       break;
    case STATE_WALKING_RIGHT:
-      velocity.position = vec2d(walk_speed, 0.0);
+      velocity.position = { (float)walk_speed, 0.0 };
       break;
    }
 }
@@ -218,7 +225,7 @@ ALLEGRO_COLOR KnightEntity::get_identity_color()
    switch(behavior)
    {
    case BEHAVIOR_NORMAL:
-      identity_color = color::firebrick;
+      identity_color = AllegroFlare::color::firebrick;
       break;
    }
 
@@ -242,7 +249,7 @@ float KnightEntity::get_identity_tint_intensity()
    float normalized_oscilation = sin(al_get_time() * strobe_speed*4) * 0.5 + 0.5;
    float tint_intensity = 1.0 - std::min(identity_reveal_counter*(1.0/identiy_reveal_duration), 1.0);
 
-   return normalized_oscilation * interpolator::fast_in(tint_intensity);
+   return normalized_oscilation * AllegroFlare::interpolator::fast_in(tint_intensity);
 }
 
 

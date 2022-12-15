@@ -3,17 +3,21 @@
 
 class GamePlayScreen;
 class GamerInputScreen;
+namespace AllegroFlare { class EventEmitter; class Random; };
+#include <AllegroFlare/Random.hpp>
 
 
 class GamePlayScreenStateHelper
 {
 private:
+   AllegroFlare::EventEmitter *event_emitter;
    GamePlayScreen *game_play_screen;
+   AllegroFlare::Random random;
    float state_counter;
    bool _can_bypass_dialogue();
 
 public:
-   GamePlayScreenStateHelper(GamePlayScreen *game_play_screen);
+   GamePlayScreenStateHelper(AllegroFlare::EventEmitter *event_emitter, GamePlayScreen *game_play_screen);
 
    void process_key_down(int input_button);
    void set_state(int new_state);

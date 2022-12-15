@@ -14,10 +14,13 @@
 
 
 
-SceneCollisionHelper::SceneCollisionHelper(Scene *scene)
+SceneCollisionHelper::SceneCollisionHelper(AllegroFlare::EventEmitter *event_emitter, Scene *scene)
    : scene(scene)
    , collections(scene)
-{}
+   , event_emitter(event_emitter)
+{
+   if (!event_emitter) throw std::runtime_error("SceneCollisionHelper no event_emitter");
+}
 
 
 
@@ -105,7 +108,7 @@ void SceneCollisionHelper::check_krampus_on_door()
          std::string destination_door_name = door->get_as_string("destination_door_name");
          char dest_door_char = destination_door_name.size() == 1 ? destination_door_name[0] : '!';
 
-         UserEventEmitter::emit_event(ENTER_DOOR_EVENT, destination_scene, dest_door_char);
+         event_emitter->emit_event(ENTER_DOOR_EVENT, destination_scene, dest_door_char);
       }
    }
 }
@@ -120,7 +123,7 @@ void SceneCollisionHelper::check_krampus_on_items()
       if (item->place.collide(krampus->place.x, krampus->place.y, 20, 10, 20, 10))
       {
          int item_type_int = item->get_as_int("item_type_int");
-         UserEventEmitter::emit_event(COLLECT_ITEM_EVENT, item_type_int);
+         event_emitter->emit_event(COLLECT_ITEM_EVENT, item_type_int);
          item->flag_for_deletion();
       }
    }

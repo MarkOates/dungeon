@@ -5,27 +5,40 @@
 
 //#include <framework/framework.hpp>
 //#include <framework/image_processing.hpp>
-#include <framework/objects/text_object.hpp>
+//#include <framework/objects/text_object.hpp>
+#include <dungeon/models/text_object.hpp>
 #include <dungeon/item_type_nums.hpp>
 #include <sstream>
 
+#include <allegro5/allegro_primitives.h>
+#include <AllegroFlare/ImageProcessing.hpp>
+#include <AllegroFlare/Color.hpp>
 
 
-HUD::HUD(Inventory *player_inventory, NaughtyList *naughty_list)
+
+HUD::HUD(AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid, Inventory *player_inventory, NaughtyList *naughty_list)
    : player_inventory(player_inventory)
    , naughty_list(naughty_list)
    , player_health(0)
    , player_max_health(0)
    , chrome_bitmap(nullptr)
-   , font(Framework::font("ChronoTrigger.ttf 40"))
-   , font_bigger(Framework::font("ChronoTrigger.ttf 55"))
+   , font(nullptr)
+   , font_bigger(nullptr)
    , black_bar_counter(0)
-   , sprite_sheet(SPRITES_GRID_FILENAME, SPRITES_GRID_SPRITE_WIDTH, SPRITES_GRID_SPRITE_HEIGHT, SPRITES_GRID_SPRITE_SCALING)
+   , sprite_sheet(sprites_grid, SPRITES_GRID_SPRITE_WIDTH, SPRITES_GRID_SPRITE_HEIGHT, SPRITES_GRID_SPRITE_SCALING)
    , weapon_bitmap(nullptr)
    , shield_bitmap(nullptr)
    , item_bitmap(nullptr)
 {
-   ALLEGRO_BITMAP *bmp = create_pixel_perfect_scaled_render(Framework::bitmap("top_hud-x.png"), 5);
+   if (!font_bin) throw std::runtime_error("HUD:: no font_bin!");
+   if (!sprites_grid) throw std::runtime_error("HUD:: no sprites_grid!");
+
+   font = font_bin->auto_get("ChronoTrigger.ttf 40");
+   font_bigger = font_bin->auto_get("ChronoTrigger.ttf 55");
+
+
+   AllegroFlare::ImageProcessing image_processing(sprites_grid);
+   ALLEGRO_BITMAP *bmp = image_processing.create_pixel_perfect_scaled_render( 5);
    chrome_bitmap.bitmap(bmp);
 
    chrome_bitmap.position(1280/2, 20);
@@ -121,15 +134,16 @@ void HUD::draw()
 
    // fill the player health bar
    std::string player_health_str = "";
-   player_health_str += tostring(player_health) + " / " + tostring(player_max_health);
-   if (mode == MODE_GAME_PLAY) al_draw_text(font, color::white, 324, 86, ALLEGRO_ALIGN_CENTRE, player_health_str.c_str());
+   // NOTE: std::to_string here to replace previous tostring
+   player_health_str += std::to_string(player_health) + " / " + std::to_string(player_max_health);
+   if (mode == MODE_GAME_PLAY) al_draw_text(font, AllegroFlare::color::white, 324, 86, ALLEGRO_ALIGN_CENTRE, player_health_str.c_str());
 
    // draw the black bars
    float black_bar_height = 100;
    float top_bar_y = 0 - black_bar_height * (1.0 - black_bar_counter);
    float bottom_bar_y = 720-black_bar_height + black_bar_height * (1.0 - black_bar_counter);
-   al_draw_filled_rectangle(0, top_bar_y, 1280, top_bar_y+black_bar_height, color::black);
-   al_draw_filled_rectangle(0, bottom_bar_y, 1280, bottom_bar_y+black_bar_height, color::black);
+   al_draw_filled_rectangle(0, top_bar_y, 1280, top_bar_y+black_bar_height, AllegroFlare::color::black);
+   al_draw_filled_rectangle(0, bottom_bar_y, 1280, bottom_bar_y+black_bar_height, AllegroFlare::color::black);
 }
 
 

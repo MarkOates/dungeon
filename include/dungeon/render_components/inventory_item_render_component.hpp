@@ -5,6 +5,8 @@
 //#include <framework/placement2d.hpp>
 #include <dungeon/models/sprite_sheet.hpp>
 #include <dungeon/item_type_nums.hpp>
+#include <dungeon/models/bitmap_object.hpp>
+#include <AllegroFlare/Placement2D.hpp>
 
 
 class InventoryItemRenderComponent
@@ -12,7 +14,7 @@ class InventoryItemRenderComponent
 private:
    int item_type;
    float inventory_screen_position_x, inventory_screen_position_y;
-   placement2d place;
+   AllegroFlare::Placement2D place;
    int count;
    SpriteSheet sprite_sheet;
    BitmapObject bitmap;
@@ -20,7 +22,7 @@ private:
    int hilighted;
 
 public:
-   InventoryItemRenderComponent(item_t item_type, float inventory_screen_position_x, float inventory_screen_position_y);
+   InventoryItemRenderComponent(item_t item_type, ALLEGRO_BITMAP *sprites_grid_bitmap, float inventory_screen_position_x, float inventory_screen_position_y);
    ~InventoryItemRenderComponent();
 
    int get_item_type();

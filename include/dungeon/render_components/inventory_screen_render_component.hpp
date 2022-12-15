@@ -3,6 +3,8 @@
 
 //#include <framework/objects/text_object.hpp>
 #include <dungeon/render_components/inventory_item_render_component.hpp>
+#include <dungeon/models/text_object.hpp>
+#include <AllegroFlare/FontBin.hpp>
 
 
 class InventoryScreen;
@@ -14,12 +16,14 @@ class InventoryScreenRenderComponent
 private:
    InventoryScreen *inventory_screen;
    //Display *display;
-   FontBin fonts;
+   //AllegroFlare::FontBin fonts;
+   AllegroFlare::FontBin *font_bin;
+   ALLEGRO_BITMAP *sprites_grid_bitmap;
    TextObject title;
    std::vector<InventoryItemRenderComponent *> item_render_components;
 
 public:
-   InventoryScreenRenderComponent(InventoryScreen *inventory_screen);
+   InventoryScreenRenderComponent(AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap, InventoryScreen *inventory_screen);
    ~InventoryScreenRenderComponent();
 
    void hilight(int index);

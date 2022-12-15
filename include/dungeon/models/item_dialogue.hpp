@@ -4,12 +4,14 @@
 //#include <framework/objects/bitmap_object.hpp>
 #include <vector>
 #include <string>
+#include <AllegroFlare/Placement2D.hpp>
+#include <dungeon/models/bitmap_object.hpp>
 
 
 class ItemDialogue
 {
 private:
-   placement2d place;
+   AllegroFlare::Placement2D place;
    std::vector<std::string> pages;
    ALLEGRO_FONT *font;
    BitmapObject bitmap;

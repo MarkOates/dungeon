@@ -23,7 +23,7 @@ KidEntity::state_t AIKidController::_get_a_random_state()
          KidEntity::STATE_WALKING_RIGHT
       };
 
-   return possible_states[random_int(0, possible_states.size()-1)];
+   return possible_states[random.get_random_int(0, possible_states.size()-1)];
 }
 
 
@@ -42,7 +42,7 @@ void AIKidController::set_new_state()
 {
    kid->set_state(_get_a_random_state_different_from_current_one());
 
-   float duration_until_next_state_chage = random_float(0.5, 5.0);
+   float duration_until_next_state_chage = random.get_random_float(0.5, 5.0);
    state_counter = duration_until_next_state_chage;
 }
 

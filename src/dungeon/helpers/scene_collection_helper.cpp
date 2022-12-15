@@ -10,6 +10,10 @@
 #include <dungeon/models/entities/door_entity.hpp>
 #include <dungeon/entity_attribute_names.hpp>
 
+#include <AllegroFlare/ElementID.hpp>
+
+using AllegroFlare::ElementID;
+
 
 
 SceneCollectionHelper::SceneCollectionHelper(Scene *scene)
@@ -140,7 +144,8 @@ std::vector<ItemEntity *> SceneCollectionHelper::get_items()
 
 DoorEntity *SceneCollectionHelper::get_door(char door_name)
 {
-   return static_cast<DoorEntity *>(scene->find_first("door_name", tostring(door_name)));
+   return static_cast<DoorEntity *>(scene->find_first("door_name", std::string(&door_name, 1)));
+            //std::tostring(door_name)));
 }
 
 

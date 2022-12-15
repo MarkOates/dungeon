@@ -4,7 +4,10 @@
 #include <dungeon/models/entities/enemy/base.hpp>
 
 //#include <framework/shader.hpp>
+//#include <framework/shader.hpp>
 #include <dungeon/models/sprite_sheet.hpp>
+#include <AllegroFlare/Shader.hpp>
+#include <AllegroFlare/Random.hpp>
 
 
 enum knight_behavior_t
@@ -28,13 +31,15 @@ private:
       STATE_DYING,
    };
 
+   AllegroFlare::Random random;
    SpriteSheet *sprite_sheet;
+   AllegroFlare::EventEmitter *event_emitter;
    knight_behavior_t behavior;
    std::string name;
    float state_counter;
    float walk_speed;
    state_t state;
-   Shader *flat_color_shader;
+   AllegroFlare::Shader *flat_color_shader;
    float identity_reveal_counter;
    ALLEGRO_BITMAP *knight_bitmap, *identity_bitmap;
    ALLEGRO_COLOR get_identity_color();
@@ -46,7 +51,7 @@ private:
    friend class AIKnightController;
 
 public:
-   KnightEntity(ElementID *parent, SpriteSheet *sprite_sheet, Shader *flat_color_shader, float x, float y, std::string name, knight_behavior_t behavior, int sprite_index, int identity_sprite_index);
+   KnightEntity(ElementID *parent, AllegroFlare::EventEmitter *event_emitter, SpriteSheet *sprite_sheet, AllegroFlare::Shader *flat_color_shader, float x, float y, std::string name, knight_behavior_t behavior, int sprite_index, int identity_sprite_index);
    virtual ~KnightEntity();
 
    void update() override;

@@ -14,7 +14,7 @@ namespace MotionFX
       float counter;
 
    public:
-      Base(ElementID *parent, std::string motion_fx_type, float x, float y, float duration);
+      Base(AllegroFlare::ElementID *parent, std::string motion_fx_type, float x, float y, float duration);
       virtual ~Base();
 
       virtual void update();

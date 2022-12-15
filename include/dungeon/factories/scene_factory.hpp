@@ -2,6 +2,7 @@
 
 
 #include <dungeon/models/scene.hpp>
+#include <AllegroFlare/Random.hpp>
 
 
 #define ONE_SCREEN_WIDTH (256*5)
@@ -13,6 +14,9 @@
 class SceneFactory
 {
 private:
+   static AllegroFlare::EventEmitter *event_emitter;
+   static AllegroFlare::Random random;
+
    static float door_notch_x(int pos);
 
    static Scene *_create_scene_by_dimentions(int screen_widths, int background_type=1);
@@ -30,6 +34,7 @@ private:
    static Scene *create_scene_9();
 
 public:
+   static void set_event_emitter(AllegroFlare::EventEmitter *event_emitter);
    static Scene *create_scene_by_id(int scene_id);
 };
 

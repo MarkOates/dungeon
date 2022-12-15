@@ -14,10 +14,17 @@
 #include <dungeon/music_track_nums.hpp>
 #include <dungeon/user_events.hpp>
 
+#include <AllegroFlare/EventEmitter.hpp>
+#include <AllegroFlare/VirtualControls.hpp>
+#include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Random.hpp>
 
 
-GamePlayScreenStateHelper::GamePlayScreenStateHelper(GamePlayScreen *game_play_screen)
-   : game_play_screen(game_play_screen)
+
+GamePlayScreenStateHelper::GamePlayScreenStateHelper(AllegroFlare::EventEmitter *event_emitter, GamePlayScreen *game_play_screen)
+   : event_emitter(event_emitter)
+   , game_play_screen(game_play_screen)
+   , random()
    , state_counter(1.0)
 {}
 
@@ -26,10 +33,19 @@ GamePlayScreenStateHelper::GamePlayScreenStateHelper(GamePlayScreen *game_play_s
 
 void GamePlayScreenStateHelper::process_key_down(int input_button)
 {
+   if (!event_emitter) throw std::runtime_error("GamePlayScreenStateHelper:: no event_emitter");
+
+   auto &GAMER_BUTTON_UP = AllegroFlare::VirtualControls::BUTTON_UP;
+   auto &GAMER_BUTTON_DOWN = AllegroFlare::VirtualControls::BUTTON_DOWN;
+   auto &GAMER_BUTTON_LEFT = AllegroFlare::VirtualControls::BUTTON_LEFT;
+   auto &GAMER_BUTTON_RIGHT = AllegroFlare::VirtualControls::BUTTON_RIGHT;
+   auto &GAMER_BUTTON_A = AllegroFlare::VirtualControls::BUTTON_A;
+   auto &GAMER_BUTTON_START = AllegroFlare::VirtualControls::BUTTON_START;
+
    switch (game_play_screen->state)
    {
    case GamePlayScreen::GAME_PLAY:
-      if (input_button == GAMER_BUTTON_START) UserEventEmitter::emit_event(OPEN_INVENTORY_SCREEN);
+      if (input_button == GAMER_BUTTON_START) event_emitter->emit_event(OPEN_INVENTORY_SCREEN);
       else
       {
          game_play_screen->player_krampus_controller.on_key_down(input_button);
@@ -39,12 +55,12 @@ void GamePlayScreenStateHelper::process_key_down(int input_button)
       // nothing
       break;
    case GamePlayScreen::INVENTORY_SCREEN:
-      if (input_button == GAMER_BUTTON_UP) UserEventEmitter::emit_event(INVENTORY_SCREEN__MOVE_CURSOR_UP);
-      if (input_button == GAMER_BUTTON_DOWN) UserEventEmitter::emit_event(INVENTORY_SCREEN__MOVE_CURSOR_DOWN);
-      if (input_button == GAMER_BUTTON_LEFT) UserEventEmitter::emit_event(INVENTORY_SCREEN__MOVE_CURSOR_LEFT);
-      if (input_button == GAMER_BUTTON_RIGHT) UserEventEmitter::emit_event(INVENTORY_SCREEN__MOVE_CURSOR_RIGHT);
-      if (input_button == GAMER_BUTTON_A) UserEventEmitter::emit_event(INVENTORY_SCREEN__SELECT_ITEM);
-      if (input_button == GAMER_BUTTON_START) UserEventEmitter::emit_event(CLOSE_INVENTORY_SCREEN);
+      if (input_button == GAMER_BUTTON_UP) event_emitter->emit_event(INVENTORY_SCREEN__MOVE_CURSOR_UP);
+      if (input_button == GAMER_BUTTON_DOWN) event_emitter->emit_event(INVENTORY_SCREEN__MOVE_CURSOR_DOWN);
+      if (input_button == GAMER_BUTTON_LEFT) event_emitter->emit_event(INVENTORY_SCREEN__MOVE_CURSOR_LEFT);
+      if (input_button == GAMER_BUTTON_RIGHT) event_emitter->emit_event(INVENTORY_SCREEN__MOVE_CURSOR_RIGHT);
+      if (input_button == GAMER_BUTTON_A) event_emitter->emit_event(INVENTORY_SCREEN__SELECT_ITEM);
+      if (input_button == GAMER_BUTTON_START) event_emitter->emit_event(CLOSE_INVENTORY_SCREEN);
       break;
    case GamePlayScreen::ITEM_COLLECTED:
        // can only close dialogue after a delay
@@ -64,7 +80,7 @@ void GamePlayScreenStateHelper::process_key_down(int input_button)
       if (_can_bypass_dialogue()
          && (input_button == GAMER_BUTTON_A || input_button == GAMER_BUTTON_START))
       {
-         UserEventEmitter::emit_event(START_TITLE_SCREEN);
+         event_emitter->emit_event(START_TITLE_SCREEN);
       }
       break;
    case GamePlayScreen::GAME_WON:
@@ -72,7 +88,7 @@ void GamePlayScreenStateHelper::process_key_down(int input_button)
       if (_can_bypass_dialogue()
          && (input_button == GAMER_BUTTON_A || input_button == GAMER_BUTTON_START))
       {
-         UserEventEmitter::emit_event(START_CLOSING_STORYBOARD_SCREEN);
+         event_emitter->emit_event(START_CLOSING_STORYBOARD_SCREEN);
       }
       break;
    default:
@@ -100,14 +116,14 @@ void GamePlayScreenStateHelper::set_state(int new_state)
          SceneCollectionHelper collections(game_play_screen->scene);
          KrampusEntity *krampus = collections.get_krampus();
          if (krampus) krampus->celebrate();
-         UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, TADA_SOUND_EFFECT);
+         event_emitter->emit_event(PLAY_SOUND_EFFECT, TADA_SOUND_EFFECT);
          game_play_screen->hud.set_to_cinema_mode();
          game_play_screen->camera.zoom_to(0.6, 0.3);
-         game_play_screen->camera.tilt_to(random_bool() ? 0.1 : -0.1, 0.3);
+         game_play_screen->camera.tilt_to(random.get_random_bool() ? 0.1 : -0.1, 0.3);
       }
       break;
    case GamePlayScreen::ENTERING_THROUGH_DOOR:
-      game_play_screen->camera.set_overlay_color(color::black);
+      game_play_screen->camera.set_overlay_color(AllegroFlare::color::black);
       game_play_screen->hud.set_to_cinema_mode();
       game_play_screen->camera.fade_to_clear(1.5);
       game_play_screen->camera.set_zoom(0.8);
@@ -116,24 +132,24 @@ void GamePlayScreenStateHelper::set_state(int new_state)
    case GamePlayScreen::USING_STONE_OF_DEFIANCE:
       {
          game_play_screen->camera.zoom_to(1.15, 0.3);
-         game_play_screen->camera.set_overlay_color(color::color(color::mix(color::red, color::violet, 0.5), 0.2));
+         game_play_screen->camera.set_overlay_color(AllegroFlare::color::color(AllegroFlare::color::mix(AllegroFlare::color::red, AllegroFlare::color::violet, 0.5), 0.2));
          SceneCollectionHelper collections(game_play_screen->scene);
          for (auto &kid : collections.get_kids()) kid->reveal_behavior();
       }
       break;
    case GamePlayScreen::GAME_LOST:
-      UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(FAIL_MOAN_SOUND_EFFECT)));
-      game_play_screen->camera.set_overlay_color(color::color(color::red, 0.3));
+      event_emitter->emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(FAIL_MOAN_SOUND_EFFECT)));
+      game_play_screen->camera.set_overlay_color(AllegroFlare::color::color(AllegroFlare::color::red, 0.3));
       game_play_screen->camera.zoom_to(0.8, 2.2);
-      game_play_screen->camera.tilt_to(random_bool() ? 0.03 : -0.03, 2.0);
+      game_play_screen->camera.tilt_to(random.get_random_bool() ? 0.03 : -0.03, 2.0);
       break;
    case GamePlayScreen::GAME_WON:
       {
          SceneCollectionHelper collections(game_play_screen->scene);
          KrampusEntity *krampus = collections.get_krampus();
          if (krampus) krampus->celebrate();
-         UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, WIN_CHEER_SOUND_EFFECT);
-         game_play_screen->camera.set_overlay_color(color::color(color::white, 0.1));
+         event_emitter->emit_event(PLAY_SOUND_EFFECT, WIN_CHEER_SOUND_EFFECT);
+         game_play_screen->camera.set_overlay_color(AllegroFlare::color::color(AllegroFlare::color::white, 0.1));
          game_play_screen->camera.zoom_to(1.1, 5.0);
       }
       break;
@@ -153,9 +169,25 @@ void GamePlayScreenStateHelper::update_state(GamerInputScreen *gamer_input_scree
    switch (game_play_screen->state)
    {
    case GamePlayScreen::GAME_PLAY:
-      game_play_screen->player_krampus_controller.update_polled_keyboard_input(gamer_input_screen);
-      update_scene();
-      check_for_win_or_loss_condition();
+      {
+         // TODO;
+         // CRITICAL:
+         // OK, serious flaw, this needs to be updated:
+         bool up_pressed = false;
+         bool down_pressed = false;
+         bool left_pressed = false;
+         bool right_pressed = false;
+         //game_play_screen->player_krampus_controller.update_polled_keyboard_input(gamer_input_screen);
+         //bool right_pressed, bool left_pressed, bool up_pressed, bool down_pressed
+         game_play_screen->player_krampus_controller.update_polled_keyboard_input(
+               right_pressed,
+               left_pressed,
+               up_pressed,
+               down_pressed
+            );
+         update_scene();
+         check_for_win_or_loss_condition();
+      }
       break;
    case GamePlayScreen::ITEM_COLLECTED:
       {
@@ -210,14 +242,15 @@ void GamePlayScreenStateHelper::update_state(GamerInputScreen *gamer_input_scree
    game_play_screen->hud.set_values(__dirty_player_health, 10);
 
    // always update the inventory screen, regardless of state
-   game_play_screen->inventory_screen.update(Framework::time_now);
+   // NOTE this use of al_get_time();
+   game_play_screen->inventory_screen.update(al_get_time()); //Framework::time_now);
 }
 
 
 
 void GamePlayScreenStateHelper::draw_state()
 {
-   al_clear_to_color(color::black);
+   al_clear_to_color(AllegroFlare::color::black);
 
    switch (game_play_screen->state)
    {
@@ -229,7 +262,7 @@ void GamePlayScreenStateHelper::draw_state()
    case GamePlayScreen::INVENTORY_SCREEN:
       {
          if (game_play_screen->scene) draw_scene_with_camera();
-         game_play_screen->inventory_screen.draw(game_play_screen->display);
+         game_play_screen->inventory_screen.draw(); //game_play_screen->display);
          break;
       }
    case GamePlayScreen::ITEM_COLLECTED:

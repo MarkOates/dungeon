@@ -10,12 +10,16 @@
 
 
 
-Scene::Scene(int width)
+Scene::Scene(AllegroFlare::EventEmitter *event_emitter, int width)
+//Scene::Scene(int width)
    : ElementID(nullptr)
+   , event_emitter(event_emitter)
    , floor_min_y(465)
    , floor_max_y(600)
    , width(width)
-{}
+{
+   if (!event_emitter) throw std::runtime_error("Scene no event_emitter");
+}
 
 
 
@@ -50,7 +54,7 @@ float Scene::get_width()
 
 void Scene::update_all()
 {
-   SceneCollisionHelper collision_helper(this);
+   SceneCollisionHelper collision_helper(event_emitter, this);
    collision_helper.resolve_collisions();
 }
 

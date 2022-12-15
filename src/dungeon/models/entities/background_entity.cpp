@@ -8,7 +8,7 @@
 BackgroundEntity::BackgroundEntity(ElementID *parent, ALLEGRO_BITMAP *al_bitmap, float x, float y)
    : Entity::Base(parent, "background", x, y)
 {
-   place.align = vec2d(0.0, 0.0);
+   place.align = { 0.0, 0.0 };
    bitmap.bitmap(al_bitmap);
 }
 

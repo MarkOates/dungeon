@@ -7,11 +7,12 @@
 
 
 
-DamageZoneEntity::DamageZoneEntity(ElementID *parent, std::string damage_zone_type, bool damages_krampus, bool damages_enemies, float x, float y, float w, float h)
+DamageZoneEntity::DamageZoneEntity(AllegroFlare::ElementID *parent, std::string damage_zone_type, bool damages_krampus, bool damages_enemies, float x, float y, float w, float h)
    : Entity::Base(parent, "damage_zone", x, y)
    , dealing_damage(true)
 {
-   place.size = vec2d(w, h);
+   //place.size = vec2d(w, h);
+   place.size = { w, h };
    set("damage_zone_type", damage_zone_type);
    if (damages_krampus) set(DAMAGES_KRAMPUS);
    if (damages_enemies) set(DAMAGES_ENEMIES);

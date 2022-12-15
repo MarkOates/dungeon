@@ -3,12 +3,17 @@
 
 #include <dungeon/models/camera.hpp>
 
+#include <allegro5/allegro_primitives.h>
+#include <AllegroFlare/Color.hpp>
+
+//using AllegroFlare::color::color;
+
 
 
 Camera::Camera(Entity::Base *target)
    : place(0, 0, 1920, 1080)
    , target(target)
-   , overlay_color(color::transparent)
+   , overlay_color(AllegroFlare::color::transparent)
    , motion()
 {}
 

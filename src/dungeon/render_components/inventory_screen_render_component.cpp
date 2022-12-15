@@ -7,17 +7,24 @@
 //#include <framework/color.hpp>
 #include <dungeon/models/inventory_screen.hpp>
 #include <dungeon/item_type_nums.hpp>
+#include <AllegroFlare/Color.hpp>
 
 
 
-InventoryScreenRenderComponent::InventoryScreenRenderComponent(InventoryScreen *inventory_screen)
+InventoryScreenRenderComponent::InventoryScreenRenderComponent(AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap, InventoryScreen *inventory_screen)
    : inventory_screen(inventory_screen)
    //, display(display)
-   , fonts()
+   //, fonts()
+   , font_bin(font_bin)
    , title(TextObject("Inventory"))
    , item_render_components()
+   , sprites_grid_bitmap(sprites_grid_bitmap)
+   //, font_bin(font_bin)
 {
-   ALLEGRO_FONT *font = fonts["ChronoTrigger.ttf 60"];
+   if (!font_bin) throw std::runtime_error("InventoryItemRenderComponent:: font_bin missing");
+   if (!sprites_grid_bitmap) throw std::runtime_error("InventoryItemRenderComponent:: sprites_grid_bitmap missing");
+
+   ALLEGRO_FONT *font = font_bin->auto_get("ChronoTrigger.ttf 60");
 
    title.font(font)
       .align(0.5, 1.1)
@@ -31,31 +38,31 @@ InventoryScreenRenderComponent::InventoryScreenRenderComponent(InventoryScreen *
    //int top_row = display->height() / 6 * 3;
    //int bottom_row = display->height() / 6 * 4;
 
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_CLUB, center + spacing*-3, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_CLUB, center + spacing*-2, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_STONE_OF_DEFIANCE, center + spacing*-1, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_NAUGHTY_LIST, center + spacing*+0, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_SILVER_SHIELD, center + spacing*+1, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_GOLDEN_SHIELD, center + spacing*+2, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_NONE, center + spacing*+3, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_CLUB, sprites_grid_bitmap, center + spacing*-3, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_CLUB, sprites_grid_bitmap, center + spacing*-2, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_STONE_OF_DEFIANCE, sprites_grid_bitmap, center + spacing*-1, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_NAUGHTY_LIST, sprites_grid_bitmap, center + spacing*+0, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_SILVER_SHIELD, sprites_grid_bitmap, center + spacing*+1, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_GOLDEN_SHIELD, sprites_grid_bitmap, center + spacing*+2, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_NONE, sprites_grid_bitmap, center + spacing*+3, row_y));
 
    row_y += row_spacing;
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_CLUB, center + spacing*-3, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_SILVER_SWORD, center + spacing*-2, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_GOLDEN_SWORD, center + spacing*-1, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_KEY, center + spacing*+0, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_NONE, center + spacing*+1, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_NONE, center + spacing*+2, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_NONE, center + spacing*+3, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_CLUB, sprites_grid_bitmap, center + spacing*-3, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_SILVER_SWORD, sprites_grid_bitmap, center + spacing*-2, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_GOLDEN_SWORD, sprites_grid_bitmap, center + spacing*-1, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_KEY, sprites_grid_bitmap, center + spacing*+0, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_NONE, sprites_grid_bitmap, center + spacing*+1, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_NONE, sprites_grid_bitmap, center + spacing*+2, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_NONE, sprites_grid_bitmap, center + spacing*+3, row_y));
 
    row_y += row_spacing;
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_CLUB, center + spacing*-3, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_SILVER_SWORD, center + spacing*-2, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_GOLDEN_SWORD, center + spacing*-1, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_KEY, center + spacing*+0, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_NONE, center + spacing*+1, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_NONE, center + spacing*+2, row_y));
-   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_NONE, center + spacing*+3, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_CLUB, sprites_grid_bitmap, center + spacing*-3, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_SILVER_SWORD, sprites_grid_bitmap, center + spacing*-2, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_GOLDEN_SWORD, sprites_grid_bitmap, center + spacing*-1, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_KEY, sprites_grid_bitmap, center + spacing*+0, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_NONE, sprites_grid_bitmap, center + spacing*+1, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_NONE, sprites_grid_bitmap, center + spacing*+2, row_y));
+   item_render_components.push_back(new InventoryItemRenderComponent(ITEM_TYPE_NONE, sprites_grid_bitmap, center + spacing*+3, row_y));
 }
 
 
@@ -93,7 +100,7 @@ void InventoryScreenRenderComponent::draw()
    //if (!display) throw std::runtime_error("InventoryScreenRenderComponent::draw(): cannot draw() on a nullptr display");
 
    float padding = 40;
-   al_draw_filled_rectangle(padding, padding, 1920/2-padding, 1080/2-padding, color::black);
+   al_draw_filled_rectangle(padding, padding, 1920/2-padding, 1080/2-padding, AllegroFlare::color::black);
    title.draw();
 
    for (auto &item_render_component : item_render_components) item_render_component->draw();

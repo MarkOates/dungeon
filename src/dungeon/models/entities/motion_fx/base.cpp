@@ -7,7 +7,7 @@ namespace MotionFX
 {
 
 
-Base::Base(ElementID *parent, std::string motion_fx_type, float x, float y, float duration)
+Base::Base(AllegroFlare::ElementID *parent, std::string motion_fx_type, float x, float y, float duration)
    : Entity::Base(parent, "motion_fx", x, y)
    , duration(duration)
    , counter(duration)

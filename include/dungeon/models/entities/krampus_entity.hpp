@@ -34,11 +34,12 @@ public:
    BitmapObject club_bitmap;
    BitmapObject shield_bitmap;
    SpriteSheet *sprite_sheet;
+   AllegroFlare::EventEmitter *event_emitter;
 
    bool set_state(state_t new_state, bool override_if_busy=false);
 
 public:
-   KrampusEntity(ElementID *parent, SpriteSheet *sprite_sheet, float x, float y);
+   KrampusEntity(AllegroFlare::ElementID *parent, AllegroFlare::EventEmitter *event_emitter, SpriteSheet *sprite_sheet, float x, float y);
    virtual ~KrampusEntity();
 
    void update() override;

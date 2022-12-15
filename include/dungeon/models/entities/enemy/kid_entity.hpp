@@ -5,6 +5,8 @@
 
 //#include <framework/shader.hpp>
 #include <dungeon/models/sprite_sheet.hpp>
+#include <AllegroFlare/Shader.hpp>
+#include <AllegroFlare/Random.hpp>
 
 
 enum behavior_t
@@ -28,11 +30,13 @@ private:
       STATE_WALKING_RIGHT
    };
 
+   AllegroFlare::Random random;
+   AllegroFlare::EventEmitter *event_emitter;
    behavior_t behavior;
    std::string name;
    float walk_speed;
    state_t state;
-   Shader *flat_color_shader;
+   AllegroFlare::Shader *flat_color_shader;
    float identity_reveal_counter;
    ALLEGRO_BITMAP *kid_bitmap, *identity_bitmap;
    ALLEGRO_COLOR get_identity_color();
@@ -44,7 +48,7 @@ private:
    friend class AIKidController;
 
 public:
-   KidEntity(ElementID *parent, SpriteSheet *sprite_sheet, Shader *flat_color_shader, float x, float y, std::string name, behavior_t behavior, int sprite_index, int identity_sprite_index);
+   KidEntity(ElementID *parent, AllegroFlare::EventEmitter *event_emitter, SpriteSheet *sprite_sheet, AllegroFlare::Shader *flat_color_shader, float x, float y, std::string name, behavior_t behavior, int sprite_index, int identity_sprite_index);
    virtual ~KidEntity();
 
    void update() override;

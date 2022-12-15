@@ -3,6 +3,7 @@
 #include <dungeon/models/transition_fx/base.hpp>
 
 //#include <framework/color.hpp>
+#include <AllegroFlare/Color.hpp>
 
 
 namespace TransitionFX
@@ -37,7 +38,7 @@ void Base::draw()
    float alpha = 1.0 - (duration - position) / duration;
    al_set_target_bitmap(display_bitmap);
    al_draw_bitmap(surface_A, 0, 0, 0);
-   al_draw_tinted_bitmap(surface_B, color::color(color::white, alpha), 0, 0, 0);
+   al_draw_tinted_bitmap(surface_B, AllegroFlare::color::color(AllegroFlare::color::white, alpha), 0, 0, 0);
 }
 
 
