@@ -42,11 +42,24 @@ void Camera::update(float max_x)
    }
 
 
+
+   float right_camera_edge = max_x-place.size.y/2;
+   float left_camera_edge = 0;
+
+
+
    if (target) place.position.x = target->place.position.x;
    place.position.y = (int)(world_height * 0.5);
 
-   if (place.position.x < place.size.x/2) place.position.x = place.size.x/2;
-   if (place.position.x > max_x-place.size.x/2) place.position.x = max_x-place.size.x/2;
+
+
+   float this_cameras_left_edge = place.position.x - place.size.x/2;
+   float this_cameras_right_edge = place.position.x + place.size.x/2;
+   float screen_size = max_x;
+
+   if (screen_size < place.size.x) place.position.x = max_x * 0.5;
+   else if (place.position.x < place.size.x/2) place.position.x = place.size.x/2;
+   else if (place.position.x > right_camera_edge) place.position.x = right_camera_edge;
 }
 
 
