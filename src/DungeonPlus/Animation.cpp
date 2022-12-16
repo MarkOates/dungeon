@@ -15,6 +15,7 @@ Animation::Animation(SpriteSheet* sprite_sheet, std::string name, std::vector<An
    , frames(frames)
    , playmode(playmode)
    , playhead(0.0f)
+   , finished(false)
 {
 }
 
@@ -27,6 +28,7 @@ Animation::~Animation()
 void Animation::start()
 {
    playhead = 0.0f;
+   finished = false;
    return;
 }
 
@@ -34,6 +36,22 @@ void Animation::update()
 {
    const float FRAME_INCREMENT = 1.0f/60.0f;
    playhead += FRAME_INCREMENT;
+
+   // update "finished"
+   switch(playmode)
+   {
+      case PLAYMODE_FORWARD_ONCE:
+        if (playhead > calculate_duration()) finished = true;
+      break;
+
+      case PLAYMODE_FORWARD_LOOP:
+        // NOTE: nothing to do, FORWARD_LOOP plays indefinitely
+      break;
+
+      case PLAYMODE_FORWARD_PING_PONG:
+        // NOTE: nothing to do, PING_PONG plays indefinitely
+      break;
+   }
    return;
 }
 
@@ -43,6 +61,11 @@ void Animation::draw()
    if (!bitmap) return;
    al_draw_bitmap(bitmap, 0, 0, 0);
    return;
+}
+
+uint32_t Animation::get_frame_id_now()
+{
+   return get_frame_id_at(playhead);
 }
 
 uint32_t Animation::get_frame_id_at(float time)
@@ -56,14 +79,14 @@ uint32_t Animation::get_frame_id_at(float time)
          for (auto &frame : frames)
          {
             duration_so_far += frame.get_duration();
-            if (playhead < duration_so_far) return frame.get_index();
+            if (time < duration_so_far) return frame.get_index();
          }
       } break;
 
       case PLAYMODE_FORWARD_LOOP: {
          float duration_so_far = 0.0f;
          float duration = calculate_duration();
-         float looped_playhead = fmod(playhead, duration);
+         float looped_playhead = fmod(time, duration);
          for (auto &frame : frames)
          {
             duration_so_far += frame.get_duration();
@@ -74,7 +97,7 @@ uint32_t Animation::get_frame_id_at(float time)
       case PLAYMODE_FORWARD_PING_PONG: {
          float duration_so_far = 0.0f;
          float duration = calculate_duration();
-         float ping_pong_playhead = fmod(playhead, duration*2);
+         float ping_pong_playhead = fmod(time, duration*2);
          if (ping_pong_playhead > duration) ping_pong_playhead = duration*2 - ping_pong_playhead;
          for (auto &frame : frames)
          {

@@ -25,6 +25,7 @@ namespace DungeonPlus
       std::vector<AnimationFrame> frames;
       uint32_t playmode;
       float playhead;
+      bool finished;
 
    protected:
 
@@ -36,6 +37,7 @@ namespace DungeonPlus
       void start();
       void update();
       void draw();
+      uint32_t get_frame_id_now();
       uint32_t get_frame_id_at(float time=0.0f);
       ALLEGRO_BITMAP* get_frame_at(float time=0.0f);
       float calculate_duration();
