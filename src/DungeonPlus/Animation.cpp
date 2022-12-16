@@ -47,6 +47,8 @@ void Animation::draw()
 
 uint32_t Animation::get_frame_id_at(float time)
 {
+   // NOTE: no guard logic for when duration is 0.0
+
    switch(playmode)
    {
       case PLAYMODE_FORWARD_ONCE: {
@@ -66,6 +68,18 @@ uint32_t Animation::get_frame_id_at(float time)
          {
             duration_so_far += frame.get_duration();
             if (looped_playhead < duration_so_far) return frame.get_index();
+         }
+      } break;
+
+      case PLAYMODE_FORWARD_PING_PONG: {
+         float duration_so_far = 0.0f;
+         float duration = calculate_duration();
+         float ping_pong_playhead = fmod(playhead, duration*2);
+         if (ping_pong_playhead > duration) ping_pong_playhead = duration*2 - ping_pong_playhead;
+         for (auto &frame : frames)
+         {
+            duration_so_far += frame.get_duration();
+            if (ping_pong_playhead < duration_so_far) return frame.get_index();
          }
       } break;
    }

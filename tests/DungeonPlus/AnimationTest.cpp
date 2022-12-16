@@ -31,7 +31,7 @@ TEST(DungeonPlus_AnimationTest, dev_test)
          { 2, 0.100f },
          { 3, 0.200f },
       },
-      DungeonPlus::Animation::PLAYMODE_FORWARD_LOOP
+      DungeonPlus::Animation::PLAYMODE_FORWARD_PING_PONG
    );
 
    
