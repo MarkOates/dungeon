@@ -63,9 +63,18 @@ SpriteSheet::~SpriteSheet()
 
 ALLEGRO_BITMAP *SpriteSheet::get_sprite(int index)
 {
+   // NOTE: depreciated
+   return get_cell(index);
+}
+
+
+
+ALLEGRO_BITMAP *SpriteSheet::get_cell(int index)
+{
    if (index < 0 || index >= sprites.size()) return nullptr;
    return sprites[index];
 }
+
 
 
 
