@@ -53,6 +53,7 @@ QUINTESSENCE_BUILDER_EXECUTABLE=../blast/bin/programs/quintessence_from_yaml
 
 main:
 	make quintessences
+	make tests
 	make bin/krampushack
 
 
@@ -84,24 +85,34 @@ tests: $(INDIVIDUAL_TEST_EXECUTABLES)
 
 
 
-bin/tests/%: obj/tests/%.o
+bin/tests/%: obj/tests/%.o obj/tests/TestRunner.o
 	@mkdir -p $(@D)
-	@printf "compiling standalone test \e[1m\e[36m$<\033[0m...\n"
-	@g++ -g $(VERSION_FLAG) -Wall -Wuninitialized -Weffc++ $(OBJECTS) $< -o $@ -l$(GOOGLE_TEST_LIBS) -I./include -I$(GOOGLE_TEST_INCLUDE_DIR) -L$(GOOGLE_TEST_LIB_DIR) $(ALLEGRO_LIBS_WITHOUT_MAIN) -L$(ALLEGRO_DIR)/lib $(OPENGL_LIB) -I$(ALLEGRO_DIR)/include
+	@printf "compiling standalone test \e[1m\e[36m$@\033[0m...\n"
+	@g++ -g $(VERSION_FLAG) -Wall -Wuninitialized -Weffc++ $(OBJECTS) $< obj/tests/TestRunner.o -o $@ -l$(GOOGLE_TEST_LIBS) -L$(GOOGLE_TEST_LIB_DIR) $(ALLEGRO_LIBS) -L$(ALLEGRO_DIR)/lib $(OPENGL_LIB)
 	@echo "done. Executable at \033[1m\033[32m$@\033[0m"
 
 
 
 obj/tests/%.o: tests/%.cpp $(OBJECTS)
 	@mkdir -p $(@D)
-	@printf "compiling test obj file \e[1m\e[36m$<\033[0m...\n"
+	@printf "compiling test obj file \e[1m\e[36m$@\033[0m...\n"
 	@g++ -g -c $(VERSION_FLAG) -Wall -Wuninitialized -Weffc++ $< -o $@ -I./include -I$(GOOGLE_TEST_INCLUDE_DIR)
 	@echo "done. Object at \033[1m\033[32m$@\033[0m"
 
 
 
+obj/tests/TestRunner.o: tests/TestRunner.cpp
+	@mkdir -p $(@D)
+	@printf "Compiling test object for TestRunner \e[1m\e[36m$@\033[0m\n"
+	@g++ -g -c -std=c++17 $(UNUSED_ARGUMENTS_FLAG) -Wall -Wuninitialized -Weffc++ $< -o $@ -I$(ALLEGRO_INCLUDE_DIR) -I$(ALLEGRO_PLATFORM_INCLUDE_DIR) -I$(GOOGLE_TEST_INCLUDE_DIR) -I$(GOOGLE_MOCK_INCLUDE_DIR) -I$(ALLEGRO_FLARE_INCLUDE_DIR)
+	@printf "Object for TestRunner at \033[1m\033[32m$@\033[0m compiled successfully.\n"
+
+
+
+
 clean:
 	-rm $(OBJECTS)
+	-rm $(TEST_OBJECTS)
 	-rm bin/krampushack
 
 

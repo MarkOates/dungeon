@@ -9,7 +9,7 @@ namespace DungeonPlus
 {
 
 
-AnimationFrame::AnimationFrame(int index, float duration)
+AnimationFrame::AnimationFrame(uint32_t index, float duration)
    : index(index)
    , duration(duration)
 {
@@ -18,6 +18,12 @@ AnimationFrame::AnimationFrame(int index, float duration)
 
 AnimationFrame::~AnimationFrame()
 {
+}
+
+
+uint32_t AnimationFrame::get_index() const
+{
+   return index;
 }
 
 

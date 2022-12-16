@@ -2,9 +2,10 @@ properties:
 
 
   - name: index
-    type: int
+    type: uint32_t
     constructor_arg: true
     init_with: 0
+    getter: true
 
   - name: duration
     type: float

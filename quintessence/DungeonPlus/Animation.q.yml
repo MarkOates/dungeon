@@ -10,11 +10,52 @@ properties:
     init_with: '{}'
 
   - name: playmode
-    type: int
+    type: uint32_t
     init_with: PLAYMODE_UNDEF
+
+  - name: playhead
+    type: float
+    init_with: 0.0f
+
+  - name: PLAYMODE_UNDEF
+    type: uint32_t
+    const: true
+    constexpr: true
+    static: true
+    init_with: 0
+
+  - name: PLAYMODE_FORWARD
+    type: uint32_t
+    const: true
+    constexpr: true
+    static: true
+    init_with: 0
 
 
 functions:
+
+
+  - name: update
+    body: |
+      const float FRAME_INCREMENT = 1.0f/60.0f;
+      playhead += FRAME_INCREMENT;
+      return;
+
+
+  - name: get_frame_id_at
+    type: uint32_t
+    parameters:
+      - name: time
+        type: float
+        default_argument: 0.0f
+    body: |
+      float duration_so_far = 0.0f;
+      for (auto &frame : frames)
+      {
+         if (frame.get_duration() > duration_so_far) return frame.get_index();
+         duration_so_far += frame.get_duration();
+      }
+      return 0;
 
 
   - name: calculate_duration

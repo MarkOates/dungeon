@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <cstdint>
 
 
 namespace DungeonPlus
@@ -8,16 +9,17 @@ namespace DungeonPlus
    class AnimationFrame
    {
    private:
-      int index;
+      uint32_t index;
       float duration;
 
    protected:
 
 
    public:
-      AnimationFrame(int index=0, float duration=200);
+      AnimationFrame(uint32_t index=0, float duration=200);
       ~AnimationFrame();
 
+      uint32_t get_index() const;
       float get_duration() const;
    };
 }
