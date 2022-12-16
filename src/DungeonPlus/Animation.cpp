@@ -24,10 +24,24 @@ Animation::~Animation()
 }
 
 
+void Animation::start()
+{
+   playhead = 0.0f;
+   return;
+}
+
 void Animation::update()
 {
    const float FRAME_INCREMENT = 1.0f/60.0f;
    playhead += FRAME_INCREMENT;
+   return;
+}
+
+void Animation::draw()
+{
+   ALLEGRO_BITMAP *bitmap = get_frame_at(playhead);
+   if (!bitmap) return;
+   al_draw_bitmap(bitmap, 0, 0, 0);
    return;
 }
 
@@ -36,8 +50,8 @@ uint32_t Animation::get_frame_id_at(float time)
    float duration_so_far = 0.0f;
    for (auto &frame : frames)
    {
-      if (frame.get_duration() > duration_so_far) return frame.get_index();
       duration_so_far += frame.get_duration();
+      if (playhead < duration_so_far) return frame.get_index();
    }
    return 0;
 }
