@@ -17,6 +17,7 @@ SpriteSheet::SpriteSheet(ALLEGRO_BITMAP *_atlas, int sprite_width, int sprite_he
    , num_rows(atlas ? al_get_bitmap_height(atlas) / sprite_height : 0)
    , num_columns(atlas ? al_get_bitmap_width(atlas) / sprite_width : 0)
    , scale(scale)
+   , initialized(false)
 {
    init();
 }
@@ -27,6 +28,7 @@ void SpriteSheet::init()
 {
    _create_atlas_copy();
    _create_sub_sprites();
+   initialized = true;
 }
 
 
