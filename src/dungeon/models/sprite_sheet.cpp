@@ -18,8 +18,29 @@ SpriteSheet::SpriteSheet(ALLEGRO_BITMAP *_atlas, int sprite_width, int sprite_he
    , num_columns(atlas ? al_get_bitmap_width(atlas) / sprite_width : 0)
    , scale(scale)
 {
+   init();
+}
+
+
+
+void SpriteSheet::init()
+{
    _create_atlas_copy();
    _create_sub_sprites();
+}
+
+
+
+
+void SpriteSheet::destroy()
+{
+   if (!al_is_system_installed())
+   {
+      throw std::runtime_error("dungeon/models/sprite_sheet::SpriteSheet dtor error: "
+                               "allegro has already been shutdown");
+   }
+   for (auto &sprite : sprites) al_destroy_bitmap(sprite);
+   al_destroy_bitmap(atlas);
 }
 
 
@@ -55,8 +76,7 @@ bool SpriteSheet::_create_sub_sprites()
 
 SpriteSheet::~SpriteSheet()
 {
-   for (auto &sprite : sprites) al_destroy_bitmap(sprite);
-   al_destroy_bitmap(atlas);
+   destroy();
 }
 
 

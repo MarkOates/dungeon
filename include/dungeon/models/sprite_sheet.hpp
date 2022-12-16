@@ -16,6 +16,7 @@ private:
    int num_rows;
    int num_columns;
    int scale;
+   bool initialized;
 
    bool _create_sub_sprites();
    void _create_atlas_copy();
@@ -27,6 +28,9 @@ public:
    ALLEGRO_BITMAP *get_sprite(int index);
    ALLEGRO_BITMAP *get_cell(int index);
    int get_num_sprites();
+
+   void init();
+   void destroy();
 };
 
 

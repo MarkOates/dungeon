@@ -9,10 +9,11 @@ namespace DungeonPlus
 {
 
 
-Animation::Animation()
-   : name("[unset-name]")
-   , frames({})
-   , playmode(PLAYMODE_UNDEF)
+Animation::Animation(SpriteSheet* sprite_sheet, std::string name, std::vector<AnimationFrame> frames, uint32_t playmode)
+   : sprite_sheet(sprite_sheet)
+   , name(name)
+   , frames(frames)
+   , playmode(playmode)
    , playhead(0.0f)
 {
 }
@@ -39,6 +40,12 @@ uint32_t Animation::get_frame_id_at(float time)
       duration_so_far += frame.get_duration();
    }
    return 0;
+}
+
+ALLEGRO_BITMAP* Animation::get_frame_at(float time)
+{
+   uint32_t cell_id = get_frame_id_at(time);
+   return sprite_sheet->get_cell(cell_id);
 }
 
 float Animation::calculate_duration()
