@@ -1,0 +1,37 @@
+properties:
+
+
+  - name: name
+    type: std::string
+    init_with: '"[unset-name]"'
+
+  - name: frames
+    type: std::vector<AnimationFrame>
+    init_with: '{}'
+
+  - name: playmode
+    type: int
+    init_with: PLAYMODE_UNDEF
+
+
+functions:
+
+
+  - name: calculate_duration
+    type: float
+    body: |
+      float result = 0.0f;
+      for (auto &frame : frames)
+      {
+         result += frame.get_duration();
+      }
+      return result;
+
+
+dependencies:
+
+
+  - symbol: AnimationFrame
+    headers: [ DungeonPlus/AnimationFrame.hpp ]
+
+

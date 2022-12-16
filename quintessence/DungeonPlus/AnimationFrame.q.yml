@@ -1,0 +1,15 @@
+properties:
+
+
+  - name: index
+    type: int
+    constructor_arg: true
+    init_with: 0
+
+  - name: duration
+    type: float
+    constructor_arg: true
+    init_with: 200
+    getter: true
+
+

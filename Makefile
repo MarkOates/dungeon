@@ -47,6 +47,26 @@ OBJECTS := $(SOURCES:src/%.cpp=obj/%.o)
 TEST_SOURCES := $(shell find tests -name '*Test.cpp')
 TEST_OBJECTS := $(TEST_SOURCES:tests/%.cpp=obj/tests/%.o)
 INDIVIDUAL_TEST_EXECUTABLES := $(TEST_SOURCES:tests/%.cpp=bin/tests/%)
+QUINTESSENCE_BUILDER_EXECUTABLE=../blast/bin/programs/quintessence_from_yaml
+
+
+
+main:
+	make quintessences
+	make bin/krampushack
+
+
+
+r:
+	make main
+	./bin/krampushack
+
+
+quintessences: $(QUINTESSENCE_SOURCES)
+	@[ -f $(QUINTESSENCE_BUILDER_EXECUTABLE) ] || echo "The needed executable $(QUINTESSENCE_BUILDER_EXECUTABLE) was not found"
+	@find quintessence -name '*.q.yml' | xargs $(QUINTESSENCE_BUILDER_EXECUTABLE) -f
+	@echo "(finished)"
+
 
 
 bin/krampushack: programs/krampushack.cpp $(OBJECTS)
