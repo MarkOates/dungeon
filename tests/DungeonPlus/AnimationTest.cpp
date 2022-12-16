@@ -21,8 +21,9 @@ TEST(DungeonPlus_AnimationTest, dev_test)
 
    SpriteSheet sprite_sheet(sprite_sheet_bitmap); // auto-inits
 
-   //al_rest(2);
+   al_rest(2);
 
+   sprite_sheet.destroy();
    al_destroy_display(display);
    al_shutdown_image_addon();
    al_uninstall_system();

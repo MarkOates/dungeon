@@ -55,6 +55,7 @@ main:
 	make quintessences
 	make tests
 	make bin/krampushack
+	@echo "\033[1m\033[32m=============== BUILD COMPLETE ===============\033[0m"
 
 
 
@@ -71,7 +72,7 @@ quintessences: $(QUINTESSENCE_SOURCES)
 
 
 bin/krampushack: programs/krampushack.cpp $(OBJECTS)
-	g++ -g $(VERSION_FLAG) $(OBJECTS) $< -o $@ $(ALLEGRO_LIBS) -L$(ALLEGRO_DIR)/lib $(OPENGL_LIB) -I$(ALLEGRO_DIR)/include -I./include
+	@g++ -g $(VERSION_FLAG) $(OBJECTS) $< -o $@ $(ALLEGRO_LIBS) -L$(ALLEGRO_DIR)/lib $(OPENGL_LIB) -I$(ALLEGRO_DIR)/include -I./include
 
 
 

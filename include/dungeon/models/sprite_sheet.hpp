@@ -17,6 +17,7 @@ private:
    int num_columns;
    int scale;
    bool initialized;
+   bool destroyed;
 
    bool _create_sub_sprites();
    void _create_atlas_copy();
