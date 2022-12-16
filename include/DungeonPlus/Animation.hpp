@@ -15,7 +15,8 @@ namespace DungeonPlus
    {
    public:
       static constexpr uint32_t PLAYMODE_UNDEF = 0;
-      static constexpr uint32_t PLAYMODE_FORWARD = 0;
+      static constexpr uint32_t PLAYMODE_FORWARD_ONCE = 1;
+      static constexpr uint32_t PLAYMODE_FORWARD_LOOP = 2;
 
    private:
       SpriteSheet* sprite_sheet;

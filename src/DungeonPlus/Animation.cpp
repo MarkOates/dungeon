@@ -2,7 +2,7 @@
 
 #include <DungeonPlus/Animation.hpp>
 
-
+#include <cmath>
 
 
 namespace DungeonPlus
@@ -47,11 +47,27 @@ void Animation::draw()
 
 uint32_t Animation::get_frame_id_at(float time)
 {
-   float duration_so_far = 0.0f;
-   for (auto &frame : frames)
+   switch(playmode)
    {
-      duration_so_far += frame.get_duration();
-      if (playhead < duration_so_far) return frame.get_index();
+      case PLAYMODE_FORWARD_ONCE: {
+         float duration_so_far = 0.0f;
+         for (auto &frame : frames)
+         {
+            duration_so_far += frame.get_duration();
+            if (playhead < duration_so_far) return frame.get_index();
+         }
+      } break;
+
+      case PLAYMODE_FORWARD_LOOP: {
+         float duration_so_far = 0.0f;
+         float duration = calculate_duration();
+         float looped_playhead = fmod(playhead, duration);
+         for (auto &frame : frames)
+         {
+            duration_so_far += frame.get_duration();
+            if (looped_playhead < duration_so_far) return frame.get_index();
+         }
+      } break;
    }
    return 0;
 }

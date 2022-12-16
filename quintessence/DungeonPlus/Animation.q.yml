@@ -32,12 +32,19 @@ properties:
     static: true
     init_with: 0
 
-  - name: PLAYMODE_FORWARD
+  - name: PLAYMODE_FORWARD_ONCE
     type: uint32_t
     const: true
     constexpr: true
     static: true
-    init_with: 0
+    init_with: 1
+
+  - name: PLAYMODE_FORWARD_LOOP
+    type: uint32_t
+    const: true
+    constexpr: true
+    static: true
+    init_with: 2
 
 
 functions:
@@ -71,13 +78,31 @@ functions:
         type: float
         default_argument: 0.0f
     body: |
-      float duration_so_far = 0.0f;
-      for (auto &frame : frames)
+      switch(playmode)
       {
-         duration_so_far += frame.get_duration();
-         if (playhead < duration_so_far) return frame.get_index();
+         case PLAYMODE_FORWARD_ONCE: {
+            float duration_so_far = 0.0f;
+            for (auto &frame : frames)
+            {
+               duration_so_far += frame.get_duration();
+               if (playhead < duration_so_far) return frame.get_index();
+            }
+         } break;
+
+         case PLAYMODE_FORWARD_LOOP: {
+            float duration_so_far = 0.0f;
+            float duration = calculate_duration();
+            float looped_playhead = fmod(playhead, duration);
+            for (auto &frame : frames)
+            {
+               duration_so_far += frame.get_duration();
+               if (looped_playhead < duration_so_far) return frame.get_index();
+            }
+         } break;
       }
       return 0;
+    body_dependency_symbols:
+      - fmod
 
 
   - name: get_frame_at
@@ -111,5 +136,7 @@ dependencies:
     headers: [ dungeon/models/sprite_sheet.hpp ]
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
+  - symbol: fmod
+    headers: [ cmath ]
 
 
