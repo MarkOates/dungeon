@@ -1,9 +1,66 @@
+properties:
+
+
+  - name: sprite_sheet
+    type: SpriteSheet*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: dictionary
+    type: std::map<std::string, DungeonPlus::Animation>
+    init_with: '{}'
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
 functions:
 
 
-  - name: run
-    type: std::string
+  - name: init
+    guards: [ (!initialized) ]
     body: |
-      return "Hello World!";
+      ALLEGRO_BITMAP *sprite_sheet_bitmap = al_load_bitmap("./bin/data/bitmaps/sprites_grid-x.png");
+      sprite_sheet = new SpriteSheet(sprite_sheet_bitmap, 48, 48, 8); // auto-inits
+      al_destroy_bitmap(sprite_sheet_bitmap);
+      _build_dictionary();
+      initialized = true;
+      return;
+
+
+  - name: _build_dictionary
+    private: true
+    body: |
+      dictionary =  {
+         { "blob", DungeonPlus::Animation(sprite_sheet, "blob", std::vector<DungeonPlus::AnimationFrame>{
+               { 1, 0.200f },
+               { 2, 0.100f },
+               { 3, 0.200f },
+            }, DungeonPlus::Animation::PLAYMODE_FORWARD_PING_PONG
+         )},
+      };
+      return;
+
+
+  - name: get_animation_by_name
+    type: DungeonPlus::Animation
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    guards: [ initialized ]
+    body: |
+      // TODO: guard for exists
+      return dictionary[name];
+
+
+dependencies:
+
+
+  - symbol: DungeonPlus::Animation
+    headers: [ DungeonPlus/Animation.hpp ]
+  - symbol: SpriteSheet
+    headers: [ dungeon/models/sprite_sheet.hpp ]
 
 

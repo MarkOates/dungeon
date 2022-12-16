@@ -41,12 +41,13 @@ TEST(DungeonPlus_AnimationTest, dev_test)
    {
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
 
+      // update and draw
       animation.update();
       animation.draw();
+
+      // draw info text
       uint32_t frame_id = animation.get_frame_id_at(0.21);
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 10, 10, 0, "frame %d", frame_id);
-      //ALLEGRO_BITMAP *cell = sprite_sheet.get_cell(frame_id);
-      //al_draw_bitmap(cell, 0, 0, 0);
 
       al_flip_display(); // assumes a rest of 1/60.0f
    }
