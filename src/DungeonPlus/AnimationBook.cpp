@@ -24,6 +24,12 @@ AnimationBook::~AnimationBook()
 }
 
 
+void AnimationBook::set_dictionary(std::map<std::string, DungeonPlus::Animation> dictionary)
+{
+   this->dictionary = dictionary;
+}
+
+
 void AnimationBook::init()
 {
    if (!((!initialized)))

@@ -24,6 +24,7 @@ namespace DungeonPlus
       AnimationBook(SpriteSheet* sprite_sheet=nullptr);
       ~AnimationBook();
 
+      void set_dictionary(std::map<std::string, DungeonPlus::Animation> dictionary);
       void init();
       DungeonPlus::Animation get_animation_by_name(std::string name="[unset-name]");
    };

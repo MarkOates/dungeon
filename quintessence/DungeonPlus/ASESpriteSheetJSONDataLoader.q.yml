@@ -1,0 +1,49 @@
+functions:
+
+
+  - name: load
+    type: std::string
+    body: |
+      std::string filename = "./bin/data/bitmaps/sprites_grid-x.json";
+      nlohmann::json parsed_json = nlohmann::json::parse(AllegroFlare::php::file_get_contents(filename));
+
+      if (!parsed_json.contains("frames"))
+      {
+         // TODO throw
+      }
+      if (!parsed_json.contains("meta"))
+      {
+         // TODO throw
+      }
+      if (!parsed_json["meta"].contains("tags"))
+      {
+         // TODO throw
+      }
+
+      // TODO validate frames
+
+      nlohmann::json tags = parsed_json["meta"]["frameTags"];
+
+      for (auto &tag : tags)
+      {
+         std::string tag_name; // = tag["name"].get_as
+         tag.at("name").get_to(tag_name);
+         std::cout << "tag name: " << tag_name << std::endl;
+      }
+
+
+      //return "Hello World!";
+    body_dependency_symbols:
+      - AllegroFlare::UsefulPHP
+      - nlohmann::json
+    
+
+dependencies:
+
+
+  - symbol: AllegroFlare::UsefulPHP
+    headers: [ AllegroFlare/UsefulPHP.hpp ]
+  - symbol: nlohmann::json
+    headers: [ lib/nlohmann/json.hpp ]
+
+

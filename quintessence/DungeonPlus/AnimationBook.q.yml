@@ -9,6 +9,7 @@ properties:
   - name: dictionary
     type: std::map<std::string, DungeonPlus::Animation>
     init_with: '{}'
+    setter: true
 
   - name: initialized
     type: bool
