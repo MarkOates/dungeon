@@ -28,15 +28,15 @@ Animation::~Animation()
 }
 
 
-uint32_t Animation::get_playmode() const
+std::vector<AnimationFrame> Animation::get_frames() const
 {
-   return playmode;
+   return frames;
 }
 
 
-std::vector<AnimationFrame> &Animation::get_frames_ref()
+uint32_t Animation::get_playmode() const
 {
-   return frames;
+   return playmode;
 }
 
 
@@ -115,7 +115,8 @@ uint32_t Animation::get_frame_id_now()
 
 uint32_t Animation::get_frame_id_at(float time)
 {
-   // NOTE: no guard logic for when duration is 0.0
+   float duration = calculate_duration();
+   if (duration < 0.0001) return 0;
 
    switch(playmode)
    {

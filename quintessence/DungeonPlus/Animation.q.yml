@@ -15,7 +15,7 @@ properties:
     type: std::vector<AnimationFrame>
     init_with: '{}'
     constructor_arg: true
-    getter_ref: true
+    getter: true
 
   - name: playmode
     type: uint32_t
@@ -138,7 +138,8 @@ functions:
         type: float
         default_argument: 0.0f
     body: |
-      // NOTE: no guard logic for when duration is 0.0
+      float duration = calculate_duration();
+      if (duration < 0.0001) return 0;
 
       switch(playmode)
       {
