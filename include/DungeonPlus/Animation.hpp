@@ -34,6 +34,7 @@ namespace DungeonPlus
       Animation(SpriteSheet* sprite_sheet=nullptr, std::string name="[unset-name]", std::vector<AnimationFrame> frames={}, uint32_t playmode=PLAYMODE_UNDEF);
       ~Animation();
 
+      uint32_t get_playmode() const;
       std::vector<AnimationFrame> &get_frames_ref();
       void start();
       void update();

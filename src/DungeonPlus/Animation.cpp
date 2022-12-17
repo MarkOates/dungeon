@@ -25,6 +25,12 @@ Animation::~Animation()
 }
 
 
+uint32_t Animation::get_playmode() const
+{
+   return playmode;
+}
+
+
 std::vector<AnimationFrame> &Animation::get_frames_ref()
 {
    return frames;

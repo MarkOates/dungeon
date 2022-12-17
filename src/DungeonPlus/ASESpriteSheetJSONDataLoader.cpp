@@ -130,7 +130,7 @@ std::vector<DungeonPlus::AnimationFrame> ASESpriteSheetJSONDataLoader::_build_an
                              "a frame does not exist for this num");
       }
       int duration_msec = frame_data[frame];
-      result.push_back(AnimationFrame(frame, duration_msec));
+      result.push_back(AnimationFrame(frame, (float)duration_msec*0.001));
    }
    return result;
 }

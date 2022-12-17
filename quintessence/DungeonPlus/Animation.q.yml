@@ -21,6 +21,7 @@ properties:
     type: uint32_t
     init_with: PLAYMODE_UNDEF
     constructor_arg: true
+    getter: true
 
   - name: playhead
     type: float
