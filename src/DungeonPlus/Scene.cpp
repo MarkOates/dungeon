@@ -12,6 +12,7 @@ namespace DungeonPlus
 Scene::Scene()
    : root()
    , camera()
+   , camera_following_entity(nullptr)
 {
 }
 
@@ -27,6 +28,12 @@ AllegroFlare::ElementID &Scene::get_root_ref()
 }
 
 
+void Scene::set_camera_following_entity(DungeonPlus::Sprite* sprite)
+{
+   camera_following_entity = sprite;
+   return;
+}
+
 void Scene::update()
 {
    std::vector<DungeonPlus::Sprite*> flat_list_of_entities
@@ -35,11 +42,14 @@ void Scene::update()
    camera.size = { 1920, 1080 };
    camera.align = { 0.5, 0.5 };
    camera.position = { 1920/2, 1080/2 };
+   //if (camera_following_entity) camera.position.x = camera_following_entity->get_place_ref().position.x;
 
    for (auto &entity : flat_list_of_entities)
    {
       entity->update();
    }
+
+   if (camera_following_entity) camera.position.x = camera_following_entity->get_place_ref().position.x;
 
    return;
 }

@@ -43,6 +43,7 @@ namespace DungeonPlus
 
       AllegroFlare::Placement2D &get_place_ref();
       AllegroFlare::Placement2D &get_velocity_ref();
+      BitmapObject &get_bitmap_object_ref();
       void initialize();
       void set_animation(std::string name="[unset-name]");
       void update();

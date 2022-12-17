@@ -48,6 +48,12 @@ AllegroFlare::Placement2D &Sprite::get_velocity_ref()
 }
 
 
+BitmapObject &Sprite::get_bitmap_object_ref()
+{
+   return bitmap_object;
+}
+
+
 void Sprite::initialize()
 {
    if (!((!initialized)))
@@ -82,7 +88,8 @@ void Sprite::initialize()
    velocity.scale = { 0, 0 };
    velocity.align = { 0, 0 };
 
-   //set("bound_in_world");
+   place.align = { 0.5, 0.5 };
+   bitmap_object.align(0.5, 1.0);
 
    initialized = true;
    return;
@@ -162,6 +169,9 @@ void Sprite::draw()
 
    flat_color_shader->set_float("tint_intensity", 0.0f);
    flat_color_shader->deactivate();
+
+   place.draw_box(ALLEGRO_COLOR{0.9, 0.8, 0.1, 1.0}, true);
+
    return;
 }
 

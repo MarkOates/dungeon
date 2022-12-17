@@ -132,6 +132,7 @@ DungeonPlus::Sprite* EntityFactory::create_sprite(float x, float y, float w, flo
    sprite->initialize();
    sprite->get_place_ref().position = { x, y };
    sprite->get_place_ref().size = { w, h };
+   sprite->get_bitmap_object_ref().position(w * 0.5, h * 0.5);
    sprite->set("type", "blob");
    sprite->set_animation("blob"); // this is just to get the animation initialized
    return sprite;

@@ -10,8 +10,22 @@ properties:
     type: AllegroFlare::Camera2D
     init_with: ''
 
+  - name: camera_following_entity
+    type: DungeonPlus::Sprite*
+    init_with: nullptr
+
 
 functions:
+
+
+  - name: set_camera_following_entity
+    parameters:
+      - name: sprite
+        type: DungeonPlus::Sprite*
+        default_argument: nullptr
+    body: |
+      camera_following_entity = sprite;
+      return;
 
 
   - name: update
@@ -22,11 +36,14 @@ functions:
       camera.size = { 1920, 1080 };
       camera.align = { 0.5, 0.5 };
       camera.position = { 1920/2, 1080/2 };
+      //if (camera_following_entity) camera.position.x = camera_following_entity->get_place_ref().position.x;
 
       for (auto &entity : flat_list_of_entities)
       {
          entity->update();
       }
+
+      if (camera_following_entity) camera.position.x = camera_following_entity->get_place_ref().position.x;
 
       return;
 
