@@ -41,6 +41,7 @@ namespace DungeonPlus
       void draw();
       int get_num_frames();
       ALLEGRO_BITMAP* get_frame_now();
+      ALLEGRO_BITMAP* get_bitmap_at_frame_num(int frame_num=0);
       uint32_t get_frame_id_now();
       uint32_t get_frame_id_at(float time=0.0f);
       ALLEGRO_BITMAP* get_frame_at(float time=0.0f);

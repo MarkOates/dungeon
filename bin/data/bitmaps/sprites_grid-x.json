@@ -517,7 +517,9 @@
    { "name": "skull head", "from": 7, "to": 11, "direction": "forward" },
    { "name": "fly", "from": 7, "to": 8, "direction": "forward" },
    { "name": "die", "from": 9, "to": 11, "direction": "forward" },
-   { "name": "attack", "from": 27, "to": 31, "direction": "forward" }
+   { "name": "krampus", "from": 26, "to": 26, "direction": "forward" },
+   { "name": "attack", "from": 27, "to": 31, "direction": "forward" },
+   { "name": "shield", "from": 36, "to": 36, "direction": "forward" }
   ],
   "layers": [
    { "name": "Sprite Sheet", "opacity": 255, "blendMode": "normal" }

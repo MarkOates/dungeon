@@ -3,6 +3,9 @@
 #include <DungeonPlus/Animation.hpp>
 
 #include <cmath>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace DungeonPlus
@@ -83,6 +86,26 @@ int Animation::get_num_frames()
 ALLEGRO_BITMAP* Animation::get_frame_now()
 {
    return get_frame_at(playhead);
+}
+
+ALLEGRO_BITMAP* Animation::get_bitmap_at_frame_num(int frame_num)
+{
+   if (!((frame_num < 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::get_bitmap_at_frame_num]: error: guard \"(frame_num < 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::get_bitmap_at_frame_num: error: guard \"(frame_num < 0)\" not met");
+   }
+   if (!((frame_num >= frames.size())))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::get_bitmap_at_frame_num]: error: guard \"(frame_num >= frames.size())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::get_bitmap_at_frame_num: error: guard \"(frame_num >= frames.size())\" not met");
+   }
+   uint32_t cell_id = frames[frame_num].get_index();
+   return sprite_sheet->get_cell(cell_id);
 }
 
 uint32_t Animation::get_frame_id_now()

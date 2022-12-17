@@ -4,6 +4,8 @@
 #include <dungeon/models/entities/base.hpp>
 #include <dungeon/models/sprite_sheet.hpp>
 
+#include <DungeonPlus/AnimationBook.hpp> // for FULL_ROTATION
+
 
 class KrampusEntity : public Entity::Base
 {
@@ -34,12 +36,13 @@ public:
    BitmapObject club_bitmap;
    BitmapObject shield_bitmap;
    SpriteSheet *sprite_sheet;
+   DungeonPlus::AnimationBook *animation_book;
    AllegroFlare::EventEmitter *event_emitter;
 
    bool set_state(state_t new_state, bool override_if_busy=false);
 
 public:
-   KrampusEntity(AllegroFlare::ElementID *parent, AllegroFlare::EventEmitter *event_emitter, SpriteSheet *sprite_sheet, float x, float y);
+   KrampusEntity(AllegroFlare::ElementID *parent, AllegroFlare::EventEmitter *event_emitter, SpriteSheet *sprite_sheet, DungeonPlus::AnimationBook *animation_book, float x, float y);
    virtual ~KrampusEntity();
 
    void update() override;

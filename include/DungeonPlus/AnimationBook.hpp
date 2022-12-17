@@ -2,6 +2,7 @@
 
 
 #include <DungeonPlus/Animation.hpp>
+#include <allegro5/allegro.h>
 #include <dungeon/models/sprite_sheet.hpp>
 #include <map>
 #include <string>
@@ -29,6 +30,7 @@ namespace DungeonPlus
       void set_dictionary(std::map<std::string, DungeonPlus::Animation> dictionary);
       SpriteSheet* get_sprite_sheet();
       void init();
+      ALLEGRO_BITMAP* get_first_frame(std::string tag_name="[unset-tag_name]");
       DungeonPlus::Animation get_animation_by_name(std::string name="[unset-name]");
    };
 }

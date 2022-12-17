@@ -148,7 +148,7 @@ Entity::Base *EntityFactory::create_krampus(AllegroFlare::ElementID *parent, flo
 {
    if (!initialized) throw std::runtime_error("EntityFactory not initialized G");
 
-   return new KrampusEntity(parent, get_instance()->event_emitter, &get_instance()->character_sprite_sheet, x, y);
+   return new KrampusEntity(parent, get_instance()->event_emitter, &get_instance()->character_sprite_sheet, get_instance()->animation_book, x, y);
 }
 
 

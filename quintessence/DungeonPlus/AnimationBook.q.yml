@@ -65,6 +65,17 @@ functions:
       - DungeonPlus::ASESpriteSheetJSONDataLoader
 
 
+  - name: get_first_frame
+    type: ALLEGRO_BITMAP*
+    parameters:
+      - name: tag_name
+        type: std::string
+        default_argument: '"[unset-tag_name]"'
+    guards: [ initialized ]
+    body: |
+      return get_animation_by_name(tag_name).get_bitmap_at_frame_num(0);
+
+
   - name: get_animation_by_name
     type: DungeonPlus::Animation
     parameters:
@@ -110,5 +121,7 @@ dependencies:
     headers: [ DungeonPlus/ASESpriteSheetJSONDataLoader.hpp ]
   - symbol: AllegroFlare::UsefulPHP
     headers: [ AllegroFlare/UsefulPHP.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
 
 

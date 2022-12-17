@@ -113,6 +113,18 @@ functions:
       return get_frame_at(playhead);
 
 
+  - name: get_bitmap_at_frame_num
+    type: ALLEGRO_BITMAP*
+    parameters:
+      - name: frame_num
+        type: int
+        default_argument: 0
+    guards: [ (frame_num < 0), (frame_num >= frames.size()) ]
+    body: |
+      uint32_t cell_id = frames[frame_num].get_index();
+      return sprite_sheet->get_cell(cell_id);
+
+
   - name: get_frame_id_now
     type: uint32_t
     body: |

@@ -14,8 +14,9 @@
 using AllegroFlare::FULL_ROTATION;
 
 
-KrampusEntity::KrampusEntity(AllegroFlare::ElementID *parent, AllegroFlare::EventEmitter *event_emitter, SpriteSheet *sprite_sheet, float x, float y)
+KrampusEntity::KrampusEntity(AllegroFlare::ElementID *parent, AllegroFlare::EventEmitter *event_emitter, SpriteSheet *sprite_sheet, DungeonPlus::AnimationBook *animation_book, float x, float y)
    : Entity::Base(parent, "krampus", x, y)
+   , animation_book(animation_book)
    , event_emitter(event_emitter)
    , state_is_busy(false)
    , health(3)
@@ -28,17 +29,22 @@ KrampusEntity::KrampusEntity(AllegroFlare::ElementID *parent, AllegroFlare::Even
    , state(STANDING)
    , sprite_sheet(sprite_sheet)
 {
-   if (!event_emitter) throw std::runtime_error("KrampusEntity:: no event emitter");
+   if (!event_emitter) throw std::runtime_error("KrampusEntity:: no event_emitter");
+   if (!animation_book) throw std::runtime_error("KrampusEntity:: no animation_book");
+
    place.size = { 120, 30 };
-   bitmap.bitmap(sprite_sheet->get_sprite(18));
+   //bitmap.bitmap(sprite_sheet->get_sprite(18));
+   bitmap.bitmap(sprite_sheet->get_sprite(26)); //sprite_sheet->get_sprite(18));
    bitmap.align(0.5, 1.0);
    bitmap.scale(2.0, 2.0);
    bitmap.position(place.size.x/2, place.size.y/2);
 
+   //club_bitmap.bitmap(sprite_sheet->get_sprite(23));
    club_bitmap.bitmap(sprite_sheet->get_sprite(23));
    club_bitmap.align(0.5, 0.95);
 
-   shield_bitmap.bitmap(sprite_sheet->get_sprite(28));
+   //shield_bitmap.bitmap(sprite_sheet->get_sprite(28));
+   shield_bitmap.bitmap(sprite_sheet->get_sprite(37));
    shield_bitmap.align(0.5, 0.5);
    shield_bitmap.flags(ALLEGRO_FLIP_HORIZONTAL);
 
@@ -82,13 +88,13 @@ void KrampusEntity::update()
          float scale = 2.0;
          if (state_counter*scale >= 0.4 && previous_state_counter*scale < 0.4)
          {
-            bitmap.bitmap(sprite_sheet->get_sprite(20));
+            //bitmap.bitmap(sprite_sheet->get_sprite(20));
             club_bitmap.position(bitmap.w()/2+30, 25);
             club_bitmap.rotation(FULL_ROTATION * 0.05);
          }
          if (state_counter*scale >= 0.5 && previous_state_counter*scale < 0.5)
          {
-            bitmap.bitmap(sprite_sheet->get_sprite(21));
+            //bitmap.bitmap(sprite_sheet->get_sprite(21));
             club_bitmap.position(bitmap.w()/2 + 36, bitmap.h()-20);
             club_bitmap.rotation(FULL_ROTATION * 0.25 + 0.1);
 
@@ -106,7 +112,7 @@ void KrampusEntity::update()
          }
          if (state_counter*scale >= 0.7 && previous_state_counter*scale < 0.7)
          {
-            bitmap.bitmap(sprite_sheet->get_sprite(22));
+            //bitmap.bitmap(sprite_sheet->get_sprite(22));
             club_bitmap.position(bitmap.w()/2 + 36, bitmap.h()-20);
             club_bitmap.rotation(FULL_ROTATION * 0.25 - 0.2);
          }
@@ -121,8 +127,8 @@ void KrampusEntity::update()
          float previous_state_counter_modded = std::fmod(previous_state_counter, 0.4);
          float state_counter_modded = std::fmod(state_counter, 0.4);
          float scale = 1.0;
-         if (state_counter_modded*scale >= 0.1 && previous_state_counter_modded*scale < 0.1) bitmap.bitmap(sprite_sheet->get_sprite(19));
-         if (state_counter_modded*scale >= 0.3 && previous_state_counter_modded*scale < 0.3) bitmap.bitmap(sprite_sheet->get_sprite(18));
+         //if (state_counter_modded*scale >= 0.1 && previous_state_counter_modded*scale < 0.1) bitmap.bitmap(sprite_sheet->get_sprite(19));
+         //if (state_counter_modded*scale >= 0.3 && previous_state_counter_modded*scale < 0.3) bitmap.bitmap(sprite_sheet->get_sprite(18));
       }
       break;
    case USING_MAGIC:
@@ -258,26 +264,26 @@ bool KrampusEntity::set_state(state_t new_state, bool override_if_busy)
    switch(new_state)
    {
    case WALKING_UP:
-      bitmap.bitmap(sprite_sheet->get_sprite(18));
+      //bitmap.bitmap(sprite_sheet->get_sprite(18));
       //velocity.position = { 0.0, -walking_speed/2.0f };
       velocity.position.y = -walking_speed/2.0f;
       shield_bitmap.flip(true, false);
       break;
    case WALKING_DOWN:
-      bitmap.bitmap(sprite_sheet->get_sprite(18));
+      //bitmap.bitmap(sprite_sheet->get_sprite(18));
       //velocity.position = { 0.0, walking_speed/2.0f };
       velocity.position.y = walking_speed/2.0f;
       shield_bitmap.flip(true, false);
       break;
    case WALKING_LEFT:
-      bitmap.bitmap(sprite_sheet->get_sprite(18));
+      //bitmap.bitmap(sprite_sheet->get_sprite(18));
       face_left();
       //velocity.position = { (float)-walking_speed, 0.0 };
       velocity.position.x = -walking_speed;
       shield_bitmap.flip(true, false);
       break;
    case WALKING_RIGHT:
-      bitmap.bitmap(sprite_sheet->get_sprite(18));
+      //bitmap.bitmap(sprite_sheet->get_sprite(18));
       face_right();
       //velocity.position = { (float)walking_speed, 0.0 };
       velocity.position.x = walking_speed;
@@ -302,7 +308,7 @@ bool KrampusEntity::set_state(state_t new_state, bool override_if_busy)
       break;
    case BLOCKING:
       bitmap.anchor(0, 0);
-      bitmap.bitmap(sprite_sheet->get_sprite(23));
+      //bitmap.bitmap(sprite_sheet->get_sprite(23));
       velocity.position = { 0.0, 0.0 };
       shield_bitmap.position(bitmap.w() * 0.7, bitmap.h() * 0.72);
       shield_bitmap.rotation(-0.07);
@@ -310,7 +316,7 @@ bool KrampusEntity::set_state(state_t new_state, bool override_if_busy)
       break;
    case STANDING:
       bitmap.anchor(0, 0);
-      bitmap.bitmap(sprite_sheet->get_sprite(18));
+      //bitmap.bitmap(sprite_sheet->get_sprite(18));
       velocity.position = { 0.0, 0.0 };
       club_bitmap.position(bitmap.w()/2 + 36, bitmap.h()-20);
       club_bitmap.rotation(FULL_ROTATION * 0.25 - 0.2);
@@ -321,7 +327,7 @@ bool KrampusEntity::set_state(state_t new_state, bool override_if_busy)
    case ATTACKING:
       bitmap.anchor(0, 0);
       state_is_busy = true;
-      bitmap.bitmap(sprite_sheet->get_sprite(19));
+      //bitmap.bitmap(sprite_sheet->get_sprite(19));
       velocity.position = { 0.0, 0.0 };
       club_bitmap.position(bitmap.w()/2, 10);
       club_bitmap.rotation(FULL_ROTATION * -0.2);
@@ -330,14 +336,14 @@ bool KrampusEntity::set_state(state_t new_state, bool override_if_busy)
       break;
    case CELEBRATING:
       bitmap.anchor(0, 0);
-      bitmap.bitmap(sprite_sheet->get_sprite(19));
+      //bitmap.bitmap(sprite_sheet->get_sprite(19));
       velocity.position = { 0.0, 0.0 };
       shield_bitmap.flip(true, false);
       break;
    case USING_MAGIC:
       bitmap.anchor(0, 0);
       state_is_busy = true;
-      bitmap.bitmap(sprite_sheet->get_sprite(19));
+      //bitmap.bitmap(sprite_sheet->get_sprite(19));
       velocity.position = { 0.0, 0.0 };
       //UserEventEmitter::emit_event(USE_STONE_OF_DEFIANCE_EVENT);
       event_emitter->emit_event(USE_STONE_OF_DEFIANCE_EVENT);
