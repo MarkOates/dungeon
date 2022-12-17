@@ -1,6 +1,11 @@
 properties:
 
 
+  - name: filename
+    type: std::string
+    init_with: '"./bin/data/bitmaps/sprites_grid-x.json"'
+    constructor_arg: true
+
   - name: sprite_sheet
     type: SpriteSheet*
     init_with: nullptr
@@ -14,7 +19,7 @@ functions:
     type: std::map<std::string, DungeonPlus::Animation>
     body: |
       using DungeonPlus::Errors;
-      std::string filename = "./bin/data/bitmaps/sprites_grid-x.json";
+      //std::string filename = "./bin/data/bitmaps/sprites_grid-x.json";
       if (!AllegroFlare::php::file_exists(filename))
       {
          std::stringstream error_message;

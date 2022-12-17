@@ -15,13 +15,14 @@ namespace DungeonPlus
    class ASESpriteSheetJSONDataLoader
    {
    private:
+      std::string filename;
       SpriteSheet* sprite_sheet;
 
    protected:
 
 
    public:
-      ASESpriteSheetJSONDataLoader(SpriteSheet* sprite_sheet=nullptr);
+      ASESpriteSheetJSONDataLoader(std::string filename="./bin/data/bitmaps/sprites_grid-x.json", SpriteSheet* sprite_sheet=nullptr);
       ~ASESpriteSheetJSONDataLoader();
 
       std::map<std::string, DungeonPlus::Animation> load();

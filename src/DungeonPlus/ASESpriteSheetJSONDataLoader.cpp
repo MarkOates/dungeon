@@ -16,8 +16,9 @@ namespace DungeonPlus
 {
 
 
-ASESpriteSheetJSONDataLoader::ASESpriteSheetJSONDataLoader(SpriteSheet* sprite_sheet)
-   : sprite_sheet(sprite_sheet)
+ASESpriteSheetJSONDataLoader::ASESpriteSheetJSONDataLoader(std::string filename, SpriteSheet* sprite_sheet)
+   : filename(filename)
+   , sprite_sheet(sprite_sheet)
 {
 }
 
@@ -30,7 +31,7 @@ ASESpriteSheetJSONDataLoader::~ASESpriteSheetJSONDataLoader()
 std::map<std::string, DungeonPlus::Animation> ASESpriteSheetJSONDataLoader::load()
 {
    using DungeonPlus::Errors;
-   std::string filename = "./bin/data/bitmaps/sprites_grid-x.json";
+   //std::string filename = "./bin/data/bitmaps/sprites_grid-x.json";
    if (!AllegroFlare::php::file_exists(filename))
    {
       std::stringstream error_message;

@@ -14,8 +14,10 @@ namespace DungeonPlus
 {
 
 
-AnimationBook::AnimationBook(SpriteSheet* sprite_sheet)
-   : sprite_sheet(sprite_sheet)
+AnimationBook::AnimationBook(std::string png_source_filename, std::string json_source_filename, SpriteSheet* sprite_sheet)
+   : png_source_filename(png_source_filename)
+   , json_source_filename(json_source_filename)
+   , sprite_sheet(sprite_sheet)
    , dictionary({})
    , initialized(false)
 {
@@ -55,22 +57,22 @@ void AnimationBook::init()
       throw std::runtime_error("AnimationBook::init: error: guard \"(!initialized)\" not met");
    }
    // build the sprite sheet
-   std::string source_filename = "./bin/data/bitmaps/sprites_grid-x.png";
-   if (!AllegroFlare::php::file_exists(source_filename))
+   if (!AllegroFlare::php::file_exists(png_source_filename))
    {
       std::stringstream error_message;
       error_message << "[DungeonPlus::AnimationBook::init] error: "
-                    << "expected png file does not exist. Looking in \"" << source_filename << "\".";
+                    << "expected png file does not exist. Looking in \"" << png_source_filename << "\".";
       throw std::runtime_error(error_message.str());
    }
 
-   ALLEGRO_BITMAP *sprite_sheet_bitmap = al_load_bitmap(source_filename.c_str());
+   ALLEGRO_BITMAP *sprite_sheet_bitmap = al_load_bitmap(png_source_filename.c_str());
+   // TODO: add validation for unloadable sprite_sheet_bitmap
    sprite_sheet = new SpriteSheet(sprite_sheet_bitmap, 48, 48, 8); // auto-inits
    al_destroy_bitmap(sprite_sheet_bitmap);
 
    // load the data
 
-   DungeonPlus::ASESpriteSheetJSONDataLoader loader(sprite_sheet);
+   DungeonPlus::ASESpriteSheetJSONDataLoader loader(json_source_filename, sprite_sheet);
    dictionary = loader.load();
 
    initialized = true;
