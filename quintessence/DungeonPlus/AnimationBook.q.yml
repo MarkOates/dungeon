@@ -5,6 +5,7 @@ properties:
     type: SpriteSheet*
     init_with: nullptr
     constructor_arg: true
+    getter: false
 
   - name: dictionary
     type: std::map<std::string, DungeonPlus::Animation>
@@ -17,6 +18,13 @@ properties:
 
 
 functions:
+
+
+  - name: get_sprite_sheet
+    type: SpriteSheet*
+    guards: [ initialized ]
+    body: |
+      return sprite_sheet;
 
 
   - name: init

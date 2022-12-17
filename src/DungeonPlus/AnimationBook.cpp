@@ -32,6 +32,18 @@ void AnimationBook::set_dictionary(std::map<std::string, DungeonPlus::Animation>
 }
 
 
+SpriteSheet* AnimationBook::get_sprite_sheet()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AnimationBook::get_sprite_sheet]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("AnimationBook::get_sprite_sheet: error: guard \"initialized\" not met");
+   }
+   return sprite_sheet;
+}
+
 void AnimationBook::init()
 {
    if (!((!initialized)))
