@@ -149,6 +149,7 @@ void Sprite::draw()
       throw std::runtime_error("Sprite::draw: error: guard \"initialized\" not met");
    }
    bitmap_object.bitmap(animation.get_frame_now());
+   place.draw_box(ALLEGRO_COLOR{0.9, 0.8, 0.1, 1.0}, true);
 
    flat_color_shader->activate();
 
@@ -169,8 +170,6 @@ void Sprite::draw()
 
    flat_color_shader->set_float("tint_intensity", 0.0f);
    flat_color_shader->deactivate();
-
-   place.draw_box(ALLEGRO_COLOR{0.9, 0.8, 0.1, 1.0}, true);
 
    return;
 }
