@@ -26,6 +26,7 @@ namespace DungeonPlus
       uint32_t playmode;
       float playhead;
       bool finished;
+      bool initialized;
 
    protected:
 
@@ -36,6 +37,7 @@ namespace DungeonPlus
 
       std::vector<AnimationFrame> get_frames() const;
       uint32_t get_playmode() const;
+      void initialize();
       void start();
       void update();
       void draw();

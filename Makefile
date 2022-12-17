@@ -51,14 +51,18 @@ QUINTESSENCE_BUILDER_EXECUTABLE=../blast/bin/programs/quintessence_from_yaml
 
 
 
+# ProjectMakefile can be included in each project repo, and includes values like
+# PROJECT_NAME and VERSION_NUMBER
+-include ProjectMakefile
+
+
 main:
 	make quintessences
 	make tests
-	./bin/tests/dungeon/models/entities/enemy/blobTest
-	#./bin/tests/DungeonPlus/AnimationBookTest
+	$(AFTER_TEST_BUILD_COMMAND)
 	make bin/krampushack
 	@echo "\033[1m\033[32m=============== BUILD COMPLETE ===============\033[0m"
-	bin/krampushack
+	$(POST_BUILD_COMMAND)
 
 
 
