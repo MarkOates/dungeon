@@ -2,6 +2,8 @@
 
 
 #include <AllegroFlare/ElementID.hpp>
+#include <DungeonPlus/Sprite.hpp>
+#include <vector>
 
 
 namespace DungeonPlus
@@ -19,6 +21,9 @@ namespace DungeonPlus
       ~Scene();
 
       AllegroFlare::ElementID &get_root_ref();
+      void update();
+      void draw();
+      std::vector<DungeonPlus::Sprite *> get_all_entities_y_sorted();
    };
 }
 
