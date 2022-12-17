@@ -139,7 +139,7 @@ Entity::Base *EntityFactory::create_skull_enemy(AllegroFlare::ElementID *parent,
 {
    if (!initialized) throw std::runtime_error("EntityFactory not initialized F");
 
-   return new Enemy::Skull(parent, get_instance()->event_emitter, &get_instance()->character_sprite_sheet, x, y, min_y, max_y);
+   return new Enemy::Skull(parent, get_instance()->animation_book, get_instance()->event_emitter, &get_instance()->character_sprite_sheet, x, y, min_y, max_y);
 }
 
 

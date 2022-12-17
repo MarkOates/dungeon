@@ -107,6 +107,12 @@ functions:
       return frames.size();
 
 
+  - name: get_frame_now
+    type: ALLEGRO_BITMAP*
+    body: |
+      return get_frame_at(playhead);
+
+
   - name: get_frame_id_now
     type: uint32_t
     body: |

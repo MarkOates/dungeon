@@ -80,6 +80,11 @@ int Animation::get_num_frames()
    return frames.size();
 }
 
+ALLEGRO_BITMAP* Animation::get_frame_now()
+{
+   return get_frame_at(playhead);
+}
+
 uint32_t Animation::get_frame_id_now()
 {
    return get_frame_id_at(playhead);

@@ -17,8 +17,9 @@ namespace Enemy
 {
 
 
-Skull::Skull(AllegroFlare::ElementID *parent, AllegroFlare::EventEmitter *event_emitter, SpriteSheet *sprite_sheet, float x, float y, float min_y, float max_y)
+Skull::Skull(AllegroFlare::ElementID *parent, DungeonPlus::AnimationBook *animation_book, AllegroFlare::EventEmitter *event_emitter, SpriteSheet *sprite_sheet, float x, float y, float min_y, float max_y)
    : Enemy::Base(parent, "skull", x, y, 3)
+   , animation_book(animation_book)
    , state_counter(0.0)
    , min_y(min_y)
    , max_y(max_y)
@@ -27,7 +28,8 @@ Skull::Skull(AllegroFlare::ElementID *parent, AllegroFlare::EventEmitter *event_
    , state(STATE_NONE)
    , health(3)
 {
-   if (!event_emitter) throw std::runtime_error("Skull:: no event emitter");
+   if (!event_emitter) throw std::runtime_error("Skull:: no event_emitter");
+   if (!animation_book) throw std::runtime_error("Skull:: no animation_book");
 
    place.size = { 100, 40 };
    velocity.position = { -3, 2 };
@@ -76,14 +78,17 @@ void Skull::set_state(state_t new_state)
 
 void Skull::update()
 {
+   animation.update();
+   bitmap.bitmap(animation.get_frame_now());
+
    switch (state)
    {
    case STATE_MOVING:
       if (place.position.y <= min_y) velocity.position.y = 2;
       if (place.position.y >= max_y) velocity.position.y = -2;
       place += velocity;
-      if (((int)(al_get_time() * 4.0) % 2) < 1.0) bitmap.bitmap(sprite_sheet->get_sprite(36));
-      else bitmap.bitmap(sprite_sheet->get_sprite(37));
+      //if (((int)(al_get_time() * 4.0) % 2) < 1.0) bitmap.bitmap(sprite_sheet->get_sprite(36));
+      //bitmap.bitmap(animation.get_frame_now());
       if (place.position.x <= 0) set_state(STATE_DYING);
       EntityFactory::create_enemy_attack_damage_zone(get_parent(), place.position.x, place.position.y, place.size.x, place.size.y);
       break;
