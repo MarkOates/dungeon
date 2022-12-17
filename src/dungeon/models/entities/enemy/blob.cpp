@@ -166,9 +166,6 @@ void Blob::draw()
       bitmap.draw();
 
    flat_color_shader->deactivate();
-   //place.draw_box(ALLEGRO_COLOR{0.1, 0.3, 0.95, 1.0}, true);
-      //void draw_box_with_padding(ALLEGRO_COLOR color, bool draw_origin, float pt, float pr, float pb, float pl);
-      //oid draw_origin();
 
    place.restore_transform();
    place.draw_box(ALLEGRO_COLOR{0.85, 0.9, 0.24, 1.0}, true);
