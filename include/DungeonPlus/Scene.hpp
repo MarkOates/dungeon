@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/ElementID.hpp>
 #include <DungeonPlus/Sprite.hpp>
 #include <vector>
@@ -12,6 +13,7 @@ namespace DungeonPlus
    {
    private:
       AllegroFlare::ElementID root;
+      AllegroFlare::Camera2D camera;
 
    protected:
 
