@@ -113,7 +113,7 @@ DungeonPlus::Scene* SceneFactory::create_scene_0()
    entity_factory.create_blob(1920 / 2 + 200, 1080 / 2);
    entity_factory.create_blob(1920 / 2 - 200, 1080 / 2);
 
-   return nullptr;
+   return scene;
 }
 
 

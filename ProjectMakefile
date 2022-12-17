@@ -1,4 +1,4 @@
 # AFTER_TEST_BUILD_COMMAND=bin/tests/DungeonPlus/AnimationTest
-AFTER_TEST_BUILD_COMMAND=bin/tests/DungeonPlus/SceneFactoryTest
+# AFTER_TEST_BUILD_COMMAND=bin/tests/DungeonPlus/SceneFactoryTest
 # POST_BUILD_COMMAND=bin/krampushack
-# POST_BUILD_COMMAND=bin/krampushack
+POST_BUILD_COMMAND=bin/krampushack

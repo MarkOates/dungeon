@@ -21,8 +21,9 @@
 #include <dungeon/factories/entity_factory.hpp>
 #include <dungeon/factories/dialogue_factory.hpp>
 
+#include <AllegroFlare/UsefulPHP.hpp>
 #include <DungeonPlus/AnimationBook.hpp>
-
+#include <DungeonPlus/Gameplay.hpp>
 
    //: game_show_music(Framework::sample("game_show_music.ogg"))
    //, storyboard_music(Framework::sample("storyboard_music.ogg"))
@@ -100,6 +101,7 @@ public:
       }
       else if (game_event->is_type("START_GAMEPLAY_SCREEN"))
       {
+         //framework->activate_screen("legacy_gameplay_screen");
          framework->activate_screen("gameplay_screen");
       }
       //else if 
@@ -209,16 +211,17 @@ int main(int argc, char **argv)
 
    // gameplay screen
 
-   GamePlayScreen gameplay_screen(
+   /*
+   GamePlayScreen legacy_gameplay_screen(
          &framework.get_event_emitter_ref(),
          &framework.get_bitmap_bin_ref(),
          &framework.get_font_bin_ref()
       );
-   framework.register_screen("gameplay_screen", &gameplay_screen);
+   framework.register_screen("legacy_gameplay_screen", &legacy_gameplay_screen);
 
 
    EntityFactory::init(
-         gameplay_screen.get_flat_color_shader(),
+         legacy_gameplay_screen.get_flat_color_shader(),
          &framework.get_event_emitter_ref(),
          &framework.get_bitmap_bin_ref(),
          &framework.get_font_bin_ref(),
@@ -227,6 +230,21 @@ int main(int argc, char **argv)
       );
 
    gameplay_screen.init();
+   */
+
+   AllegroFlare::Shader flat_color_shader(
+      AllegroFlare::php::file_get_contents("data/shaders/flat_color_shader.vertex.glsl"),
+      AllegroFlare::php::file_get_contents("data/shaders/flat_color_shader.fragment.glsl")
+   );
+   flat_color_shader.initialize();
+
+
+   DungeonPlus::Gameplay gameplay_screen;
+   gameplay_screen.set_event_emitter(&framework.get_event_emitter_ref());
+   gameplay_screen.set_animation_book(&animation_book);
+   gameplay_screen.set_flat_color_shader(&flat_color_shader);
+   gameplay_screen.initialize();
+   framework.register_screen("gameplay_screen", &gameplay_screen);
 
 
 

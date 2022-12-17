@@ -84,7 +84,6 @@ void Sprite::initialize()
 
    //set("bound_in_world");
 
-   //set_animation("blob"); // this is just to get the animation initialized
    initialized = true;
    return;
 }
