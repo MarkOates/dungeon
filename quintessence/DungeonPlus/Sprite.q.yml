@@ -1,0 +1,201 @@
+parent_classes:
+
+
+  - class: AllegroFlare::ElementID
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: animation_book
+    type: DungeonPlus::AnimationBook*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: flat_color_shader
+    type: AllegroFlare::Shader*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: place
+    type: AllegroFlare::Placement2D
+    init_with: '{}'
+
+  - name: velocity
+    type: AllegroFlare::Placement2D
+    init_with: '{}'
+
+  - name: bitmap_object
+    type: BitmapObject
+    init_with: '{}'
+
+  - name: animation
+    type: DungeonPlus::Animation
+    init_with: '{}'
+
+  - name: health
+    type: int
+    init_with: 1
+
+  - name: stunned_from_hit
+    type: bool
+    init_with: false
+
+  - name: stunned_from_hit_counter
+    type: float
+    init_with: 0.0f
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+  - name: STUNNED_FROM_HIT_DURATION
+    type: bool
+    init_with: false
+    const: true
+    constexpr: true
+    static: true
+
+
+functions:
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+      - animation_book
+      - event_emitter
+      - flat_color_shader
+    body: |
+      //set("type", type); // doesn't seem necessary at the moment
+      velocity.scale = { 0, 0 };
+      velocity.align = { 0, 0 };
+
+      set("bound_in_world");
+
+      set_animation("blob"); // to start
+
+      initialized = true;
+      return;
+
+
+  - name: set_animation
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    body: |
+      animation = animation_book->get_animation_by_name(name);
+      animation.initialize();
+      animation.start();
+      return;
+
+
+  - name: update
+    body: |
+      // update the hit counter
+      if (stunned_from_hit)
+      {
+         stunned_from_hit_counter -= 1.0 / 60.0f;
+         if (stunned_from_hit_counter < 0.0f)
+         {
+            stunned_from_hit = false;
+            stunned_from_hit_counter = 0.0f;
+         }
+      }
+
+      // update the position
+      place += velocity;
+
+      // update the animation
+      animation.update();
+      
+      return;
+
+
+  - name: draw
+    body: |
+      bitmap_object.bitmap(animation.get_frame_now());
+
+      flat_color_shader->activate();
+
+      ALLEGRO_COLOR hurt_color = get_hurt_color();
+      float tint_intensity = stunned_from_hit ? get_hurt_tint_intensity() : 0.0f;
+
+      flat_color_shader->activate();
+      flat_color_shader->set_vec3("tint", hurt_color.r, hurt_color.g, hurt_color.b);
+      flat_color_shader->set_float("tint_intensity", tint_intensity);
+
+      place.start_transform();
+         bitmap_object.start_transform();
+         bitmap_object.draw_raw();
+         //if (has_weapon()) club_bitmap.draw();
+         //if (has_shield()) shield_bitmap.draw();
+         bitmap_object.restore_transform();
+      place.restore_transform();
+
+      flat_color_shader->set_float("tint_intensity", 0.0f);
+      flat_color_shader->deactivate();
+      return;
+
+
+  - name: get_hurt_color
+    type: ALLEGRO_COLOR
+    body: |
+      ALLEGRO_COLOR hurt_color;
+      hurt_color = AllegroFlare::color::firebrick;
+      return hurt_color;
+    body_dependency_symbols:
+      - AllegroFlare::Color
+
+
+  - name: get_hurt_tint_intensity
+    type: float
+    body: |
+      float strobe_speed = 3.0;
+      float identiy_reveal_duration = 4.0;
+
+      float normalized_oscilation = sin(al_get_time() * strobe_speed*4) * 0.5 + 0.5;
+      float tint_intensity = std::min(stunned_from_hit_counter*(1.0/STUNNED_FROM_HIT_DURATION), 1.0);
+
+      return normalized_oscilation * AllegroFlare::interpolator::fast_in(tint_intensity);
+    body_dependency_symbols:
+      - AllegroFlare::Interpolators
+      - sin
+    
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::ElementID
+    headers: [ AllegroFlare/ElementID.hpp ]
+  - symbol: BitmapObject
+    headers: [ dungeon/models/bitmap_object.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: DungeonPlus::Animation
+    headers: [ DungeonPlus/Animation.hpp ]
+  - symbol: DungeonPlus::AnimationBook
+    headers: [ DungeonPlus/AnimationBook.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Shader
+    headers: [ AllegroFlare/Shader.hpp ]
+  - symbol: AllegroFlare::Color
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: sin
+    headers: [ cmath ]
+  - symbol: AllegroFlare::Interpolators
+    headers: [ AllegroFlare/Interpolators.hpp ]
+
+

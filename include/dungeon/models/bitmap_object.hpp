@@ -37,7 +37,7 @@ public:
    }
 
 public:
-   BitmapObject(ALLEGRO_BITMAP *bitmap)
+   BitmapObject(ALLEGRO_BITMAP *bitmap=nullptr)
       : object2d(0,0,128,128)
       , _bitmap(bitmap)
       , _flags(0) // previously ALLEGRO_FLAGS_EMPTY
