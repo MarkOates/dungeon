@@ -30,7 +30,7 @@ namespace DungeonPlus
       void set_dictionary(std::map<std::string, DungeonPlus::Animation> dictionary);
       SpriteSheet* get_sprite_sheet();
       void init();
-      ALLEGRO_BITMAP* get_first_frame(std::string tag_name="[unset-tag_name]");
+      ALLEGRO_BITMAP* get_still_frame(std::string tag_name="[unset-tag_name]");
       DungeonPlus::Animation get_animation_by_name(std::string name="[unset-name]");
    };
 }

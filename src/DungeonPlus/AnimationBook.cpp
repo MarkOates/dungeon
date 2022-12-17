@@ -79,14 +79,14 @@ void AnimationBook::init()
    return;
 }
 
-ALLEGRO_BITMAP* AnimationBook::get_first_frame(std::string tag_name)
+ALLEGRO_BITMAP* AnimationBook::get_still_frame(std::string tag_name)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AnimationBook::get_first_frame]: error: guard \"initialized\" not met.";
+      error_message << "[AnimationBook::get_still_frame]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AnimationBook::get_first_frame: error: guard \"initialized\" not met");
+      throw std::runtime_error("AnimationBook::get_still_frame: error: guard \"initialized\" not met");
    }
    return get_animation_by_name(tag_name).get_bitmap_at_frame_num(0);
 }

@@ -65,7 +65,7 @@ functions:
       - DungeonPlus::ASESpriteSheetJSONDataLoader
 
 
-  - name: get_first_frame
+  - name: get_still_frame
     type: ALLEGRO_BITMAP*
     parameters:
       - name: tag_name
