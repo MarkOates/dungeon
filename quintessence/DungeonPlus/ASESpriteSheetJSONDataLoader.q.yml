@@ -15,7 +15,7 @@ functions:
     body: |
       using DungeonPlus::Errors;
       std::string filename = "./bin/data/bitmaps/sprites_grid-x.json";
-      if (AllegroFlare::php::file_exists(filename))
+      if (!AllegroFlare::php::file_exists(filename))
       {
          std::stringstream error_message;
          error_message << "[DungeonPlus::AnimationBook::init] error: "

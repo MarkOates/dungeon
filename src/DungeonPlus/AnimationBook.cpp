@@ -56,7 +56,7 @@ void AnimationBook::init()
    }
    // build the sprite sheet
    std::string source_filename = "./bin/data/bitmaps/sprites_grid-x.png";
-   if (AllegroFlare::php::file_exists(source_filename))
+   if (!AllegroFlare::php::file_exists(source_filename))
    {
       std::stringstream error_message;
       error_message << "[DungeonPlus::AnimationBook::init] error: "
