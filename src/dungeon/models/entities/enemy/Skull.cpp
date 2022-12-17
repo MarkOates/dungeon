@@ -20,6 +20,7 @@ namespace Enemy
 Skull::Skull(AllegroFlare::ElementID *parent, DungeonPlus::AnimationBook *animation_book, AllegroFlare::EventEmitter *event_emitter, SpriteSheet *sprite_sheet, float x, float y, float min_y, float max_y)
    : Enemy::Base(parent, "skull", x, y, 3)
    , animation_book(animation_book)
+   , animation()
    , state_counter(0.0)
    , min_y(min_y)
    , max_y(max_y)
@@ -41,6 +42,16 @@ Skull::Skull(AllegroFlare::ElementID *parent, DungeonPlus::AnimationBook *animat
 }
 
 
+void Skull::set_animation(std::string name)
+{
+   animation = animation_book->get_animation_by_name(name);
+   std::cout << "SkullA: " << name << std::endl;
+   animation.initialize();
+   std::cout << "SkullB" << std::endl;
+   animation.start();
+}
+
+
 Skull::~Skull()
 {
 }
@@ -53,21 +64,24 @@ void Skull::set_state(state_t new_state)
    switch(state)
    {
    case STATE_MOVING:
-      animation = animation_book->get_animation_by_name("fly");
-      animation.start();
+      set_animation("fly");
+      //animation = animation_book->get_animation_by_name("fly");
+      //animation.start();
       //bitmap.bitmap(sprite_sheet->get_sprite(36));
       break;
    case STATE_TAKE_DAMAGE:
       state_counter = 0.4;
       health -= 1;
-      animation = animation_book->get_animation_by_name("fly");
-      animation.start();
+      set_animation("fly");
+      //animation = animation_book->get_animation_by_name("fly");
+      //animation.start();
       //bitmap.bitmap(sprite_sheet->get_sprite(38));
       if (health <= 0) set_state(STATE_DYING);
       break;
    case STATE_DYING:
-      animation = animation_book->get_animation_by_name("die");
-      animation.start();
+      set_animation("die");
+      //animation = animation_book->get_animation_by_name("die");
+      //animation.start();
       //bitmap.bitmap(sprite_sheet->get_sprite(38));
       state_counter = 1.0;
       break;

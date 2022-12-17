@@ -43,6 +43,9 @@ Blob::Blob(
    if (!event_emitter) throw std::runtime_error("Blob:: no event_emitter");
    if (!animation_book) throw std::runtime_error("Blob:: no animation_book");
 
+   //animation = animation_book->get_animation_by_name("blob");
+   //animation.initialize();
+
    place.size = { 60, 30 };
 
    //if (sprite_index < 0) sprite_index = random.get_random_int(0, 16);
@@ -117,6 +120,7 @@ void Blob::take_hit()
 void Blob::set_animation(std::string name)
 {
    animation = animation_book->get_animation_by_name(name);
+   animation.initialize();
    animation.start();
 }
 

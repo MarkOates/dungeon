@@ -34,6 +34,8 @@ namespace Enemy
       state_t state;
       int health;
 
+      void set_animation(std::string name);
+
    public:
       Skull(AllegroFlare::ElementID *parent, DungeonPlus::AnimationBook *animation_book, AllegroFlare::EventEmitter *event_emitter, SpriteSheet *sprite_sheet, float x, float y, float min_y, float max_y);
       ~Skull();
