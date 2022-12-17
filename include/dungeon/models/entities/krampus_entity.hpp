@@ -33,20 +33,37 @@ public:
    bool _has_weapon;
    bool _has_shield;
    bool _has_stone_of_defiance;
+
+   bool stunned_from_hit;
+   float stunned_from_hit_counter;
+   float stunned_from_hit_duration;
+
    BitmapObject club_bitmap;
    BitmapObject shield_bitmap;
    SpriteSheet *sprite_sheet;
    DungeonPlus::AnimationBook *animation_book;
    AllegroFlare::EventEmitter *event_emitter;
+   AllegroFlare::Shader *flat_color_shader;
 
    bool set_state(state_t new_state, bool override_if_busy=false);
 
 public:
-   KrampusEntity(AllegroFlare::ElementID *parent, AllegroFlare::EventEmitter *event_emitter, SpriteSheet *sprite_sheet, DungeonPlus::AnimationBook *animation_book, float x, float y);
+   KrampusEntity(
+         AllegroFlare::ElementID *parent,
+         AllegroFlare::EventEmitter *event_emitter,
+         AllegroFlare::Shader *flat_color_shader,
+         SpriteSheet *sprite_sheet,
+         DungeonPlus::AnimationBook *animation_book,
+         float x,
+         float y
+      );
    virtual ~KrampusEntity();
 
    void update() override;
    void draw() override;
+
+   ALLEGRO_COLOR get_hurt_color();
+   float get_hurt_tint_intensity();
 
    void attack();
    void take_hit();

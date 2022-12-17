@@ -138,7 +138,7 @@ void Skull::draw()
 {
    place.start_transform();
    bitmap.draw();
-   al_draw_filled_rectangle(0, 0, place.size.x, place.size.y, AllegroFlare::color::yellow);
+   //al_draw_filled_rectangle(0, 0, place.size.x, place.size.y, AllegroFlare::color::yellow);
    place.restore_transform();
 }
 

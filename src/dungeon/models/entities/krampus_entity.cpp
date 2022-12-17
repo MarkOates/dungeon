@@ -14,22 +14,35 @@
 using AllegroFlare::FULL_ROTATION;
 
 
-KrampusEntity::KrampusEntity(AllegroFlare::ElementID *parent, AllegroFlare::EventEmitter *event_emitter, SpriteSheet *sprite_sheet, DungeonPlus::AnimationBook *animation_book, float x, float y)
+KrampusEntity::KrampusEntity(
+      AllegroFlare::ElementID *parent,
+      AllegroFlare::EventEmitter *event_emitter,
+      AllegroFlare::Shader *flat_color_shader,
+      SpriteSheet *sprite_sheet,
+      DungeonPlus::AnimationBook *animation_book,
+      float x,
+      float y
+    )
    : Entity::Base(parent, "krampus", x, y)
    , animation_book(animation_book)
    , event_emitter(event_emitter)
+   , flat_color_shader(flat_color_shader)
    , state_is_busy(false)
    , health(3)
    , walking_speed(8.0)
    , facing_right(true)
    , _has_weapon(false)
    , _has_stone_of_defiance(false)
+   , stunned_from_hit(false)
+   , stunned_from_hit_counter(0.0f)
+   , stunned_from_hit_duration(2.0f)
    , club_bitmap(nullptr)
    , shield_bitmap(nullptr)
    , state(STANDING)
    , sprite_sheet(sprite_sheet)
 {
    if (!event_emitter) throw std::runtime_error("KrampusEntity:: no event_emitter");
+   if (!flat_color_shader) throw std::runtime_error("KrampusEntity:: no flat_color_shader");
    if (!animation_book) throw std::runtime_error("KrampusEntity:: no animation_book");
 
    place.size = { 120, 30 };
@@ -64,6 +77,16 @@ KrampusEntity::~KrampusEntity()
 
 void KrampusEntity::update()
 {
+   if (stunned_from_hit)
+   {
+      stunned_from_hit_counter -= 1.0 / 60.0f;
+      if (stunned_from_hit_counter < 0.0f)
+      {
+         stunned_from_hit = false;
+         stunned_from_hit_counter = 0.0f;
+      }
+   }
+
    float previous_state_counter = state_counter;
    state_counter += 1.0 / 60.0;
    place += velocity;
@@ -141,8 +164,42 @@ void KrampusEntity::update()
 
 
 
+ALLEGRO_COLOR KrampusEntity::get_hurt_color()
+{
+   ALLEGRO_COLOR hurt_color;
+   hurt_color = AllegroFlare::color::firebrick;
+   return hurt_color;
+}
+
+
+
+float KrampusEntity::get_hurt_tint_intensity()
+{
+   float strobe_speed = 4.0;
+   //float stunned_from_hit_duration = 4.0;
+
+   float normalized_oscilation = sin(al_get_time() * strobe_speed*4) * 0.5 + 0.5;
+   float tint_intensity =
+      std::min(stunned_from_hit_counter*(1.0/stunned_from_hit_duration), 1.0);
+
+   return normalized_oscilation;// * AllegroFlare::interpolator::fast_in(tint_intensity);
+}
+
+
+
+
+
 void KrampusEntity::draw()
 {
+   flat_color_shader->activate();
+
+   ALLEGRO_COLOR hurt_color = get_hurt_color();
+   float tint_intensity = stunned_from_hit ? get_hurt_tint_intensity() : 0.0f;
+
+   flat_color_shader->activate();
+   flat_color_shader->set_vec3("tint", hurt_color.r, hurt_color.g, hurt_color.b);
+   flat_color_shader->set_float("tint_intensity", tint_intensity);
+
    place.start_transform();
    bitmap.start_transform();
    bitmap.draw_raw();
@@ -150,6 +207,9 @@ void KrampusEntity::draw()
    if (has_shield()) shield_bitmap.draw();
    bitmap.restore_transform();
    place.restore_transform();
+
+   flat_color_shader->set_float("tint_intensity", 0.0f);
+   flat_color_shader->deactivate();
 }
 
 
@@ -163,6 +223,7 @@ void KrampusEntity::attack()
 
 void KrampusEntity::take_hit()
 {
+   if (stunned_from_hit) return;
    set_state(TAKING_HIT);
 }
 
@@ -293,17 +354,18 @@ bool KrampusEntity::set_state(state_t new_state, bool override_if_busy)
       health--;
       if (health <= 0)
       {
+         // this hit killed player
          event_emitter->emit_event(PLAYER_DIED_EVENT);
-         //UserEventEmitter::emit_event(PLAYER_DIED_EVENT);
          velocity.position = { 0.0, 0.0 };
          event_emitter->emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(KRAMPUS_HIT_SOUND_EFFECT)));
-         //UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(KRAMPUS_HIT_SOUND_EFFECT)));
       }
       else
       {
+         // took hit, now stunned
+         stunned_from_hit = true;
+         stunned_from_hit_counter = stunned_from_hit_duration;
          velocity.position = { 0.0, 0.0 };
          event_emitter->emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(KRAMPUS_HIT_SOUND_EFFECT)));
-         //UserEventEmitter::emit_event(PLAY_SOUND_EFFECT, 0, (intptr_t)(new std::string(KRAMPUS_HIT_SOUND_EFFECT)));
       }
       break;
    case BLOCKING:
