@@ -28,11 +28,26 @@ AllegroFlare::ElementID &Scene::get_root_ref()
 
 void Scene::update()
 {
+   std::vector<DungeonPlus::Sprite*> flat_list_of_entities
+      = root.get_flat_list_of_descendants<DungeonPlus::Sprite>();
+
+   for (auto &entity : flat_list_of_entities)
+   {
+      entity->update();
+   }
+
    return;
 }
 
 void Scene::draw()
 {
+   std::vector<DungeonPlus::Sprite*> entities_y_sorted = get_all_entities_y_sorted();
+
+   for (auto &entity : entities_y_sorted)
+   {
+      entity->draw();
+   }
+
    return;
 }
 
