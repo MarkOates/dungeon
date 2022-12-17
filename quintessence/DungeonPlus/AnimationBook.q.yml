@@ -14,7 +14,6 @@ properties:
   - name: sprite_sheet
     type: SpriteSheet*
     init_with: nullptr
-    constructor_arg: true
     getter: false
 
   - name: dictionary

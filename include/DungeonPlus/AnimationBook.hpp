@@ -23,7 +23,7 @@ namespace DungeonPlus
 
 
    public:
-      AnimationBook(std::string png_source_filename="./bin/data/bitmaps/sprites_grid-x.png", std::string json_source_filename="./bin/data/bitmaps/sprites_grid-x.json", SpriteSheet* sprite_sheet=nullptr);
+      AnimationBook(std::string png_source_filename="./bin/data/bitmaps/sprites_grid-x.png", std::string json_source_filename="./bin/data/bitmaps/sprites_grid-x.json");
       ~AnimationBook();
 
       void set_dictionary(std::map<std::string, DungeonPlus::Animation> dictionary);

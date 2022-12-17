@@ -14,10 +14,10 @@ namespace DungeonPlus
 {
 
 
-AnimationBook::AnimationBook(std::string png_source_filename, std::string json_source_filename, SpriteSheet* sprite_sheet)
+AnimationBook::AnimationBook(std::string png_source_filename, std::string json_source_filename)
    : png_source_filename(png_source_filename)
    , json_source_filename(json_source_filename)
-   , sprite_sheet(sprite_sheet)
+   , sprite_sheet(nullptr)
    , dictionary({})
    , initialized(false)
 {

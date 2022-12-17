@@ -178,8 +178,10 @@ int main(int argc, char **argv)
 
    // DEBUG
 
-
-   DungeonPlus::AnimationBook animation_book;
+   DungeonPlus::AnimationBook animation_book(
+      "./data/bitmaps/sprites_grid-x.png", // this path is needed for production
+      "./data/bitmaps/sprites_grid-x.json" // this path is needed for production
+   );
    animation_book.init();
 
 
