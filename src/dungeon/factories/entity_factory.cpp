@@ -135,7 +135,7 @@ KnightEntity *EntityFactory::create_knight_entity(AllegroFlare::ElementID *paren
 
 
 
-Entity::Base *EntityFactory::create_skull_enemy(AllegroFlare::ElementID *parent, float x, float y, float min_y, float max_y)
+Entity::Base *EntityFactory::create_skull_enemy(AllegroFlare::ElementID *parent,float x, float y, float min_y, float max_y)
 {
    if (!initialized) throw std::runtime_error("EntityFactory not initialized F");
 

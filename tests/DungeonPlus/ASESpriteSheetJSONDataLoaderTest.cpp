@@ -34,6 +34,17 @@ TEST(DungeonPlus_ASESpriteSheetJSONDataLoaderTest, load__fills_the_animation_boo
    EXPECT_FLOAT_EQ(0.2, blob_frames[2].get_duration());
 
    EXPECT_EQ(DungeonPlus::Animation::PLAYMODE_FORWARD_PING_PONG, actual["blob"].get_playmode());
+
+
+   std::vector<DungeonPlus::AnimationFrame> die_frames = actual["die"].get_frames_ref();
+   EXPECT_EQ(9,   die_frames[0].get_index());
+   EXPECT_FLOAT_EQ(0.2, die_frames[0].get_duration());
+   EXPECT_EQ(10,   die_frames[1].get_index());
+   EXPECT_FLOAT_EQ(0.2, die_frames[1].get_duration());
+   EXPECT_EQ(11,   die_frames[2].get_index());
+   EXPECT_FLOAT_EQ(0.2, die_frames[2].get_duration());
+
+   EXPECT_EQ(DungeonPlus::Animation::PLAYMODE_FORWARD_LOOP, actual["die"].get_playmode());
 }
 
 

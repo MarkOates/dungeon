@@ -67,7 +67,7 @@ void AnimationBook::init()
 
    ALLEGRO_BITMAP *sprite_sheet_bitmap = al_load_bitmap(png_source_filename.c_str());
    // TODO: add validation for unloadable sprite_sheet_bitmap
-   sprite_sheet = new SpriteSheet(sprite_sheet_bitmap, 48, 48, 8); // auto-inits
+   sprite_sheet = new SpriteSheet(sprite_sheet_bitmap, 48, 48, 5); // auto-inits
    al_destroy_bitmap(sprite_sheet_bitmap);
 
    // load the data

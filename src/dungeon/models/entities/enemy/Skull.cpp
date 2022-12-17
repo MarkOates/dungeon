@@ -34,7 +34,7 @@ Skull::Skull(AllegroFlare::ElementID *parent, DungeonPlus::AnimationBook *animat
    place.size = { 100, 40 };
    velocity.position = { -3, 2 };
    bitmap.position(place.size.x/2, place.size.y);
-   bitmap.scale(2, 2);
+   bitmap.scale(1.2, 1.2);
    bitmap.align(0.5, 1.0);
 
    set_state(STATE_MOVING);
@@ -53,16 +53,22 @@ void Skull::set_state(state_t new_state)
    switch(state)
    {
    case STATE_MOVING:
-      bitmap.bitmap(sprite_sheet->get_sprite(36));
+      animation = animation_book->get_animation_by_name("fly");
+      animation.start();
+      //bitmap.bitmap(sprite_sheet->get_sprite(36));
       break;
    case STATE_TAKE_DAMAGE:
       state_counter = 0.4;
       health -= 1;
-      bitmap.bitmap(sprite_sheet->get_sprite(38));
+      animation = animation_book->get_animation_by_name("fly");
+      animation.start();
+      //bitmap.bitmap(sprite_sheet->get_sprite(38));
       if (health <= 0) set_state(STATE_DYING);
       break;
    case STATE_DYING:
-      bitmap.bitmap(sprite_sheet->get_sprite(38));
+      animation = animation_book->get_animation_by_name("die");
+      animation.start();
+      //bitmap.bitmap(sprite_sheet->get_sprite(38));
       state_counter = 1.0;
       break;
    case STATE_DEAD:
@@ -88,7 +94,7 @@ void Skull::update()
       if (place.position.y >= max_y) velocity.position.y = -2;
       place += velocity;
       //if (((int)(al_get_time() * 4.0) % 2) < 1.0) bitmap.bitmap(sprite_sheet->get_sprite(36));
-      //bitmap.bitmap(animation.get_frame_now());
+      //else bitmap.bitmap(37);
       if (place.position.x <= 0) set_state(STATE_DYING);
       EntityFactory::create_enemy_attack_damage_zone(get_parent(), place.position.x, place.position.y, place.size.x, place.size.y);
       break;
