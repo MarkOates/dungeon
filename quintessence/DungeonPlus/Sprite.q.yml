@@ -169,7 +169,6 @@ functions:
     body_dependency_symbols:
       - AllegroFlare::Interpolators
       - sin
-    
 
 
 dependencies:

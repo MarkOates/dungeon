@@ -1,0 +1,78 @@
+properties:
+
+
+  - name: animation_book
+    type: DungeonPlus::AnimationBook*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: flat_color_shader
+    type: AllegroFlare::Shader*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: scene
+    type: DungeonPlus::Scene*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+      - animation_book
+      - event_emitter
+      - flat_color_shader
+    body: |
+      initialized = true;
+      return;
+
+
+  - name: create_blob
+    type: DungeonPlus::Sprite*
+    guards: [ initialized ]
+    body: |
+      DungeonPlus::Sprite *sprite = create_sprite();
+      sprite->set("type", "blob");
+      return sprite;
+
+
+  - name: create_sprite
+    private: true
+    type: DungeonPlus::Sprite*
+    guards: [ scene ]
+    body: |
+      DungeonPlus::Sprite *sprite = new DungeonPlus::Sprite(animation_book, event_emitter, flat_color_shader);
+      sprite->reassign_parent(scene);
+      sprite->initialize();
+      return sprite;
+
+
+dependencies:
+
+
+  - symbol: DungeonPlus::Sprite
+    headers: [ DungeonPlus/Sprite.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Shader
+    headers: [ AllegroFlare/Shader.hpp ]
+  - symbol: DungeonPlus::AnimationBook
+    headers: [ DungeonPlus/AnimationBook.hpp ]
+  - symbol: DungeonPlus::Scene
+    headers: [ DungeonPlus/Scene.hpp ]
+
+
