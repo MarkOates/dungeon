@@ -2,6 +2,7 @@
 
 #include <DungeonPlus/AnimationBook.hpp>
 
+#include <DungeonPlus/ASESpriteSheetJSONDataLoader.hpp>
 #include <DungeonPlus/Errors.hpp>
 #include <iostream>
 #include <sstream>
@@ -40,9 +41,17 @@ void AnimationBook::init()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("AnimationBook::init: error: guard \"(!initialized)\" not met");
    }
+   // build the sprite sheet
+
    ALLEGRO_BITMAP *sprite_sheet_bitmap = al_load_bitmap("./bin/data/bitmaps/sprites_grid-x.png");
    sprite_sheet = new SpriteSheet(sprite_sheet_bitmap, 48, 48, 8); // auto-inits
    al_destroy_bitmap(sprite_sheet_bitmap);
+
+   // load the data
+
+   DungeonPlus::ASESpriteSheetJSONDataLoader loader(sprite_sheet);
+   dictionary = loader.load();
+
    initialized = true;
    return;
 }

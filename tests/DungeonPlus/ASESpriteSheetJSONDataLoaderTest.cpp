@@ -23,6 +23,15 @@ TEST(DungeonPlus_ASESpriteSheetJSONDataLoaderTest, load__fills_the_animation_boo
    std::map<std::string, DungeonPlus::Animation> actual = asesprite_sheet_jsondata_loader.load();
 
    EXPECT_EQ(1, actual.count("blob"));
+   EXPECT_EQ(3, actual["blob"].get_num_frames());
+
+   std::vector<DungeonPlus::AnimationFrame> blob_frames = actual["blob"].get_frames_ref();
+   EXPECT_EQ(1,   blob_frames[0].get_index());
+   EXPECT_EQ(200, blob_frames[0].get_duration());
+   EXPECT_EQ(2,   blob_frames[1].get_index());
+   EXPECT_EQ(100, blob_frames[1].get_duration());
+   EXPECT_EQ(3,   blob_frames[2].get_index());
+   EXPECT_EQ(200, blob_frames[2].get_duration());
 }
 
 

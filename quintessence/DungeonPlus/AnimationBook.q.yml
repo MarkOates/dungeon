@@ -22,11 +22,21 @@ functions:
   - name: init
     guards: [ (!initialized) ]
     body: |
+      // build the sprite sheet
+
       ALLEGRO_BITMAP *sprite_sheet_bitmap = al_load_bitmap("./bin/data/bitmaps/sprites_grid-x.png");
       sprite_sheet = new SpriteSheet(sprite_sheet_bitmap, 48, 48, 8); // auto-inits
       al_destroy_bitmap(sprite_sheet_bitmap);
+
+      // load the data
+
+      DungeonPlus::ASESpriteSheetJSONDataLoader loader(sprite_sheet);
+      dictionary = loader.load();
+
       initialized = true;
       return;
+    body_dependency_symbols:
+      - DungeonPlus::ASESpriteSheetJSONDataLoader
 
 
   - name: get_animation_by_name
@@ -70,5 +80,7 @@ dependencies:
     headers: [ dungeon/models/sprite_sheet.hpp ]
   - symbol: DungeonPlus::Errors
     headers: [ DungeonPlus/Errors.hpp ]
+  - symbol: DungeonPlus::ASESpriteSheetJSONDataLoader
+    headers: [ DungeonPlus/ASESpriteSheetJSONDataLoader.hpp ]
 
 

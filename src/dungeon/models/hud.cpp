@@ -140,7 +140,6 @@ void HUD::set_item(ALLEGRO_BITMAP *bmp)
 void HUD::draw()
 {
    flat_color_shader->activate();
-   // DEBUG
    chrome_bitmap.draw();
    flat_color_shader->deactivate();
 

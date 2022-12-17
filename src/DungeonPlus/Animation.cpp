@@ -25,6 +25,12 @@ Animation::~Animation()
 }
 
 
+std::vector<AnimationFrame> &Animation::get_frames_ref()
+{
+   return frames;
+}
+
+
 void Animation::start()
 {
    playhead = 0.0f;
@@ -61,6 +67,11 @@ void Animation::draw()
    if (!bitmap) return;
    al_draw_bitmap(bitmap, 0, 0, 0);
    return;
+}
+
+int Animation::get_num_frames()
+{
+   return frames.size();
 }
 
 uint32_t Animation::get_frame_id_now()

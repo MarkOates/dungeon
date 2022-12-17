@@ -41,6 +41,18 @@ functions:
       std::map<int, int> frame_data;
       nlohmann::json frames = parsed_json["frames"];
       int index = 0;
+      if (!frames.is_array())
+      {
+         Errors::throw_error("DungeonPlus::AsepriteSpriteSheetJSONDataLoader::load",
+                             "expecting \"frames\" element in the JSON to be an array, but it is a hash. When "
+                             "exporting the "
+                             "sprite sheet in Aesprite, go to File > Export Sprite Sheet. Under the \"Output\" tab, "
+                             "the \"JSON data\" checkbox should be checked. In the dropdown just below, be sure "
+                             "\"Array\" is selected and not \"Hash\". This is needed to ensure the frames are imported "
+                             "in sequential order."
+                            );
+
+      }
       for (auto &frame : frames)
       {
          // TODO: validate frame name
@@ -68,7 +80,8 @@ functions:
 
          if (result.count(tag_name) > 0)
          {
-            Errors::throw_error("DungeonPlus/AsepriteSpriteSheetJSONDataLoader", "duplicate key (a.k.a. tag) for %s");
+            Errors::throw_error("DungeonPlus::AsepriteSpriteSheetJSONDataLoader::load",
+                                "duplicate key (a.k.a. tag) for [showing-duplicate-name-key-not-supported]");
          }
 
          result[tag_name] = DungeonPlus::Animation(

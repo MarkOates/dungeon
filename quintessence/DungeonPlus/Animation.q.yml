@@ -15,6 +15,7 @@ properties:
     type: std::vector<AnimationFrame>
     init_with: '{}'
     constructor_arg: true
+    getter_ref: true
 
   - name: playmode
     type: uint32_t
@@ -97,6 +98,12 @@ functions:
       if (!bitmap) return;
       al_draw_bitmap(bitmap, 0, 0, 0);
       return;
+
+
+  - name: get_num_frames
+    type: int
+    body: |
+      return frames.size();
 
 
   - name: get_frame_id_now

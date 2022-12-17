@@ -34,9 +34,11 @@ namespace DungeonPlus
       Animation(SpriteSheet* sprite_sheet=nullptr, std::string name="[unset-name]", std::vector<AnimationFrame> frames={}, uint32_t playmode=PLAYMODE_UNDEF);
       ~Animation();
 
+      std::vector<AnimationFrame> &get_frames_ref();
       void start();
       void update();
       void draw();
+      int get_num_frames();
       uint32_t get_frame_id_now();
       uint32_t get_frame_id_at(float time=0.0f);
       ALLEGRO_BITMAP* get_frame_at(float time=0.0f);
