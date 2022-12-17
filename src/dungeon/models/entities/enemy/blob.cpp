@@ -23,6 +23,7 @@ Blob::Blob(
       AllegroFlare::EventEmitter *event_emitter,
       SpriteSheet *sprite_sheet,
       AllegroFlare::Shader *flat_color_shader,
+      DungeonPlus::AnimationBook *animation_book,
       float x,
       float y,
       std::string name
@@ -35,19 +36,25 @@ Blob::Blob(
    , event_emitter(event_emitter)
    , hurt_reveal_counter(HURT_REVEAL_MAX)
    , sprite_sheet(sprite_sheet)
+   , animation_book(animation_book)
+   , animation()
    , health(1)
 {
-   if (!event_emitter) throw std::runtime_error("Blob:: no event emitter");
+   if (!event_emitter) throw std::runtime_error("Blob:: no event_emitter");
+   if (!animation_book) throw std::runtime_error("Blob:: no animation_book");
 
    place.size = { 60, 30 };
 
    //if (sprite_index < 0) sprite_index = random.get_random_int(0, 16);
    //bitmap.opacity(1.0);
+
    bitmap.bitmap(sprite_sheet->get_cell(6));
    bitmap.align(0.5, 1.0);
-   bitmap.scale(2.0, 2.0);
+   bitmap.scale(1.2, 1.2);
 
    set("bound_in_world");
+
+   set_state(STATE_STANDING_STILL);
 }
 
 
@@ -107,6 +114,14 @@ void Blob::take_hit()
 
 
 
+void Blob::set_animation(std::string name)
+{
+   animation = animation_book->get_animation_by_name(name);
+   animation.start();
+}
+
+
+
 void Blob::set_state(state_t new_state)
 {
    state = new_state;
@@ -114,21 +129,27 @@ void Blob::set_state(state_t new_state)
    switch (state)
    {
    case STATE_STANDING_STILL:
+      set_animation("blob");
       velocity.position = { 0.0, 0.0 };
       break;
    case STATE_WALKING_UP:
+      set_animation("blob");
       velocity.position = { 0.0, (float)-walk_speed/2 };
       break;
    case STATE_WALKING_DOWN:
+      set_animation("blob");
       velocity.position = { 0.0, (float)walk_speed/2 };
       break;
    case STATE_WALKING_LEFT:
+      set_animation("blob");
       velocity.position = { (float)-walk_speed, 0.0 };
       break;
    case STATE_WALKING_RIGHT:
+      set_animation("blob");
       velocity.position = { (float)walk_speed, 0.0 };
       break;
    case STATE_TAKING_HIT:
+      set_animation("blob");
       velocity.position = { 0.0, 0.0 };
       event_emitter->emit_event(PLAY_SOUND_EFFECT, HURT_SOUND_EFFECT);
       event_emitter->emit_event(SPAWN_MOTION_FX, (intptr_t)(new std::string(MOTION_FX_SLASH_POOF)), place.position.x + place.size.x/2, place.position.y + place.size.y/2);
@@ -141,9 +162,14 @@ void Blob::set_state(state_t new_state)
 
 void Blob::update()
 {
+   // update the hurt reveal counter
    if (hurt_reveal_counter < HURT_REVEAL_MAX) hurt_reveal_counter += 1.0 / 60.0;
 
+   // update the position
    place += velocity;
+
+   // update the animation
+   animation.update();
 }
 
 
@@ -154,15 +180,14 @@ void Blob::draw()
    float tint_intensity = get_hurt_tint_intensity();
 
    flat_color_shader->activate();
-
    flat_color_shader->set_vec3("tint", hurt_color.r, hurt_color.g, hurt_color.b);
    flat_color_shader->set_float("tint_intensity", tint_intensity);
 
    place.start_transform();
    //al_draw_bitmap(sprite_sheet->get_cell(0), 0, 0, 0);
    bitmap.position(place.size.x/2, place.size.y/2);
-      //bitmap.opacity(1.0);
-      bitmap.bitmap(sprite_sheet->get_cell(0));
+      bitmap.bitmap(animation.get_frame_now());
+      //bitmap.bitmap(sprite_sheet->get_cell(0));
       bitmap.draw();
 
    flat_color_shader->deactivate();

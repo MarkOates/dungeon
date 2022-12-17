@@ -113,6 +113,7 @@ Entity::Base *EntityFactory::create_blob(AllegroFlare::ElementID *parent, float 
          get_instance()->event_emitter,
          &get_instance()->character_sprite_sheet,
          get_instance()->flat_color_shader,
+         get_instance()->animation_book,
          x,
          y,
          "blob"

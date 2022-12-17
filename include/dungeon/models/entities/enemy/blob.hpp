@@ -7,6 +7,8 @@
 #include <dungeon/models/sprite_sheet.hpp>
 #include <AllegroFlare/Shader.hpp>
 #include <AllegroFlare/Random.hpp>
+#include <DungeonPlus/Animation.hpp>
+#include <DungeonPlus/AnimationBook.hpp>
 
 
 class Blob : public Enemy::Base
@@ -29,6 +31,8 @@ private:
    state_t state;
    AllegroFlare::Shader *flat_color_shader;
    SpriteSheet *sprite_sheet;
+   DungeonPlus::AnimationBook *animation_book;
+   DungeonPlus::Animation animation;
 
    // health
    float hurt_reveal_counter;
@@ -36,6 +40,7 @@ private:
    float get_hurt_tint_intensity();
    int health;
 
+   void set_animation(std::string name);
    void set_state(state_t);
 
    friend class AIKidController;
@@ -47,6 +52,7 @@ public:
       AllegroFlare::EventEmitter *event_emitter,
       SpriteSheet *sprite_sheet,
       AllegroFlare::Shader *flat_color_shader,
+      DungeonPlus::AnimationBook *animation_book,
       float x,
       float y,
       std::string name
