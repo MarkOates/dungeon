@@ -31,11 +31,11 @@ EntityFactory *EntityFactory::get_instance()
 
 
 
-void EntityFactory::init(AllegroFlare::Shader *flat_color_shader, AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap)
+void EntityFactory::init(AllegroFlare::Shader *flat_color_shader, AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap, DungeonPlus::AnimationBook *animation_book)
 {
    if (!instance)
    {
-      instance = new EntityFactory(flat_color_shader, event_emitter, bitmap_bin, font_bin, sprites_grid_bitmap);
+      instance = new EntityFactory(flat_color_shader, event_emitter, bitmap_bin, font_bin, sprites_grid_bitmap, animation_book);
       initialized = true;
    }
    //if (!instance) instance = new EntityFactory();
@@ -44,7 +44,7 @@ void EntityFactory::init(AllegroFlare::Shader *flat_color_shader, AllegroFlare::
 
 
 
-EntityFactory::EntityFactory(AllegroFlare::Shader *flat_color_shader, AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap)
+EntityFactory::EntityFactory(AllegroFlare::Shader *flat_color_shader, AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap, DungeonPlus::AnimationBook *animation_book)
    : character_sprite_sheet(sprites_grid_bitmap, SPRITES_GRID_SPRITE_WIDTH, SPRITES_GRID_SPRITE_HEIGHT, SPRITES_GRID_SPRITE_SCALING)
    , flat_color_shader(flat_color_shader)
    //, flat_color_shader("data/shaders/flat_color_shader.vertex.glsl", "data/shaders/flat_color_shader.fragment.glsl")
@@ -67,11 +67,13 @@ EntityFactory::EntityFactory(AllegroFlare::Shader *flat_color_shader, AllegroFla
    , slash_poof_fx_frames_bitmap(nullptr)
    , font_bin(font_bin)
    , event_emitter(event_emitter)
+   , animation_book(animation_book)
 {
    if (!bitmap_bin) throw std::runtime_error("EntityFactory no bitmap_bin");
    if (!font_bin) throw std::runtime_error("EntityFactory no font_bin");
    if (!event_emitter) throw std::runtime_error("EntityFactory no event_emitter");
    if (!flat_color_shader) throw std::runtime_error("EntityFactory no flat_color_shader");
+   if (!animation_book) throw std::runtime_error("EntityFactory no animation_book");
 
    background1 = create_pixel_perfect_scaled_render(bitmap_bin->auto_get("background-1-08.png"), 5);
    background2 = create_pixel_perfect_scaled_render(bitmap_bin->auto_get("background-2-02.png"), 5);

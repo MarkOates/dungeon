@@ -2,6 +2,7 @@
 
 #include <DungeonPlus/AnimationBook.hpp>
 
+#include <AllegroFlare/UsefulPHP.hpp>
 #include <DungeonPlus/ASESpriteSheetJSONDataLoader.hpp>
 #include <DungeonPlus/Errors.hpp>
 #include <iostream>
@@ -54,8 +55,16 @@ void AnimationBook::init()
       throw std::runtime_error("AnimationBook::init: error: guard \"(!initialized)\" not met");
    }
    // build the sprite sheet
+   std::string source_filename = "./bin/data/bitmaps/sprites_grid-x.png";
+   if (AllegroFlare::php::file_exists(source_filename))
+   {
+      std::stringstream error_message;
+      error_message << "[DungeonPlus::AnimationBook::init] error: "
+                    << "expected png file does not exist. Looking in \"" << source_filename << "\".";
+      throw std::runtime_error(error_message.str());
+   }
 
-   ALLEGRO_BITMAP *sprite_sheet_bitmap = al_load_bitmap("./bin/data/bitmaps/sprites_grid-x.png");
+   ALLEGRO_BITMAP *sprite_sheet_bitmap = al_load_bitmap(source_filename.c_str());
    sprite_sheet = new SpriteSheet(sprite_sheet_bitmap, 48, 48, 8); // auto-inits
    al_destroy_bitmap(sprite_sheet_bitmap);
 

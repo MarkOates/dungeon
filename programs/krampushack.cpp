@@ -21,6 +21,8 @@
 #include <dungeon/factories/entity_factory.hpp>
 #include <dungeon/factories/dialogue_factory.hpp>
 
+#include <DungeonPlus/AnimationBook.hpp>
+
 
    //: game_show_music(Framework::sample("game_show_music.ogg"))
    //, storyboard_music(Framework::sample("storyboard_music.ogg"))
@@ -49,17 +51,19 @@ public:
    AllegroFlare::BitmapBin *bitmap_bin;
    AllegroFlare::FontBin *font_bin;
    AllegroFlare::Screens::Base *current_screen;
+   DungeonPlus::AnimationBook *animation_book;
    //AllegroFlare::VirtualControls
    //GamerInputScreen gamer_input_screen; // << -- THIS input screen not working
    //AudioController audio_controller; // TODO: replace this! // TODO: REPLACE THIS
 
-	KrampusHackProject(AllegroFlare::Frameworks::Full *framework, AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin)
+	KrampusHackProject(AllegroFlare::Frameworks::Full *framework, AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, DungeonPlus::AnimationBook *animation_book)
       //: Screen(display)
       : AllegroFlare::Screens::Base()
       , framework(framework)
       , event_emitter(event_emitter)
       , bitmap_bin(bitmap_bin)
       , font_bin(font_bin)
+      , animation_book(animation_book)
       //, current_screen(nullptr)
       //, audio_controller()
       //, gamer_input_screen()
@@ -169,7 +173,15 @@ int main(int argc, char **argv)
    //framework.disable_fullscreen();
    framework.initialize();
 
-   al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
+   //al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
+
+
+   // DEBUG
+
+
+   DungeonPlus::AnimationBook animation_book;
+   animation_book.init();
+
 
 
 
@@ -202,12 +214,14 @@ int main(int argc, char **argv)
       );
    framework.register_screen("gameplay_screen", &gameplay_screen);
 
+
    EntityFactory::init(
          gameplay_screen.get_flat_color_shader(),
          &framework.get_event_emitter_ref(),
          &framework.get_bitmap_bin_ref(),
          &framework.get_font_bin_ref(),
-         framework.get_bitmap_bin_ref().auto_get("sprites_grid-x.png")
+         framework.get_bitmap_bin_ref().auto_get("sprites_grid-x.png"),
+         &animation_book
       );
 
    gameplay_screen.init();
@@ -220,7 +234,8 @@ int main(int argc, char **argv)
          &framework,
          &framework.get_event_emitter_ref(),
          &framework.get_bitmap_bin_ref(),
-         &framework.get_font_bin_ref()
+         &framework.get_font_bin_ref(),
+         &animation_book
       );
    framework.register_screen("krampus_hack_project", &krampus_hack_project);
    framework.activate_screen("krampus_hack_project");

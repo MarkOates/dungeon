@@ -9,6 +9,7 @@
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
+#include <DungeonPlus/AnimationBook.hpp>
 
 
 namespace AllegroFlare { class ElementID; }
@@ -41,19 +42,20 @@ private:
    ALLEGRO_BITMAP *slash_poof_fx_frames_bitmap;
    AllegroFlare::FontBin *font_bin;
    AllegroFlare::EventEmitter *event_emitter;
+   DungeonPlus::AnimationBook *animation_book;
 
    static EntityFactory *instance;
    static EntityFactory *get_instance();
    static bool initialized;
    static AllegroFlare::Random random;
 
-   EntityFactory(AllegroFlare::Shader *flat_color_shader, AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap);
+   EntityFactory(AllegroFlare::Shader *flat_color_shader, AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap, DungeonPlus::AnimationBook *animation_book);
    ~EntityFactory();
 
 public:
 
 
-   static void init(AllegroFlare::Shader *flat_color_shader, AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap);
+   static void init(AllegroFlare::Shader *flat_color_shader, AllegroFlare::EventEmitter *event_emitter, AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::FontBin *font_bin, ALLEGRO_BITMAP *sprites_grid_bitmap, DungeonPlus::AnimationBook *animation_book);
 
    ALLEGRO_BITMAP *create_pixel_perfect_scaled_render(ALLEGRO_BITMAP *bitmap, float scale);
 
