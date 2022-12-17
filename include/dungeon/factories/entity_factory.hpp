@@ -60,6 +60,7 @@ public:
    ALLEGRO_BITMAP *create_pixel_perfect_scaled_render(ALLEGRO_BITMAP *bitmap, float scale);
 
 
+   static Entity::Base *create_blob(AllegroFlare::ElementID *parent, float x, float y);
    static Entity::Base *create_random_kid(AllegroFlare::ElementID *parent, float x, float y);
    static KidEntity *create_named_kid(AllegroFlare::ElementID *parent, std::string name, behavior_t behavior, int sprite_index, float x, float y);
    static KnightEntity *create_knight_entity(AllegroFlare::ElementID *parent, float x, float y);

@@ -117,6 +117,7 @@ Scene *SceneFactory::create_scene_0()
    // doors
    EntityFactory::create_door5(scene, door_notch_x(2), FLOOR_TOP, "A", 1, "a");
    EntityFactory::create_skull_enemy(scene, ONE_SCREEN_WIDTH-5, 565, FLOOR_TOP, FLOOR_BOTTOM);
+   EntityFactory::create_blob(scene, ONE_SCREEN_WIDTH-200, FLOOR_MIDDLE);
 
    return scene;
 }

@@ -54,10 +54,11 @@ QUINTESSENCE_BUILDER_EXECUTABLE=../blast/bin/programs/quintessence_from_yaml
 main:
 	make quintessences
 	make tests
-	./bin/tests/DungeonPlus/ASESpriteSheetJSONDataLoaderTest
+	./bin/tests/dungeon/models/entities/enemy/blobTest
 	#./bin/tests/DungeonPlus/AnimationBookTest
 	make bin/krampushack
 	@echo "\033[1m\033[32m=============== BUILD COMPLETE ===============\033[0m"
+	bin/krampushack
 
 
 

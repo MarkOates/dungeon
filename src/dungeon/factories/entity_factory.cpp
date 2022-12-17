@@ -10,6 +10,7 @@
 #include <dungeon/models/entities/enemy/base.hpp>
 #include <dungeon/models/entities/enemy/knight_entity.hpp>
 #include <dungeon/models/entities/enemy/Skull.hpp>
+#include <dungeon/models/entities/enemy/blob.hpp>
 #include <dungeon/models/entities/background_entity.hpp>
 #include <dungeon/models/entities/door_entity.hpp>
 #include <dungeon/models/entities/damage_zone_entity.hpp>
@@ -101,6 +102,24 @@ ALLEGRO_BITMAP *EntityFactory::create_pixel_perfect_scaled_render(ALLEGRO_BITMAP
    AllegroFlare::ImageProcessing image_processing(bitmap);
    return image_processing.create_pixel_perfect_scaled_render(scale);
 }
+
+
+
+Entity::Base *EntityFactory::create_blob(AllegroFlare::ElementID *parent, float x, float y)
+{
+   if (!initialized) throw std::runtime_error("EntityFactory not initialized N");
+   Blob *result = new Blob(
+         parent,
+         get_instance()->event_emitter,
+         &get_instance()->character_sprite_sheet,
+         get_instance()->flat_color_shader,
+         x,
+         y,
+         "blob"
+      );
+   return result;
+}
+
 
 
 
