@@ -45,9 +45,7 @@ Skull::Skull(AllegroFlare::ElementID *parent, DungeonPlus::AnimationBook *animat
 void Skull::set_animation(std::string name)
 {
    animation = animation_book->get_animation_by_name(name);
-   std::cout << "SkullA: " << name << std::endl;
    animation.initialize();
-   std::cout << "SkullB" << std::endl;
    animation.start();
 }
 
