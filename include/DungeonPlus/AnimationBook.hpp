@@ -15,7 +15,7 @@ namespace DungeonPlus
       SpriteSheet* sprite_sheet;
       std::map<std::string, DungeonPlus::Animation> dictionary;
       bool initialized;
-      void _build_dictionary();
+      void _build_placeholder_dictionary();
 
    protected:
 

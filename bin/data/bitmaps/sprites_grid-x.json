@@ -456,7 +456,7 @@
   "size": { "w": 384, "h": 336 },
   "scale": "1",
   "frameTags": [
-   { "name": "blob", "from": 1, "to": 3, "direction": "forward" },
+   { "name": "blob", "from": 1, "to": 3, "direction": "pingpong" },
    { "name": "Skeleton", "from": 4, "to": 6, "direction": "forward" },
    { "name": "skull head", "from": 7, "to": 11, "direction": "forward" },
    { "name": "fly", "from": 7, "to": 8, "direction": "forward" },

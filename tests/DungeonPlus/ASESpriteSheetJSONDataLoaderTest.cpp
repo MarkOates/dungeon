@@ -17,3 +17,12 @@ TEST(DungeonPlus_ASESpriteSheetJSONDataLoaderTest, load__will_not_blow_up)
 }
 
 
+TEST(DungeonPlus_ASESpriteSheetJSONDataLoaderTest, load__fills_the_animation_book_with_the_expected_values)
+{
+   DungeonPlus::ASESpriteSheetJSONDataLoader asesprite_sheet_jsondata_loader;
+   std::map<std::string, DungeonPlus::Animation> actual = asesprite_sheet_jsondata_loader.load();
+
+   EXPECT_EQ(1, actual.count("blob"));
+}
+
+

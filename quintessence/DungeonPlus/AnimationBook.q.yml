@@ -25,12 +25,29 @@ functions:
       ALLEGRO_BITMAP *sprite_sheet_bitmap = al_load_bitmap("./bin/data/bitmaps/sprites_grid-x.png");
       sprite_sheet = new SpriteSheet(sprite_sheet_bitmap, 48, 48, 8); // auto-inits
       al_destroy_bitmap(sprite_sheet_bitmap);
-      _build_dictionary();
       initialized = true;
       return;
 
 
-  - name: _build_dictionary
+  - name: get_animation_by_name
+    type: DungeonPlus::Animation
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    body: |
+      if (dictionary.count(name) == 0)
+      {
+         std::stringstream error_message;
+         error_message << "No animation exists for name \"" << name << "\"";
+         DungeonPlus::Errors::throw_error("DungeonPlus::AnimationBook::get_animation_by_name", error_message.str());
+      }
+      return dictionary[name];
+    body_dependency_symbols:
+      - DungeonPlus::Errors
+
+
+  - name: _build_placeholder_dictionary
     private: true
     body: |
       dictionary =  {
@@ -44,18 +61,6 @@ functions:
       return;
 
 
-  - name: get_animation_by_name
-    type: DungeonPlus::Animation
-    parameters:
-      - name: name
-        type: std::string
-        default_argument: '"[unset-name]"'
-    guards: [ initialized ]
-    body: |
-      // TODO: guard for exists
-      return dictionary[name];
-
-
 dependencies:
 
 
@@ -63,5 +68,7 @@ dependencies:
     headers: [ DungeonPlus/Animation.hpp ]
   - symbol: SpriteSheet
     headers: [ dungeon/models/sprite_sheet.hpp ]
+  - symbol: DungeonPlus::Errors
+    headers: [ DungeonPlus/Errors.hpp ]
 
 

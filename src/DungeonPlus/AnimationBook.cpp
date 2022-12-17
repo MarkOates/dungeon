@@ -2,6 +2,7 @@
 
 #include <DungeonPlus/AnimationBook.hpp>
 
+#include <DungeonPlus/Errors.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -42,12 +43,22 @@ void AnimationBook::init()
    ALLEGRO_BITMAP *sprite_sheet_bitmap = al_load_bitmap("./bin/data/bitmaps/sprites_grid-x.png");
    sprite_sheet = new SpriteSheet(sprite_sheet_bitmap, 48, 48, 8); // auto-inits
    al_destroy_bitmap(sprite_sheet_bitmap);
-   _build_dictionary();
    initialized = true;
    return;
 }
 
-void AnimationBook::_build_dictionary()
+DungeonPlus::Animation AnimationBook::get_animation_by_name(std::string name)
+{
+   if (dictionary.count(name) == 0)
+   {
+      std::stringstream error_message;
+      error_message << "No animation exists for name \"" << name << "\"";
+      DungeonPlus::Errors::throw_error("DungeonPlus::AnimationBook::get_animation_by_name", error_message.str());
+   }
+   return dictionary[name];
+}
+
+void AnimationBook::_build_placeholder_dictionary()
 {
    dictionary =  {
       { "blob", DungeonPlus::Animation(sprite_sheet, "blob", std::vector<DungeonPlus::AnimationFrame>{
@@ -58,19 +69,6 @@ void AnimationBook::_build_dictionary()
       )},
    };
    return;
-}
-
-DungeonPlus::Animation AnimationBook::get_animation_by_name(std::string name)
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[AnimationBook::get_animation_by_name]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AnimationBook::get_animation_by_name: error: guard \"initialized\" not met");
-   }
-   // TODO: guard for exists
-   return dictionary[name];
 }
 
 
