@@ -36,6 +36,18 @@ Sprite::~Sprite()
 }
 
 
+AllegroFlare::Placement2D &Sprite::get_place_ref()
+{
+   return place;
+}
+
+
+AllegroFlare::Placement2D &Sprite::get_velocity_ref()
+{
+   return velocity;
+}
+
+
 void Sprite::initialize()
 {
    if (!((!initialized)))
@@ -66,20 +78,26 @@ void Sprite::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Sprite::initialize: error: guard \"flat_color_shader\" not met");
    }
-   //set("type", type); // doesn't seem necessary at the moment
+   // sensible defaults
    velocity.scale = { 0, 0 };
    velocity.align = { 0, 0 };
 
-   set("bound_in_world");
+   //set("bound_in_world");
 
-   set_animation("blob"); // to start
-
+   //set_animation("blob"); // to start
    initialized = true;
    return;
 }
 
 void Sprite::set_animation(std::string name)
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Sprite::set_animation]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Sprite::set_animation: error: guard \"initialized\" not met");
+   }
    animation = animation_book->get_animation_by_name(name);
    animation.initialize();
    animation.start();
@@ -88,6 +106,13 @@ void Sprite::set_animation(std::string name)
 
 void Sprite::update()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Sprite::update]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Sprite::update: error: guard \"initialized\" not met");
+   }
    // update the hit counter
    if (stunned_from_hit)
    {
@@ -110,6 +135,13 @@ void Sprite::update()
 
 void Sprite::draw()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Sprite::draw]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Sprite::draw: error: guard \"initialized\" not met");
+   }
    bitmap_object.bitmap(animation.get_frame_now());
 
    flat_color_shader->activate();
@@ -136,6 +168,13 @@ void Sprite::draw()
 
 ALLEGRO_COLOR Sprite::get_hurt_color()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Sprite::get_hurt_color]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Sprite::get_hurt_color: error: guard \"initialized\" not met");
+   }
    ALLEGRO_COLOR hurt_color;
    hurt_color = AllegroFlare::color::firebrick;
    return hurt_color;

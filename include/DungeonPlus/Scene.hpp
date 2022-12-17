@@ -6,9 +6,10 @@
 
 namespace DungeonPlus
 {
-   class Scene : public AllegroFlare::ElementID
+   class Scene
    {
    private:
+      AllegroFlare::ElementID root;
 
    protected:
 
@@ -17,6 +18,7 @@ namespace DungeonPlus
       Scene();
       ~Scene();
 
+      AllegroFlare::ElementID &get_root_ref();
    };
 }
 

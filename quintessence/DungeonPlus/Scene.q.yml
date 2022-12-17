@@ -1,9 +1,10 @@
-parent_classes:
+properties:
 
 
-  - class: AllegroFlare::ElementID
-    scope: public
+  - name: root
+    type: AllegroFlare::ElementID
     init_with: ''
+    getter_ref: true
 
 
 dependencies:

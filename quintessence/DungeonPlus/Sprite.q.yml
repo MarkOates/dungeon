@@ -27,10 +27,12 @@ properties:
   - name: place
     type: AllegroFlare::Placement2D
     init_with: '{}'
+    getter_ref: true
 
   - name: velocity
     type: AllegroFlare::Placement2D
     init_with: '{}'
+    getter_ref: true
 
   - name: bitmap_object
     type: BitmapObject
@@ -74,14 +76,13 @@ functions:
       - event_emitter
       - flat_color_shader
     body: |
-      //set("type", type); // doesn't seem necessary at the moment
+      // sensible defaults
       velocity.scale = { 0, 0 };
       velocity.align = { 0, 0 };
 
-      set("bound_in_world");
+      //set("bound_in_world");
 
-      set_animation("blob"); // to start
-
+      //set_animation("blob"); // to start
       initialized = true;
       return;
 
@@ -91,6 +92,7 @@ functions:
       - name: name
         type: std::string
         default_argument: '"[unset-name]"'
+    guards: [ initialized ]
     body: |
       animation = animation_book->get_animation_by_name(name);
       animation.initialize();
@@ -99,6 +101,7 @@ functions:
 
 
   - name: update
+    guards: [ initialized ]
     body: |
       // update the hit counter
       if (stunned_from_hit)
@@ -121,6 +124,7 @@ functions:
 
 
   - name: draw
+    guards: [ initialized ]
     body: |
       bitmap_object.bitmap(animation.get_frame_now());
 
@@ -147,7 +151,9 @@ functions:
 
 
   - name: get_hurt_color
+    private: true
     type: ALLEGRO_COLOR
+    guards: [ initialized ]
     body: |
       ALLEGRO_COLOR hurt_color;
       hurt_color = AllegroFlare::color::firebrick;
@@ -157,6 +163,7 @@ functions:
 
 
   - name: get_hurt_tint_intensity
+    private: true
     type: float
     body: |
       float strobe_speed = 3.0;

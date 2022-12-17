@@ -10,13 +10,19 @@ namespace DungeonPlus
 
 
 Scene::Scene()
-   : AllegroFlare::ElementID()
+   : root()
 {
 }
 
 
 Scene::~Scene()
 {
+}
+
+
+AllegroFlare::ElementID &Scene::get_root_ref()
+{
+   return root;
 }
 
 

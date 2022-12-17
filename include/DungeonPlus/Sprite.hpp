@@ -31,6 +31,8 @@ namespace DungeonPlus
       bool stunned_from_hit;
       float stunned_from_hit_counter;
       bool initialized;
+      ALLEGRO_COLOR get_hurt_color();
+      float get_hurt_tint_intensity();
 
    protected:
 
@@ -39,12 +41,12 @@ namespace DungeonPlus
       Sprite(DungeonPlus::AnimationBook* animation_book=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Shader* flat_color_shader=nullptr);
       ~Sprite();
 
+      AllegroFlare::Placement2D &get_place_ref();
+      AllegroFlare::Placement2D &get_velocity_ref();
       void initialize();
       void set_animation(std::string name="[unset-name]");
       void update();
       void draw();
-      ALLEGRO_COLOR get_hurt_color();
-      float get_hurt_tint_intensity();
    };
 }
 

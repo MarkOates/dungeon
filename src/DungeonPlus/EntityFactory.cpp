@@ -32,6 +32,45 @@ void EntityFactory::set_scene(DungeonPlus::Scene* scene)
 }
 
 
+void EntityFactory::set_animation_book(DungeonPlus::AnimationBook* animation_book)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[EntityFactory::set_animation_book]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EntityFactory::set_animation_book: error: guard \"(!initialized)\" not met");
+   }
+   this->animation_book = animation_book;
+   return;
+}
+
+void EntityFactory::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[EntityFactory::set_event_emitter]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EntityFactory::set_event_emitter: error: guard \"(!initialized)\" not met");
+   }
+   this->event_emitter = event_emitter;
+   return;
+}
+
+void EntityFactory::set_flat_color_shader(AllegroFlare::Shader* flat_color_shader)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[EntityFactory::set_flat_color_shader]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EntityFactory::set_flat_color_shader: error: guard \"(!initialized)\" not met");
+   }
+   this->flat_color_shader = flat_color_shader;
+   return;
+}
+
 void EntityFactory::initialize()
 {
    if (!((!initialized)))
@@ -66,7 +105,7 @@ void EntityFactory::initialize()
    return;
 }
 
-DungeonPlus::Sprite* EntityFactory::create_blob()
+DungeonPlus::Sprite* EntityFactory::create_blob(float x, float y)
 {
    if (!(initialized))
    {
@@ -75,12 +114,11 @@ DungeonPlus::Sprite* EntityFactory::create_blob()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("EntityFactory::create_blob: error: guard \"initialized\" not met");
    }
-   DungeonPlus::Sprite *sprite = create_sprite();
-   sprite->set("type", "blob");
+   DungeonPlus::Sprite *sprite = create_sprite(x, y, 60, 30, "blob");
    return sprite;
 }
 
-DungeonPlus::Sprite* EntityFactory::create_sprite()
+DungeonPlus::Sprite* EntityFactory::create_sprite(float x, float y, float w, float h, std::string type)
 {
    if (!(scene))
    {
@@ -90,8 +128,11 @@ DungeonPlus::Sprite* EntityFactory::create_sprite()
       throw std::runtime_error("EntityFactory::create_sprite: error: guard \"scene\" not met");
    }
    DungeonPlus::Sprite *sprite = new DungeonPlus::Sprite(animation_book, event_emitter, flat_color_shader);
-   sprite->reassign_parent(scene);
+   sprite->reassign_parent(&scene->get_root_ref());
    sprite->initialize();
+   sprite->get_place_ref().position = { x, y };
+   sprite->get_place_ref().size = { w, h };
+   sprite->set("type", "blob");
    return sprite;
 }
 
