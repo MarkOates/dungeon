@@ -66,13 +66,21 @@ TEST(DungeonPlus_AnimationTest, DISABLED__dev_test)
 }
 
 
-TEST(DungeonPlus_AnimationTest, start__wihtout_initialization__will_throw_an_error)
+#define EXPECT_GUARD EXPECT_THROW_GUARD_ERROR
+
+
+TEST(DungeonPlus_AnimationTest, all_functions__wihtout_initialization__will_throw_an_error)
 {
-   EXPECT_THROW_GUARD_ERROR(DungeonPlus::Animation().start(), "Animation::start", "initialized");
+   EXPECT_GUARD(DungeonPlus::Animation().start(),          "Animation::start", "initialized");
+   EXPECT_GUARD(DungeonPlus::Animation().update(),         "Animation::update", "initialized");
+   EXPECT_GUARD(DungeonPlus::Animation().draw(),           "Animation::draw", "initialized");
+   EXPECT_GUARD(DungeonPlus::Animation().get_num_frames(), "Animation::get_num_frames", "initialized");
+   EXPECT_GUARD(DungeonPlus::Animation().get_frame_now(),  "Animation::get_frame_now", "initialized");
+   // TODO: add more checks here
 }
 
 
-TEST(DungeonPlus_AnimationTest, dev_test)
+TEST(DungeonPlus_AnimationTest, DISABLED__dev_test2)
 {
    al_init();
    al_init_image_addon();
@@ -85,7 +93,7 @@ TEST(DungeonPlus_AnimationTest, dev_test)
    SpriteSheet sprite_sheet(sprite_sheet_bitmap, 48, 48, 8); // auto-inits
    al_destroy_bitmap(sprite_sheet_bitmap);
 
-   DungeonPlus::Animation animation; //(nullptr, &sprite_sheet, "my_animation", std::vector<DungeonPlus::AnimationFrame>{});
+   DungeonPlus::Animation animation(&sprite_sheet, "my_animation", std::vector<DungeonPlus::AnimationFrame>{});
 
 
    
