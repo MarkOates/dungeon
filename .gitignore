@@ -6,7 +6,6 @@
 allegro.log
 
 
-.DS_Store
 
 
 # ignore all the files in the bin directory
@@ -14,6 +13,7 @@ allegro.log
 
 bin/*
 !bin/data
+!bin/data/**
 
 
 project_outline.md
@@ -23,3 +23,4 @@ construction/
 
 
 
+**/.DS_Store
